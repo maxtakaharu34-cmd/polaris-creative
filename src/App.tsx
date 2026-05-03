@@ -104,31 +104,179 @@ const BUSINESSES = [
   { id: 'ai',            icon: Cpu,        jp: 'AI導入コンサル',   en: 'AI', desc: '業務自動化・チャットボット' },
 ]
 
+type DemoSection = { title: string; desc: string; img: string; price?: string }
 type Template = {
+  slug: string
   name: string
   domain: string
   brand: string
   copy: string
+  sub: string         // hero subtitle
   cta: string
-  bg: string         // hex
-  fg: string         // hex
-  accent: string    // hex
+  bg: string
+  fg: string
+  accent: string
   font: 'serif' | 'sans' | 'display'
   img: string
   navItems: string[]
+  about: { label: string; title: string; body: string }
+  services: { label: string; title: string; items: DemoSection[] }
+  gallery: string[]   // unsplash photo ids
+  testimonial: { quote: string; author: string; role: string }
+  contact: { address: string; phone: string; hours: string }
 }
 
 const HP_TEMPLATES: Template[] = [
-  { name: '飲食店向け',     domain: 'tabezen.jp',          brand: '食禅',           copy: '一皿で、季節を語る。',          cta: 'ご予約',     bg: '#1a1410', fg: '#f5e6c8', accent: '#c9a063', font: 'serif',   img: 'photo-1414235077428-338989a2e8c0', navItems: ['お品書き','店舗','ご予約'] },
-  { name: '美容院・サロン', domain: 'lumini-hair.jp',      brand: 'LUMINI',         copy: '今日の気分で、まとう髪を。',  cta: '空き状況',   bg: '#fdf4f0', fg: '#3a2820', accent: '#d4a373', font: 'sans',    img: 'photo-1560066984-138dadb4c035', navItems: ['STYLE','MENU','BOOK'] },
-  { name: 'クリニック',     domain: 'aoi-clinic.jp',       brand: 'AOI Clinic',     copy: '心と身体に、寄り添う医療を。',cta: 'WEB予約',    bg: '#ffffff', fg: '#1f3a5f', accent: '#06b6d4', font: 'sans',    img: 'photo-1576091160550-2173dba999ef', navItems: ['診療科目','医師紹介','アクセス'] },
-  { name: '工務店・建築',   domain: 'kominka-koumuten.jp', brand: '相生工務店',      copy: 'ふるさとを、住み継ぐ家へ。',  cta: '施工事例',   bg: '#f3f1ec', fg: '#2e3a2c', accent: '#7a8c5e', font: 'serif',   img: 'photo-1503387762-592deb58ef4e', navItems: ['施工実績','工法','資料請求'] },
-  { name: '士業',           domain: 'iida-law.jp',         brand: '飯田法律事務所',  copy: '法を、あなたの味方に。',      cta: '無料相談',   bg: '#0f1a2e', fg: '#f5f5f7', accent: '#c9a754', font: 'serif',   img: 'photo-1450101499163-c8848c66ca85', navItems: ['取扱業務','弁護士紹介','料金'] },
-  { name: '教室・スクール', domain: 'asobiba-kids.jp',     brand: 'あそびば',        copy: '学ぶって、たのしい！',        cta: '体験申込',   bg: '#fff8e1', fg: '#3d2c1f', accent: '#ff7a3d', font: 'display', img: 'photo-1523240795612-9a054b0db644', navItems: ['コース','講師','体験'] },
-  { name: 'EC・ショップ',   domain: 'minimal-store.jp',    brand: 'MINIMAL',        copy: '長く、好きでいられる服。',    cta: 'SHOP NOW',   bg: '#ffffff', fg: '#1d1d1f', accent: '#1d1d1f', font: 'sans',    img: 'photo-1556742049-0cfed4f6a45d', navItems: ['SHOP','LOOKBOOK','ABOUT'] },
-  { name: 'コーポレート',   domain: 'tsubomi-corp.jp',     brand: 'TSUBOMI Inc.',   copy: '世界の課題に、技術で挑む。',  cta: 'CONTACT',    bg: '#ffffff', fg: '#0a2540', accent: '#1d4ed8', font: 'sans',    img: 'photo-1497366216548-37526070297c', navItems: ['BUSINESS','COMPANY','IR'] },
-  { name: '採用LP',         domain: 'recruit.terra.jp',    brand: 'TERRA RECRUIT',  copy: '同じ、未来をつくる仲間へ。',  cta: 'ENTRY',      bg: '#0d0d0d', fg: '#ffffff', accent: '#e60039', font: 'display', img: 'photo-1521737711867-e3b97375f902', navItems: ['MESSAGE','CULTURE','PEOPLE'] },
-  { name: 'イベント',       domain: 'pulse-fest.jp',       brand: 'PULSE FEST',     copy: 'その夜、世界が踊り出す。',    cta: 'TICKET',     bg: '#0f0533', fg: '#ffffff', accent: '#ff2da0', font: 'display', img: 'photo-1492684223066-81342ee5ff30', navItems: ['LINEUP','VENUE','TICKET'] },
+  {
+    slug: 'restaurant', name: '飲食店向け', domain: 'tabezen.jp', brand: '食禅',
+    copy: '一皿で、季節を語る。', sub: '旬の素材を、丁寧に。月替わりの日本料理コース。',
+    cta: 'ご予約', bg: '#1a1410', fg: '#f5e6c8', accent: '#c9a063', font: 'serif',
+    img: 'photo-1414235077428-338989a2e8c0', navItems: ['お品書き', '店舗', 'ご予約'],
+    about: { label: 'CONCEPT', title: '一期一会の、一皿を。', body: '日本各地から届く旬の食材を、最小限の調理で。料理人が手仕事で仕立てる、月替わりのコース料理。お酒との組み合わせもご相談ください。' },
+    services: { label: 'MENU', title: 'お品書き', items: [
+      { title: '昼の御膳', desc: '前菜・お造り・椀物・主菜・水菓子', img: 'photo-1414235077428-338989a2e8c0', price: '¥4,800' },
+      { title: '夜の懐石コース', desc: '全8品。季節の素材を5,000円〜', img: 'photo-1546069901-ba9599a7e63c', price: '¥9,800' },
+      { title: '特別会席', desc: '記念日・接待にふさわしい全11品', img: 'photo-1567620905732-2d1ec7ab7445', price: '¥15,000' },
+    ]},
+    gallery: ['photo-1414235077428-338989a2e8c0', 'photo-1546069901-ba9599a7e63c', 'photo-1567620905732-2d1ec7ab7445', 'photo-1559339352-11d035aa65de'],
+    testimonial: { quote: '季節の移ろいを感じる、心のこもったお料理。記念日には必ず伺っています。', author: '田中 様', role: '常連 / 4年' },
+    contact: { address: '東京都中央区銀座5-X-X', phone: '03-XXXX-XXXX', hours: '昼 11:30-14:30 / 夜 17:30-22:00（日休）' },
+  },
+  {
+    slug: 'salon', name: '美容院・サロン', domain: 'lumini-hair.jp', brand: 'LUMINI',
+    copy: '今日の気分で、まとう髪を。', sub: '一人ひとりに合わせた、丁寧なカウンセリングから。',
+    cta: '空き状況', bg: '#fdf4f0', fg: '#3a2820', accent: '#d4a373', font: 'sans',
+    img: 'photo-1560066984-138dadb4c035', navItems: ['STYLE', 'MENU', 'BOOK'],
+    about: { label: 'ABOUT', title: 'わたしらしさを、髪から。', body: '骨格・髪質・ライフスタイルに合わせて、毎日の "なりたい" を叶えます。表参道で10年、延べ20,000人を超えるお客様にご来店いただいています。' },
+    services: { label: 'MENU', title: 'メニュー', items: [
+      { title: 'カット', desc: 'シャンプー・ブロー込み', img: 'photo-1560066984-138dadb4c035', price: '¥6,600' },
+      { title: 'カラー＋カット', desc: '髪質改善トリートメント付き', img: 'photo-1522337360788-8b13dee7a37e', price: '¥14,300' },
+      { title: 'パーマ＋カット', desc: 'デジタルパーマ対応', img: 'photo-1487412947147-5cebf100ffc2', price: '¥16,500' },
+    ]},
+    gallery: ['photo-1560066984-138dadb4c035', 'photo-1522337360788-8b13dee7a37e', 'photo-1487412947147-5cebf100ffc2', 'photo-1599387737466-29d7b9b82e69'],
+    testimonial: { quote: 'スタイリストさんが本当に親身に話を聞いてくれて、毎回"なりたい自分"になれます。', author: 'M.K 様', role: '20代 会社員' },
+    contact: { address: '東京都渋谷区神宮前X-X-X', phone: '03-XXXX-XXXX', hours: '10:00-20:00（火休）' },
+  },
+  {
+    slug: 'clinic', name: 'クリニック', domain: 'aoi-clinic.jp', brand: 'AOI Clinic',
+    copy: '心と身体に、寄り添う医療を。', sub: '内科・小児科・皮膚科。地域のかかりつけ医として。',
+    cta: 'WEB予約', bg: '#ffffff', fg: '#1f3a5f', accent: '#06b6d4', font: 'sans',
+    img: 'photo-1576091160550-2173dba999ef', navItems: ['診療科目', '医師紹介', 'アクセス'],
+    about: { label: 'OUR MISSION', title: 'いつも、安心できる場所へ。', body: '小さなお子様からご高齢の方まで、地域のすべての方に "ここに来てよかった" と感じていただけるクリニックを目指しています。' },
+    services: { label: 'DEPARTMENT', title: '診療科目', items: [
+      { title: '内科', desc: '生活習慣病・健康診断・予防接種', img: 'photo-1576091160399-112ba8d25d1f' },
+      { title: '小児科', desc: 'お子様の体調管理・予防接種', img: 'photo-1607619056574-7b8d3ee536b2' },
+      { title: '皮膚科', desc: 'アレルギー・湿疹・美容皮膚', img: 'photo-1551601651-2a8555f1a136' },
+    ]},
+    gallery: ['photo-1576091160550-2173dba999ef', 'photo-1631815589968-fdb09a223b1e', 'photo-1666214280391-8ff5bd3c0bf0', 'photo-1629909613654-28e377c37b09'],
+    testimonial: { quote: '先生もスタッフの方も丁寧で、子供も安心して通えています。', author: 'H.T 様', role: '30代 / お子様2人' },
+    contact: { address: '東京都世田谷区X-X-X', phone: '03-XXXX-XXXX', hours: '平日 9:00-12:30 / 14:00-18:00（土午前のみ・日祝休）' },
+  },
+  {
+    slug: 'workshop', name: '工務店・建築', domain: 'kominka-koumuten.jp', brand: '相生工務店',
+    copy: 'ふるさとを、住み継ぐ家へ。', sub: '木の温もりを、次の世代へ。注文住宅・古民家再生。',
+    cta: '施工事例', bg: '#f3f1ec', fg: '#2e3a2c', accent: '#7a8c5e', font: 'serif',
+    img: 'photo-1503387762-592deb58ef4e', navItems: ['施工実績', '工法', '資料請求'],
+    about: { label: 'OUR STORY', title: '土地と向き合う、家づくり。', body: '創業60年。地域の風土と暮らしを知り尽くした職人が、お客様の "理想の住まい" を一棟ずつ手がけます。' },
+    services: { label: 'WORKS', title: '施工実績', items: [
+      { title: '注文住宅', desc: '無垢材を使った、長く住める家', img: 'photo-1568605114967-8130f3a36994' },
+      { title: '古民家再生', desc: '伝統工法で、文化を未来へ', img: 'photo-1572120360610-d971b9d7767c' },
+      { title: 'リノベーション', desc: '今ある家を、もう一度価値ある住まいへ', img: 'photo-1556909114-f6e7ad7d3136' },
+    ]},
+    gallery: ['photo-1568605114967-8130f3a36994', 'photo-1572120360610-d971b9d7767c', 'photo-1556909114-f6e7ad7d3136', 'photo-1600585154340-be6161a56a0c'],
+    testimonial: { quote: '提案から完成まで、職人さんの真剣さが伝わる家づくりでした。', author: '佐藤 様', role: '注文住宅オーナー' },
+    contact: { address: '神奈川県鎌倉市X-X-X', phone: '0467-XX-XXXX', hours: '9:00-18:00（水・日休）' },
+  },
+  {
+    slug: 'law', name: '士業', domain: 'iida-law.jp', brand: '飯田法律事務所',
+    copy: '法を、あなたの味方に。', sub: '中小企業法務・労務・契約・相続。確かな実績で。',
+    cta: '無料相談', bg: '#0f1a2e', fg: '#f5f5f7', accent: '#c9a754', font: 'serif',
+    img: 'photo-1450101499163-c8848c66ca85', navItems: ['取扱業務', '弁護士紹介', '料金'],
+    about: { label: 'OUR PHILOSOPHY', title: '一人ひとりの、最善の解決へ。', body: '法律は、戦うためではなく、明日を生きるための道具です。中小企業から個人のお客様まで、立場に寄り添い最善策を導きます。' },
+    services: { label: 'PRACTICE AREAS', title: '取扱業務', items: [
+      { title: '企業法務', desc: '契約書・労務・コンプライアンス', img: 'photo-1450101499163-c8848c66ca85' },
+      { title: '相続・遺言', desc: '相続対策から争族解決まで', img: 'photo-1554224155-6726b3ff858f' },
+      { title: '労働問題', desc: '解雇・残業代・ハラスメント', img: 'photo-1589829545856-d10d557cf95f' },
+    ]},
+    gallery: ['photo-1450101499163-c8848c66ca85', 'photo-1554224155-6726b3ff858f', 'photo-1589829545856-d10d557cf95f', 'photo-1505664194779-8beaceb93744'],
+    testimonial: { quote: '難しい契約問題を、わかりやすく整理してくださいました。', author: '株式会社○○ 代表', role: '中小企業経営' },
+    contact: { address: '東京都千代田区丸の内X-X-X', phone: '03-XXXX-XXXX', hours: '平日 9:30-18:00（初回相談無料 / 30分）' },
+  },
+  {
+    slug: 'school', name: '教室・スクール', domain: 'asobiba-kids.jp', brand: 'あそびば',
+    copy: '学ぶって、たのしい！', sub: '英会話・プログラミング・アート。3〜12歳の子ども教室。',
+    cta: '体験申込', bg: '#fff8e1', fg: '#3d2c1f', accent: '#ff7a3d', font: 'display',
+    img: 'photo-1523240795612-9a054b0db644', navItems: ['コース', '講師', '体験'],
+    about: { label: 'WHY ASOBIBA', title: '"できた！" を、毎日。', body: '正解を教えるのではなく、自分で考える力を育てる。少人数制で、一人ひとりの "好き" と "得意" を伸ばします。' },
+    services: { label: 'COURSES', title: 'コース', items: [
+      { title: '英会話', desc: 'ネイティブ講師の少人数レッスン', img: 'photo-1503676260728-1c00da094a0b', price: '月¥8,800' },
+      { title: 'プログラミング', desc: 'Scratch・micro:bit・Python', img: 'photo-1564865878688-9a244444042a', price: '月¥9,900' },
+      { title: 'アート＆クラフト', desc: '創造力を伸ばす表現の場', img: 'photo-1607275155000-df5e1631fb45', price: '月¥7,700' },
+    ]},
+    gallery: ['photo-1523240795612-9a054b0db644', 'photo-1503676260728-1c00da094a0b', 'photo-1564865878688-9a244444042a', 'photo-1607275155000-df5e1631fb45'],
+    testimonial: { quote: '通い始めて半年で、子どもが自分から英語で話すように！', author: 'お母様', role: '小学2年生 保護者' },
+    contact: { address: '東京都目黒区X-X-X', phone: '03-XXXX-XXXX', hours: '平日 15:00-19:00 / 土 10:00-17:00' },
+  },
+  {
+    slug: 'ec', name: 'EC・ショップ', domain: 'minimal-store.jp', brand: 'MINIMAL',
+    copy: '長く、好きでいられる服。', sub: '上質な素材を、無駄なく仕立てる。MADE IN JAPAN。',
+    cta: 'SHOP NOW', bg: '#ffffff', fg: '#1d1d1f', accent: '#1d1d1f', font: 'sans',
+    img: 'photo-1556742049-0cfed4f6a45d', navItems: ['SHOP', 'LOOKBOOK', 'ABOUT'],
+    about: { label: 'PHILOSOPHY', title: '少なく持って、長く着る。', body: '素材選びから縫製まで、すべて国内の職人と。シンプルで、流行に左右されない、毎日の定番服を作っています。' },
+    services: { label: 'NEW IN', title: '新着アイテム', items: [
+      { title: 'コットンTシャツ', desc: '日本製スーピマコットン使用', img: 'photo-1521572163474-6864f9cf17ab', price: '¥6,800' },
+      { title: 'リネンシャツ', desc: '通気性の良い夏の定番', img: 'photo-1602810318383-e386cc2a3ccf', price: '¥12,800' },
+      { title: 'ウールパンツ', desc: 'すっきり見える美シルエット', img: 'photo-1594633312681-425c7b97ccd1', price: '¥18,800' },
+    ]},
+    gallery: ['photo-1556742049-0cfed4f6a45d', 'photo-1521572163474-6864f9cf17ab', 'photo-1602810318383-e386cc2a3ccf', 'photo-1594633312681-425c7b97ccd1'],
+    testimonial: { quote: '5年着てもヘタらない。一度買うと他が着られなくなります。', author: 'A.S 様', role: 'リピーター' },
+    contact: { address: '東京都渋谷区代官山X-X-X 旗艦店', phone: '03-XXXX-XXXX', hours: '12:00-20:00（無休）' },
+  },
+  {
+    slug: 'corp', name: 'コーポレート', domain: 'tsubomi-corp.jp', brand: 'TSUBOMI Inc.',
+    copy: '世界の課題に、技術で挑む。', sub: '半導体・素材・エネルギー。次世代を支えるソリューションを。',
+    cta: 'CONTACT', bg: '#ffffff', fg: '#0a2540', accent: '#1d4ed8', font: 'sans',
+    img: 'photo-1497366216548-37526070297c', navItems: ['BUSINESS', 'COMPANY', 'IR'],
+    about: { label: 'OUR VISION', title: '"つくる" で、未来を。', body: '創業1972年。日本のものづくりを牽引してきた技術力で、いま世界の "持続可能性" に貢献します。' },
+    services: { label: 'BUSINESS', title: '事業領域', items: [
+      { title: '半導体ソリューション', desc: '次世代半導体の素材開発', img: 'photo-1518770660439-4636190af475' },
+      { title: '機能性素材', desc: '軽量・高強度の独自素材', img: 'photo-1581094794329-c8112a89af12' },
+      { title: 'エネルギー', desc: '再生可能エネルギー関連事業', img: 'photo-1466611653911-95081537e5b7' },
+    ]},
+    gallery: ['photo-1497366216548-37526070297c', 'photo-1518770660439-4636190af475', 'photo-1581094794329-c8112a89af12', 'photo-1466611653911-95081537e5b7'],
+    testimonial: { quote: '技術力と提案力の両面で、長くお付き合いさせていただいています。', author: '取引先メーカー様', role: '上場企業 購買担当' },
+    contact: { address: '東京都港区虎ノ門X-X-X 本社', phone: '03-XXXX-XXXX', hours: '平日 9:00-17:30' },
+  },
+  {
+    slug: 'recruit', name: '採用LP', domain: 'recruit.terra.jp', brand: 'TERRA RECRUIT',
+    copy: '同じ、未来をつくる仲間へ。', sub: 'エンジニア・デザイナー・営業。新卒・中途同時採用中。',
+    cta: 'ENTRY', bg: '#0d0d0d', fg: '#ffffff', accent: '#e60039', font: 'display',
+    img: 'photo-1521737711867-e3b97375f902', navItems: ['MESSAGE', 'CULTURE', 'PEOPLE'],
+    about: { label: 'MESSAGE', title: 'ここで、本気を試してほしい。', body: '何かを変えたい人、本気で挑戦したい人を、私たちは待っています。年齢も経歴も関係ありません。"何をしてきたか" より "何を成し遂げたいか" です。' },
+    services: { label: 'POSITIONS', title: '募集職種', items: [
+      { title: 'エンジニア', desc: 'フルスタック / モバイル / インフラ', img: 'photo-1517048676732-d65bc937f952' },
+      { title: 'デザイナー', desc: 'UI/UX・ブランディング・グラフィック', img: 'photo-1542744173-8e7e53415bb0' },
+      { title: 'ビジネス', desc: '営業・マーケ・コーポレート', img: 'photo-1556761175-5973dc0f32e7' },
+    ]},
+    gallery: ['photo-1521737711867-e3b97375f902', 'photo-1517048676732-d65bc937f952', 'photo-1542744173-8e7e53415bb0', 'photo-1556761175-5973dc0f32e7'],
+    testimonial: { quote: '入社2年目で大型プロジェクトのリーダーに。挑戦できる環境です。', author: '田村 さん', role: 'エンジニア / 入社3年目' },
+    contact: { address: '東京都渋谷区代々木X-X-X', phone: '採用窓口 03-XXXX-XXXX', hours: '応募はWEBエントリーから24時間受付' },
+  },
+  {
+    slug: 'event', name: 'イベント', domain: 'pulse-fest.jp', brand: 'PULSE FEST',
+    copy: 'その夜、世界が踊り出す。', sub: '7.20 SAT @ 千葉幕張海岸。国内外40アーティスト集結。',
+    cta: 'TICKET', bg: '#0f0533', fg: '#ffffff', accent: '#ff2da0', font: 'display',
+    img: 'photo-1492684223066-81342ee5ff30', navItems: ['LINEUP', 'VENUE', 'TICKET'],
+    about: { label: 'ABOUT', title: 'ひと夏の、特別な記憶を。', body: '海と空、最高の音楽が交差する1日。アジア最大級のミュージックフェスが、今年も開催。' },
+    services: { label: 'STAGES', title: 'ステージ', items: [
+      { title: 'MAIN STAGE', desc: 'ヘッドライナー含む15組', img: 'photo-1493225457124-a3eb161ffa5f' },
+      { title: 'BEACH STAGE', desc: 'チルアウトと夕焼けと', img: 'photo-1506157786151-b8491531f063' },
+      { title: 'FOREST STAGE', desc: '深夜まで踊れる森のステージ', img: 'photo-1429962714451-bb934ecdc4ec' },
+    ]},
+    gallery: ['photo-1492684223066-81342ee5ff30', 'photo-1493225457124-a3eb161ffa5f', 'photo-1506157786151-b8491531f063', 'photo-1429962714451-bb934ecdc4ec'],
+    testimonial: { quote: '会場の一体感が忘れられない。来年も絶対行きます！', author: '@minorin_85', role: '昨年来場者' },
+    contact: { address: '千葉県千葉市美浜区幕張海岸X-X', phone: 'お問い合わせフォームのみ', hours: '7月20日 12:00〜23:00' },
+  },
 ]
 
 const TPL_FONT: Record<Template['font'], string> = {
@@ -568,6 +716,165 @@ function SectionConstruction() {
 }
 
 /* ============================================================
+   Demo Site (full virtual website per template)
+   ============================================================ */
+function DemoSite({ t }: { t: Template }) {
+  const fontFamily = TPL_FONT[t.font]
+  const overlay = `linear-gradient(135deg, ${t.bg}cc 0%, ${t.bg}33 60%, transparent 100%)`
+  return (
+    <div style={{ background: t.bg, color: t.fg, fontFamily }}>
+      {/* Polaris demo banner */}
+      <div className="bg-[#1d1d1f] text-white px-4 py-2.5 text-xs flex items-center justify-between gap-3 sticky top-0 z-50">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="bg-grad-brand text-white px-2 py-0.5 rounded text-[10px] font-bold tracking-wider whitespace-nowrap" style={{ fontFamily: 'Inter, sans-serif' }}>SAMPLE</span>
+          <span className="truncate">これはポラリスクリエイティブの<b>デモサイト</b>です。御社向けにカスタマイズ可能。</span>
+        </div>
+        <a href="#hp" className="bg-white text-[#1d1d1f] px-3 py-1 rounded font-bold whitespace-nowrap hover:bg-grad-brand hover:text-white transition-colors">← 戻る</a>
+      </div>
+
+      {/* Demo nav */}
+      <nav className="border-b" style={{ borderColor: `${t.fg}22`, background: `${t.bg}f0`, backdropFilter: 'blur(8px)' }}>
+        <div className="max-w-[1200px] mx-auto flex items-center justify-between px-5 lg:px-8 h-16">
+          <div className="font-bold text-xl tracking-wide">{t.brand}</div>
+          <ul className="hidden sm:flex items-center gap-6 text-sm" style={{ color: `${t.fg}cc` }}>
+            {t.navItems.map((n) => <li key={n}>{n}</li>)}
+            <li><a className="px-4 py-2 rounded-full font-bold text-sm" style={{ background: t.accent, color: t.bg }}>{t.cta}</a></li>
+          </ul>
+          <div className="sm:hidden text-sm font-bold px-3 py-1.5 rounded-full" style={{ background: t.accent, color: t.bg }}>{t.cta}</div>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <header className="relative h-[80vh] min-h-[520px] overflow-hidden">
+        <img src={`https://images.unsplash.com/${t.img}?auto=format&fit=crop&w=2400&q=80`} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: overlay }} />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-[1200px] mx-auto w-full px-5 lg:px-8">
+            <div className="max-w-2xl">
+              <div className="text-xs lg:text-sm tracking-[0.4em] mb-4 font-bold" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>
+                {t.domain.split('.')[0].toUpperCase()}
+              </div>
+              <h1 className="text-4xl lg:text-7xl font-bold leading-[1.15] mb-6" style={{ color: t.fg }}>
+                {t.copy}
+              </h1>
+              <p className="text-base lg:text-lg opacity-80 mb-8" style={{ color: t.fg }}>{t.sub}</p>
+              <a className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold rounded-full" style={{ background: t.accent, color: t.bg }}>
+                {t.cta} <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* About */}
+      <section className="py-20 lg:py-28 px-5 lg:px-8">
+        <div className="max-w-[900px] mx-auto text-center">
+          <div className="text-xs tracking-[0.4em] font-bold mb-4" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>{t.about.label}</div>
+          <h2 className="text-3xl lg:text-5xl font-bold mb-6">{t.about.title}</h2>
+          <div className="w-12 h-[2px] mx-auto mb-8" style={{ background: t.accent }} />
+          <p className="text-base lg:text-lg leading-loose opacity-80">{t.about.body}</p>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="py-20 lg:py-28 px-5 lg:px-8" style={{ background: `${t.fg}08` }}>
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-14">
+            <div className="text-xs tracking-[0.4em] font-bold mb-4" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>{t.services.label}</div>
+            <h2 className="text-3xl lg:text-5xl font-bold">{t.services.title}</h2>
+            <div className="w-12 h-[2px] mx-auto mt-6" style={{ background: t.accent }} />
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 lg:gap-7">
+            {t.services.items.map((s) => (
+              <div key={s.title} className="overflow-hidden group" style={{ background: t.bg, border: `1px solid ${t.fg}1a` }}>
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img src={`https://images.unsplash.com/${s.img}?auto=format&fit=crop&w=800&q=80`} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{s.title}</h3>
+                  <p className="text-sm opacity-75 leading-relaxed">{s.desc}</p>
+                  {s.price && (
+                    <div className="mt-4 pt-4 border-t" style={{ borderColor: `${t.fg}1a` }}>
+                      <span className="text-2xl font-bold" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>{s.price}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section className="py-20 lg:py-28 px-5 lg:px-8">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-12">
+            <div className="text-xs tracking-[0.4em] font-bold mb-4" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>GALLERY</div>
+            <h2 className="text-3xl lg:text-4xl font-bold">ギャラリー</h2>
+            <div className="w-12 h-[2px] mx-auto mt-6" style={{ background: t.accent }} />
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3">
+            {t.gallery.map((g) => (
+              <div key={g} className="aspect-square overflow-hidden">
+                <img src={`https://images.unsplash.com/${g}?auto=format&fit=crop&w=600&q=80`} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial */}
+      <section className="py-20 lg:py-28 px-5 lg:px-8" style={{ background: `${t.fg}08` }}>
+        <div className="max-w-[820px] mx-auto text-center">
+          <div className="text-5xl lg:text-7xl mb-6" style={{ color: t.accent }}>“</div>
+          <p className="text-xl lg:text-3xl font-bold leading-relaxed mb-8">{t.testimonial.quote}</p>
+          <div className="text-sm opacity-75">
+            <div className="font-bold">{t.testimonial.author}</div>
+            <div className="opacity-75">{t.testimonial.role}</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="py-20 lg:py-28 px-5 lg:px-8">
+        <div className="max-w-[820px] mx-auto text-center">
+          <div className="text-xs tracking-[0.4em] font-bold mb-4" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>CONTACT / ACCESS</div>
+          <h2 className="text-3xl lg:text-5xl font-bold mb-10">お気軽にどうぞ。</h2>
+          <div className="grid sm:grid-cols-3 gap-6 text-left mb-10">
+            <div>
+              <div className="text-[10px] tracking-widest font-bold mb-2" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>ADDRESS</div>
+              <div className="text-sm">{t.contact.address}</div>
+            </div>
+            <div>
+              <div className="text-[10px] tracking-widest font-bold mb-2" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>PHONE</div>
+              <div className="text-sm">{t.contact.phone}</div>
+            </div>
+            <div>
+              <div className="text-[10px] tracking-widest font-bold mb-2" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>HOURS</div>
+              <div className="text-sm">{t.contact.hours}</div>
+            </div>
+          </div>
+          <a className="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold rounded-full" style={{ background: t.accent, color: t.bg }}>
+            {t.cta} <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t py-10 px-5 lg:px-8 text-center text-sm" style={{ borderColor: `${t.fg}1a` }}>
+        <div className="font-bold mb-2 text-lg">{t.brand}</div>
+        <div className="opacity-60 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>© {t.brand} — Sample design by Polaris Creative</div>
+      </footer>
+
+      {/* Floating return CTA */}
+      <a href="#hp" className="fixed bottom-5 right-5 z-50 bg-[#1d1d1f] hover:bg-grad-brand text-white px-5 py-3 rounded-full text-xs font-bold shadow-2xl flex items-center gap-2">
+        ← ポラリスのHPに戻る
+      </a>
+    </div>
+  )
+}
+
+/* ============================================================
    Template Mockup (browser-chrome window preview)
    ============================================================ */
 function MockupBrowser({ t, large = false }: { t: Template; large?: boolean }) {
@@ -649,84 +956,37 @@ function MockupBrowser({ t, large = false }: { t: Template; large?: boolean }) {
 }
 
 function TemplatesGrid() {
-  const [active, setActive] = useState<Template | null>(null)
   return (
     <div className="mb-20">
       <div className="flex items-end justify-between mb-8">
         <div>
           <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATES</div>
           <h3 className="text-2xl lg:text-3xl font-black">10業種のHPテンプレート</h3>
-          <div className="text-sm text-[var(--color-pc-sub)] mt-2">クリックで拡大プレビュー。御社用にカスタマイズして納品します。</div>
+          <div className="text-sm text-[var(--color-pc-sub)] mt-2">クリックで実際のサイト見本（フル版）が開きます。御社用にカスタマイズして納品します。</div>
         </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
         {HP_TEMPLATES.map((t, i) => (
-          <button
-            key={t.name}
-            type="button"
-            onClick={() => setActive(t)}
+          <a
+            key={t.slug}
+            href={`#/demo/${t.slug}`}
             className="group block text-left bg-[var(--color-pc-bg)] hover:shadow-xl transition-shadow p-2 rounded-lg"
           >
-            <div className="aspect-[4/3] overflow-hidden rounded shadow-md ring-1 ring-black/5 group-hover:scale-[1.02] transition-transform">
+            <div className="aspect-[4/3] overflow-hidden rounded shadow-md ring-1 ring-black/5 group-hover:scale-[1.02] transition-transform relative">
               <MockupBrowser t={t} />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-colors">
+                <span className="opacity-0 group-hover:opacity-100 bg-white text-[var(--color-pc-ink)] px-3 py-1.5 text-xs font-bold rounded-full transition-opacity flex items-center gap-1">
+                  サイトを見る <ArrowUpRight className="w-3 h-3" />
+                </span>
+              </div>
             </div>
             <div className="px-1 pt-2.5 pb-1">
               <div className="text-[10px] tracking-widest text-[var(--color-pc-sub)]" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATE {String(i + 1).padStart(2, '0')}</div>
               <div className="text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors">{t.name}</div>
             </div>
-          </button>
+          </a>
         ))}
       </div>
-
-      {/* Modal preview */}
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActive(null)}
-            className="fixed inset-0 z-[80] bg-black/80 backdrop-blur-sm p-3 lg:p-8 flex items-center justify-center overflow-auto"
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[92vh] overflow-hidden flex flex-col"
-            >
-              <div className="flex items-center justify-between px-5 lg:px-7 py-4 border-b border-[var(--color-pc-line)]">
-                <div>
-                  <div className="text-[10px] tracking-[0.3em] text-[var(--color-pc-pink)] font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    TEMPLATE PREVIEW
-                  </div>
-                  <div className="text-base lg:text-lg font-bold">{active.name}</div>
-                </div>
-                <button onClick={() => setActive(null)} className="p-2 hover:bg-[var(--color-pc-bg)] rounded-full" aria-label="閉じる">
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <div className="flex-1 overflow-auto p-3 lg:p-6 bg-[var(--color-pc-bg)]">
-                <div className="aspect-[16/10] rounded-lg overflow-hidden shadow-2xl ring-1 ring-black/10">
-                  <MockupBrowser t={active} large />
-                </div>
-              </div>
-              <div className="border-t border-[var(--color-pc-line)] p-4 lg:p-5 flex flex-col sm:flex-row items-center justify-between gap-3 bg-white">
-                <div className="text-sm text-[var(--color-pc-sub)]">
-                  このデザインをベースに御社用にカスタマイズ。<span className="font-bold text-[var(--color-pc-ink)]">¥150,000〜 / 最短1週間</span>
-                </div>
-                <a
-                  href="#contact"
-                  onClick={() => setActive(null)}
-                  className="bg-grad-brand hover:opacity-90 text-white px-6 py-3 text-sm font-bold rounded-full inline-flex items-center gap-2 transition-opacity"
-                >
-                  このテンプレートで相談する <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   )
 }
@@ -1110,14 +1370,39 @@ function Footer() {
 /* ============================================================
    App
    ============================================================ */
+function useHashRoute() {
+  const [hash, setHash] = useState(() => window.location.hash)
+  useEffect(() => {
+    const onHash = () => {
+      setHash(window.location.hash)
+      // scroll to top when route changes (demo enter/exit)
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+    }
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+  // demo slug if hash is #/demo/<slug>
+  const m = hash.match(/^#\/demo\/([\w-]+)/)
+  return m ? m[1] : null
+}
+
 export default function App() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const demoSlug = useHashRoute()
+  const demoTemplate = demoSlug ? HP_TEMPLATES.find((t) => t.slug === demoSlug) : null
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Demo route: render full virtual website
+  if (demoTemplate) {
+    return <DemoSite t={demoTemplate} />
+  }
+
   return (
     <div className="bg-white text-[var(--color-pc-ink)]">
       <Header onMenu={() => setOpen(true)} scrolled={scrolled} />
