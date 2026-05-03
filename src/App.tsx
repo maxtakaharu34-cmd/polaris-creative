@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import RestaurantPremiumDemo from './templates/RestaurantPremiumDemo'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   Menu, X, ChevronRight, ChevronLeft, ArrowUpRight, Phone, MapPin,
@@ -126,156 +127,165 @@ type Template = {
   contact: { address: string; phone: string; hours: string }
 }
 
+// ============================================================
+// 重要：以下のテンプレートはすべて「実在しない仮想ブランド」です。
+// 店名・会社名・住所・電話番号・お客様の声、すべて架空。
+// 実在する人物・店舗・会社とは一切関係ありません。
+// デザイン見本（モックアップ）として、ポラリスクリエイティブが作成しました。
+// ============================================================
+const FAKE_PHONE = '03-0000-0000（※架空の番号）'
+const FAKE_ADDR_PREFIX = '※架空の住所：'
+
 const HP_TEMPLATES: Template[] = [
   {
-    slug: 'restaurant', name: '飲食店向け', domain: 'tabezen.jp', brand: '食禅',
-    copy: '一皿で、季節を語る。', sub: '旬の素材を、丁寧に。月替わりの日本料理コース。',
-    cta: 'ご予約', bg: '#1a1410', fg: '#f5e6c8', accent: '#c9a063', font: 'serif',
-    img: 'photo-1414235077428-338989a2e8c0', navItems: ['お品書き', '店舗', 'ご予約'],
-    about: { label: 'CONCEPT', title: '一期一会の、一皿を。', body: '日本各地から届く旬の食材を、最小限の調理で。料理人が手仕事で仕立てる、月替わりのコース料理。お酒との組み合わせもご相談ください。' },
-    services: { label: 'MENU', title: 'お品書き', items: [
-      { title: '昼の御膳', desc: '前菜・お造り・椀物・主菜・水菓子', img: 'photo-1414235077428-338989a2e8c0', price: '¥4,800' },
-      { title: '夜の懐石コース', desc: '全8品。季節の素材を5,000円〜', img: 'photo-1546069901-ba9599a7e63c', price: '¥9,800' },
-      { title: '特別会席', desc: '記念日・接待にふさわしい全11品', img: 'photo-1567620905732-2d1ec7ab7445', price: '¥15,000' },
+    slug: 'restaurant', name: '飲食店向け', domain: 'polaris-shokudo.jp', brand: 'ポラリス食堂',
+    copy: '一皿で、季節を語る。', sub: '※このサイトは仮想店舗のデザイン見本です。旬の素材を、丁寧に。月替わりの日本料理コース。',
+    cta: 'ご予約（仮）', bg: '#1a1410', fg: '#f5e6c8', accent: '#c9a063', font: 'serif',
+    img: 'photo-1517248135467-4c7edcad34c4', navItems: ['お品書き', '店舗', 'ご予約'],
+    about: { label: 'CONCEPT（仮想）', title: '一期一会の、一皿を。', body: '※本店舗は実在しません。デザイン見本として作成された架空の飲食店です。― 日本各地から届く旬の食材を、最小限の調理で。料理人が手仕事で仕立てる、月替わりのコース料理。' },
+    services: { label: 'MENU（架空メニュー）', title: 'お品書き', items: [
+      { title: '昼の御膳（架空）', desc: '前菜・お造り・椀物・主菜・水菓子', img: 'photo-1517248135467-4c7edcad34c4', price: '¥4,800' },
+      { title: '夜の懐石コース（架空）', desc: '全8品。季節の素材を5,000円〜', img: 'photo-1546069901-ba9599a7e63c', price: '¥9,800' },
+      { title: '特別会席（架空）', desc: '記念日・接待にふさわしい全11品', img: 'photo-1551183053-bf91a1d81141', price: '¥15,000' },
     ]},
-    gallery: ['photo-1414235077428-338989a2e8c0', 'photo-1546069901-ba9599a7e63c', 'photo-1567620905732-2d1ec7ab7445', 'photo-1559339352-11d035aa65de'],
-    testimonial: { quote: '季節の移ろいを感じる、心のこもったお料理。記念日には必ず伺っています。', author: '田中 様', role: '常連 / 4年' },
-    contact: { address: '東京都中央区銀座5-X-X', phone: '03-XXXX-XXXX', hours: '昼 11:30-14:30 / 夜 17:30-22:00（日休）' },
+    gallery: ['photo-1517248135467-4c7edcad34c4', 'photo-1546069901-ba9599a7e63c', 'photo-1551183053-bf91a1d81141', 'photo-1559339352-11d035aa65de'],
+    testimonial: { quote: '※架空のレビューです。実在のお客様ではありません。 ― 季節の移ろいを感じる、心のこもったお料理。記念日には必ず伺っています。', author: '架空のお客様A', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※営業時間も架空：昼 11:30-14:30 / 夜 17:30-22:00' },
   },
   {
-    slug: 'salon', name: '美容院・サロン', domain: 'lumini-hair.jp', brand: 'LUMINI',
-    copy: '今日の気分で、まとう髪を。', sub: '一人ひとりに合わせた、丁寧なカウンセリングから。',
-    cta: '空き状況', bg: '#fdf4f0', fg: '#3a2820', accent: '#d4a373', font: 'sans',
-    img: 'photo-1560066984-138dadb4c035', navItems: ['STYLE', 'MENU', 'BOOK'],
-    about: { label: 'ABOUT', title: 'わたしらしさを、髪から。', body: '骨格・髪質・ライフスタイルに合わせて、毎日の "なりたい" を叶えます。表参道で10年、延べ20,000人を超えるお客様にご来店いただいています。' },
-    services: { label: 'MENU', title: 'メニュー', items: [
-      { title: 'カット', desc: 'シャンプー・ブロー込み', img: 'photo-1560066984-138dadb4c035', price: '¥6,600' },
-      { title: 'カラー＋カット', desc: '髪質改善トリートメント付き', img: 'photo-1522337360788-8b13dee7a37e', price: '¥14,300' },
-      { title: 'パーマ＋カット', desc: 'デジタルパーマ対応', img: 'photo-1487412947147-5cebf100ffc2', price: '¥16,500' },
+    slug: 'salon', name: '美容院・サロン', domain: 'polaris-hair.jp', brand: 'ポラリスヘア',
+    copy: '今日の気分で、まとう髪を。', sub: '※このサイトは仮想サロンのデザイン見本です。一人ひとりに合わせた、丁寧なカウンセリングから。',
+    cta: '空き状況（仮）', bg: '#fdf4f0', fg: '#3a2820', accent: '#d4a373', font: 'sans',
+    img: 'photo-1562322140-8baeececf3df', navItems: ['STYLE', 'MENU', 'BOOK'],
+    about: { label: 'ABOUT（仮想）', title: 'わたしらしさを、髪から。', body: '※本サロンは実在しません。デザイン見本として作成された架空の美容院です。― 骨格・髪質・ライフスタイルに合わせて、毎日の "なりたい" を叶えます。' },
+    services: { label: 'MENU（架空メニュー）', title: 'メニュー', items: [
+      { title: 'カット（架空）', desc: 'シャンプー・ブロー込み', img: 'photo-1562322140-8baeececf3df', price: '¥6,600' },
+      { title: 'カラー＋カット（架空）', desc: '髪質改善トリートメント付き', img: 'photo-1521590832167-7bcbfaa6381f', price: '¥14,300' },
+      { title: 'パーマ＋カット（架空）', desc: 'デジタルパーマ対応', img: 'photo-1487412947147-5cebf100ffc2', price: '¥16,500' },
     ]},
-    gallery: ['photo-1560066984-138dadb4c035', 'photo-1522337360788-8b13dee7a37e', 'photo-1487412947147-5cebf100ffc2', 'photo-1599387737466-29d7b9b82e69'],
-    testimonial: { quote: 'スタイリストさんが本当に親身に話を聞いてくれて、毎回"なりたい自分"になれます。', author: 'M.K 様', role: '20代 会社員' },
-    contact: { address: '東京都渋谷区神宮前X-X-X', phone: '03-XXXX-XXXX', hours: '10:00-20:00（火休）' },
+    gallery: ['photo-1562322140-8baeececf3df', 'photo-1521590832167-7bcbfaa6381f', 'photo-1487412947147-5cebf100ffc2', 'photo-1599387737466-29d7b9b82e69'],
+    testimonial: { quote: '※架空のレビューです。実在のお客様ではありません。 ― スタイリストさんが本当に親身に話を聞いてくれて、毎回 "なりたい自分" になれます。', author: '架空のお客様B', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※営業時間も架空：10:00-20:00（火休）' },
   },
   {
-    slug: 'clinic', name: 'クリニック', domain: 'aoi-clinic.jp', brand: 'AOI Clinic',
-    copy: '心と身体に、寄り添う医療を。', sub: '内科・小児科・皮膚科。地域のかかりつけ医として。',
-    cta: 'WEB予約', bg: '#ffffff', fg: '#1f3a5f', accent: '#06b6d4', font: 'sans',
+    slug: 'clinic', name: 'クリニック', domain: 'polaris-clinic.jp', brand: 'ポラリスクリニック',
+    copy: '心と身体に、寄り添う医療を。', sub: '※このサイトは仮想クリニックのデザイン見本です。内科・小児科・皮膚科。',
+    cta: 'WEB予約（仮）', bg: '#ffffff', fg: '#1f3a5f', accent: '#06b6d4', font: 'sans',
     img: 'photo-1576091160550-2173dba999ef', navItems: ['診療科目', '医師紹介', 'アクセス'],
-    about: { label: 'OUR MISSION', title: 'いつも、安心できる場所へ。', body: '小さなお子様からご高齢の方まで、地域のすべての方に "ここに来てよかった" と感じていただけるクリニックを目指しています。' },
-    services: { label: 'DEPARTMENT', title: '診療科目', items: [
-      { title: '内科', desc: '生活習慣病・健康診断・予防接種', img: 'photo-1576091160399-112ba8d25d1f' },
-      { title: '小児科', desc: 'お子様の体調管理・予防接種', img: 'photo-1607619056574-7b8d3ee536b2' },
-      { title: '皮膚科', desc: 'アレルギー・湿疹・美容皮膚', img: 'photo-1551601651-2a8555f1a136' },
+    about: { label: 'OUR MISSION（仮想）', title: 'いつも、安心できる場所へ。', body: '※本クリニックは実在しません。デザイン見本として作成された架空の医療機関です。― 小さなお子様からご高齢の方まで、地域のすべての方に "ここに来てよかった" と感じていただけるクリニックを目指しています。' },
+    services: { label: 'DEPARTMENT（架空科目）', title: '診療科目', items: [
+      { title: '内科（架空）', desc: '生活習慣病・健康診断・予防接種', img: 'photo-1576091160399-112ba8d25d1f' },
+      { title: '小児科（架空）', desc: 'お子様の体調管理・予防接種', img: 'photo-1607619056574-7b8d3ee536b2' },
+      { title: '皮膚科（架空）', desc: 'アレルギー・湿疹・美容皮膚', img: 'photo-1551601651-2a8555f1a136' },
     ]},
     gallery: ['photo-1576091160550-2173dba999ef', 'photo-1631815589968-fdb09a223b1e', 'photo-1666214280391-8ff5bd3c0bf0', 'photo-1629909613654-28e377c37b09'],
-    testimonial: { quote: '先生もスタッフの方も丁寧で、子供も安心して通えています。', author: 'H.T 様', role: '30代 / お子様2人' },
-    contact: { address: '東京都世田谷区X-X-X', phone: '03-XXXX-XXXX', hours: '平日 9:00-12:30 / 14:00-18:00（土午前のみ・日祝休）' },
+    testimonial: { quote: '※架空のレビューです。実在の患者様ではありません。 ― 先生もスタッフの方も丁寧で、子供も安心して通えています。', author: '架空のお客様C', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※診療時間も架空：平日 9:00-12:30 / 14:00-18:00' },
   },
   {
-    slug: 'workshop', name: '工務店・建築', domain: 'kominka-koumuten.jp', brand: '相生工務店',
-    copy: 'ふるさとを、住み継ぐ家へ。', sub: '木の温もりを、次の世代へ。注文住宅・古民家再生。',
-    cta: '施工事例', bg: '#f3f1ec', fg: '#2e3a2c', accent: '#7a8c5e', font: 'serif',
+    slug: 'workshop', name: '工務店・建築', domain: 'polaris-koumuten.jp', brand: 'ポラリス工務店',
+    copy: 'ふるさとを、住み継ぐ家へ。', sub: '※このサイトは仮想工務店のデザイン見本です。注文住宅・古民家再生。',
+    cta: '施工事例（仮）', bg: '#f3f1ec', fg: '#2e3a2c', accent: '#7a8c5e', font: 'serif',
     img: 'photo-1503387762-592deb58ef4e', navItems: ['施工実績', '工法', '資料請求'],
-    about: { label: 'OUR STORY', title: '土地と向き合う、家づくり。', body: '創業60年。地域の風土と暮らしを知り尽くした職人が、お客様の "理想の住まい" を一棟ずつ手がけます。' },
-    services: { label: 'WORKS', title: '施工実績', items: [
-      { title: '注文住宅', desc: '無垢材を使った、長く住める家', img: 'photo-1568605114967-8130f3a36994' },
-      { title: '古民家再生', desc: '伝統工法で、文化を未来へ', img: 'photo-1572120360610-d971b9d7767c' },
-      { title: 'リノベーション', desc: '今ある家を、もう一度価値ある住まいへ', img: 'photo-1556909114-f6e7ad7d3136' },
+    about: { label: 'OUR STORY（仮想）', title: '土地と向き合う、家づくり。', body: '※本工務店は実在しません。デザイン見本として作成された架空の建築会社です。― 地域の風土と暮らしを知り尽くした職人が、お客様の "理想の住まい" を一棟ずつ手がけます。' },
+    services: { label: 'WORKS（架空実績）', title: '施工実績', items: [
+      { title: '注文住宅（架空）', desc: '無垢材を使った、長く住める家', img: 'photo-1568605114967-8130f3a36994' },
+      { title: '古民家再生（架空）', desc: '伝統工法で、文化を未来へ', img: 'photo-1572120360610-d971b9d7767c' },
+      { title: 'リノベ（架空）', desc: '今ある家を、もう一度価値ある住まいへ', img: 'photo-1556909114-f6e7ad7d3136' },
     ]},
     gallery: ['photo-1568605114967-8130f3a36994', 'photo-1572120360610-d971b9d7767c', 'photo-1556909114-f6e7ad7d3136', 'photo-1600585154340-be6161a56a0c'],
-    testimonial: { quote: '提案から完成まで、職人さんの真剣さが伝わる家づくりでした。', author: '佐藤 様', role: '注文住宅オーナー' },
-    contact: { address: '神奈川県鎌倉市X-X-X', phone: '0467-XX-XXXX', hours: '9:00-18:00（水・日休）' },
+    testimonial: { quote: '※架空のレビューです。実在の施主ではありません。 ― 提案から完成まで、職人さんの真剣さが伝わる家づくりでした。', author: '架空のお客様D', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇市〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※営業時間も架空：9:00-18:00（水・日休）' },
   },
   {
-    slug: 'law', name: '士業', domain: 'iida-law.jp', brand: '飯田法律事務所',
-    copy: '法を、あなたの味方に。', sub: '中小企業法務・労務・契約・相続。確かな実績で。',
-    cta: '無料相談', bg: '#0f1a2e', fg: '#f5f5f7', accent: '#c9a754', font: 'serif',
+    slug: 'law', name: '士業', domain: 'polaris-law.jp', brand: 'ポラリス法律事務所',
+    copy: '法を、あなたの味方に。', sub: '※このサイトは仮想法律事務所のデザイン見本です。中小企業法務・労務・契約・相続。',
+    cta: '無料相談（仮）', bg: '#0f1a2e', fg: '#f5f5f7', accent: '#c9a754', font: 'serif',
     img: 'photo-1450101499163-c8848c66ca85', navItems: ['取扱業務', '弁護士紹介', '料金'],
-    about: { label: 'OUR PHILOSOPHY', title: '一人ひとりの、最善の解決へ。', body: '法律は、戦うためではなく、明日を生きるための道具です。中小企業から個人のお客様まで、立場に寄り添い最善策を導きます。' },
-    services: { label: 'PRACTICE AREAS', title: '取扱業務', items: [
-      { title: '企業法務', desc: '契約書・労務・コンプライアンス', img: 'photo-1450101499163-c8848c66ca85' },
-      { title: '相続・遺言', desc: '相続対策から争族解決まで', img: 'photo-1554224155-6726b3ff858f' },
-      { title: '労働問題', desc: '解雇・残業代・ハラスメント', img: 'photo-1589829545856-d10d557cf95f' },
+    about: { label: 'OUR PHILOSOPHY（仮想）', title: '一人ひとりの、最善の解決へ。', body: '※本事務所は実在しません。デザイン見本として作成された架空の法律事務所です。― 法律は、戦うためではなく、明日を生きるための道具です。立場に寄り添い最善策を導きます。' },
+    services: { label: 'PRACTICE AREAS（架空）', title: '取扱業務', items: [
+      { title: '企業法務（架空）', desc: '契約書・労務・コンプライアンス', img: 'photo-1450101499163-c8848c66ca85' },
+      { title: '相続・遺言（架空）', desc: '相続対策から争族解決まで', img: 'photo-1554224155-6726b3ff858f' },
+      { title: '労働問題（架空）', desc: '解雇・残業代・ハラスメント', img: 'photo-1589829545856-d10d557cf95f' },
     ]},
     gallery: ['photo-1450101499163-c8848c66ca85', 'photo-1554224155-6726b3ff858f', 'photo-1589829545856-d10d557cf95f', 'photo-1505664194779-8beaceb93744'],
-    testimonial: { quote: '難しい契約問題を、わかりやすく整理してくださいました。', author: '株式会社○○ 代表', role: '中小企業経営' },
-    contact: { address: '東京都千代田区丸の内X-X-X', phone: '03-XXXX-XXXX', hours: '平日 9:30-18:00（初回相談無料 / 30分）' },
+    testimonial: { quote: '※架空のレビューです。実在のクライアントではありません。 ― 難しい契約問題を、わかりやすく整理してくださいました。', author: '架空のお客様E', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※受付時間も架空：平日 9:30-18:00' },
   },
   {
-    slug: 'school', name: '教室・スクール', domain: 'asobiba-kids.jp', brand: 'あそびば',
-    copy: '学ぶって、たのしい！', sub: '英会話・プログラミング・アート。3〜12歳の子ども教室。',
-    cta: '体験申込', bg: '#fff8e1', fg: '#3d2c1f', accent: '#ff7a3d', font: 'display',
+    slug: 'school', name: '教室・スクール', domain: 'polaris-school.jp', brand: 'ポラリススクール',
+    copy: '学ぶって、たのしい！', sub: '※このサイトは仮想スクールのデザイン見本です。英会話・プログラミング・アート。',
+    cta: '体験申込（仮）', bg: '#fff8e1', fg: '#3d2c1f', accent: '#ff7a3d', font: 'display',
     img: 'photo-1523240795612-9a054b0db644', navItems: ['コース', '講師', '体験'],
-    about: { label: 'WHY ASOBIBA', title: '"できた！" を、毎日。', body: '正解を教えるのではなく、自分で考える力を育てる。少人数制で、一人ひとりの "好き" と "得意" を伸ばします。' },
-    services: { label: 'COURSES', title: 'コース', items: [
-      { title: '英会話', desc: 'ネイティブ講師の少人数レッスン', img: 'photo-1503676260728-1c00da094a0b', price: '月¥8,800' },
-      { title: 'プログラミング', desc: 'Scratch・micro:bit・Python', img: 'photo-1564865878688-9a244444042a', price: '月¥9,900' },
-      { title: 'アート＆クラフト', desc: '創造力を伸ばす表現の場', img: 'photo-1607275155000-df5e1631fb45', price: '月¥7,700' },
+    about: { label: 'WHY POLARIS（仮想）', title: '"できた！" を、毎日。', body: '※本スクールは実在しません。デザイン見本として作成された架空の教室です。― 正解を教えるのではなく、自分で考える力を育てる。' },
+    services: { label: 'COURSES（架空コース）', title: 'コース', items: [
+      { title: '英会話（架空）', desc: 'ネイティブ講師の少人数レッスン', img: 'photo-1503676260728-1c00da094a0b', price: '月¥8,800' },
+      { title: 'プログラミング（架空）', desc: 'Scratch・micro:bit・Python', img: 'photo-1564865878688-9a244444042a', price: '月¥9,900' },
+      { title: 'アート＆クラフト（架空）', desc: '創造力を伸ばす表現の場', img: 'photo-1607275155000-df5e1631fb45', price: '月¥7,700' },
     ]},
     gallery: ['photo-1523240795612-9a054b0db644', 'photo-1503676260728-1c00da094a0b', 'photo-1564865878688-9a244444042a', 'photo-1607275155000-df5e1631fb45'],
-    testimonial: { quote: '通い始めて半年で、子どもが自分から英語で話すように！', author: 'お母様', role: '小学2年生 保護者' },
-    contact: { address: '東京都目黒区X-X-X', phone: '03-XXXX-XXXX', hours: '平日 15:00-19:00 / 土 10:00-17:00' },
+    testimonial: { quote: '※架空のレビューです。実在の保護者ではありません。 ― 通い始めて半年で、子どもが自分から英語で話すように！', author: '架空のお客様F', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※営業時間も架空：平日 15:00-19:00 / 土 10:00-17:00' },
   },
   {
-    slug: 'ec', name: 'EC・ショップ', domain: 'minimal-store.jp', brand: 'MINIMAL',
-    copy: '長く、好きでいられる服。', sub: '上質な素材を、無駄なく仕立てる。MADE IN JAPAN。',
-    cta: 'SHOP NOW', bg: '#ffffff', fg: '#1d1d1f', accent: '#1d1d1f', font: 'sans',
+    slug: 'ec', name: 'EC・ショップ', domain: 'polaris-store.jp', brand: 'ポラリスストア',
+    copy: '長く、好きでいられる服。', sub: '※このサイトは仮想ECショップのデザイン見本です。MADE IN JAPAN。',
+    cta: 'SHOP NOW（仮）', bg: '#ffffff', fg: '#1d1d1f', accent: '#1d1d1f', font: 'sans',
     img: 'photo-1556742049-0cfed4f6a45d', navItems: ['SHOP', 'LOOKBOOK', 'ABOUT'],
-    about: { label: 'PHILOSOPHY', title: '少なく持って、長く着る。', body: '素材選びから縫製まで、すべて国内の職人と。シンプルで、流行に左右されない、毎日の定番服を作っています。' },
-    services: { label: 'NEW IN', title: '新着アイテム', items: [
-      { title: 'コットンTシャツ', desc: '日本製スーピマコットン使用', img: 'photo-1521572163474-6864f9cf17ab', price: '¥6,800' },
-      { title: 'リネンシャツ', desc: '通気性の良い夏の定番', img: 'photo-1602810318383-e386cc2a3ccf', price: '¥12,800' },
-      { title: 'ウールパンツ', desc: 'すっきり見える美シルエット', img: 'photo-1594633312681-425c7b97ccd1', price: '¥18,800' },
+    about: { label: 'PHILOSOPHY（仮想）', title: '少なく持って、長く着る。', body: '※本ショップは実在しません。デザイン見本として作成された架空のECサイトです。― 素材選びから縫製まで、すべて国内の職人と。' },
+    services: { label: 'NEW IN（架空商品）', title: '新着アイテム', items: [
+      { title: 'コットンTシャツ（架空）', desc: '日本製スーピマコットン使用', img: 'photo-1521572163474-6864f9cf17ab', price: '¥6,800' },
+      { title: 'リネンシャツ（架空）', desc: '通気性の良い夏の定番', img: 'photo-1602810318383-e386cc2a3ccf', price: '¥12,800' },
+      { title: 'ウールパンツ（架空）', desc: 'すっきり見える美シルエット', img: 'photo-1594633312681-425c7b97ccd1', price: '¥18,800' },
     ]},
     gallery: ['photo-1556742049-0cfed4f6a45d', 'photo-1521572163474-6864f9cf17ab', 'photo-1602810318383-e386cc2a3ccf', 'photo-1594633312681-425c7b97ccd1'],
-    testimonial: { quote: '5年着てもヘタらない。一度買うと他が着られなくなります。', author: 'A.S 様', role: 'リピーター' },
-    contact: { address: '東京都渋谷区代官山X-X-X 旗艦店', phone: '03-XXXX-XXXX', hours: '12:00-20:00（無休）' },
+    testimonial: { quote: '※架空のレビューです。実在のお客様ではありません。 ― 5年着てもヘタらない。一度買うと他が着られなくなります。', author: '架空のお客様G', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※営業時間も架空：12:00-20:00（無休）' },
   },
   {
-    slug: 'corp', name: 'コーポレート', domain: 'tsubomi-corp.jp', brand: 'TSUBOMI Inc.',
-    copy: '世界の課題に、技術で挑む。', sub: '半導体・素材・エネルギー。次世代を支えるソリューションを。',
-    cta: 'CONTACT', bg: '#ffffff', fg: '#0a2540', accent: '#1d4ed8', font: 'sans',
+    slug: 'corp', name: 'コーポレート', domain: 'polaris-corp.jp', brand: 'ポラリス株式会社',
+    copy: '世界の課題に、技術で挑む。', sub: '※このサイトは仮想コーポレートサイトのデザイン見本です。',
+    cta: 'CONTACT（仮）', bg: '#ffffff', fg: '#0a2540', accent: '#1d4ed8', font: 'sans',
     img: 'photo-1497366216548-37526070297c', navItems: ['BUSINESS', 'COMPANY', 'IR'],
-    about: { label: 'OUR VISION', title: '"つくる" で、未来を。', body: '創業1972年。日本のものづくりを牽引してきた技術力で、いま世界の "持続可能性" に貢献します。' },
-    services: { label: 'BUSINESS', title: '事業領域', items: [
-      { title: '半導体ソリューション', desc: '次世代半導体の素材開発', img: 'photo-1518770660439-4636190af475' },
-      { title: '機能性素材', desc: '軽量・高強度の独自素材', img: 'photo-1581094794329-c8112a89af12' },
-      { title: 'エネルギー', desc: '再生可能エネルギー関連事業', img: 'photo-1466611653911-95081537e5b7' },
+    about: { label: 'OUR VISION（仮想）', title: '"つくる" で、未来を。', body: '※本会社は実在しません。デザイン見本として作成された架空のコーポレートサイトです。― 日本のものづくりを牽引する技術力で、世界の "持続可能性" に貢献します。' },
+    services: { label: 'BUSINESS（架空事業）', title: '事業領域', items: [
+      { title: '半導体（架空）', desc: '次世代半導体の素材開発', img: 'photo-1518770660439-4636190af475' },
+      { title: '機能性素材（架空）', desc: '軽量・高強度の独自素材', img: 'photo-1581094794329-c8112a89af12' },
+      { title: 'エネルギー（架空）', desc: '再生可能エネルギー関連事業', img: 'photo-1466611653911-95081537e5b7' },
     ]},
     gallery: ['photo-1497366216548-37526070297c', 'photo-1518770660439-4636190af475', 'photo-1581094794329-c8112a89af12', 'photo-1466611653911-95081537e5b7'],
-    testimonial: { quote: '技術力と提案力の両面で、長くお付き合いさせていただいています。', author: '取引先メーカー様', role: '上場企業 購買担当' },
-    contact: { address: '東京都港区虎ノ門X-X-X 本社', phone: '03-XXXX-XXXX', hours: '平日 9:00-17:30' },
+    testimonial: { quote: '※架空のレビューです。実在の取引先ではありません。 ― 技術力と提案力の両面で、長くお付き合いさせていただいています。', author: '架空の取引先H社', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※受付時間も架空：平日 9:00-17:30' },
   },
   {
-    slug: 'recruit', name: '採用LP', domain: 'recruit.terra.jp', brand: 'TERRA RECRUIT',
-    copy: '同じ、未来をつくる仲間へ。', sub: 'エンジニア・デザイナー・営業。新卒・中途同時採用中。',
-    cta: 'ENTRY', bg: '#0d0d0d', fg: '#ffffff', accent: '#e60039', font: 'display',
+    slug: 'recruit', name: '採用LP', domain: 'polaris-recruit.jp', brand: 'ポラリスリクルート',
+    copy: '同じ、未来をつくる仲間へ。', sub: '※このサイトは仮想採用LPのデザイン見本です。',
+    cta: 'ENTRY（仮）', bg: '#0d0d0d', fg: '#ffffff', accent: '#e60039', font: 'display',
     img: 'photo-1521737711867-e3b97375f902', navItems: ['MESSAGE', 'CULTURE', 'PEOPLE'],
-    about: { label: 'MESSAGE', title: 'ここで、本気を試してほしい。', body: '何かを変えたい人、本気で挑戦したい人を、私たちは待っています。年齢も経歴も関係ありません。"何をしてきたか" より "何を成し遂げたいか" です。' },
-    services: { label: 'POSITIONS', title: '募集職種', items: [
-      { title: 'エンジニア', desc: 'フルスタック / モバイル / インフラ', img: 'photo-1517048676732-d65bc937f952' },
-      { title: 'デザイナー', desc: 'UI/UX・ブランディング・グラフィック', img: 'photo-1542744173-8e7e53415bb0' },
-      { title: 'ビジネス', desc: '営業・マーケ・コーポレート', img: 'photo-1556761175-5973dc0f32e7' },
+    about: { label: 'MESSAGE（仮想）', title: 'ここで、本気を試してほしい。', body: '※本採用情報は実在しません。デザイン見本として作成された架空の採用LPです。― 何かを変えたい人、本気で挑戦したい人を、私たちは待っています。' },
+    services: { label: 'POSITIONS（架空募集）', title: '募集職種', items: [
+      { title: 'エンジニア（架空）', desc: 'フルスタック / モバイル / インフラ', img: 'photo-1517048676732-d65bc937f952' },
+      { title: 'デザイナー（架空）', desc: 'UI/UX・ブランディング・グラフィック', img: 'photo-1542744173-8e7e53415bb0' },
+      { title: 'ビジネス（架空）', desc: '営業・マーケ・コーポレート', img: 'photo-1556761175-5973dc0f32e7' },
     ]},
     gallery: ['photo-1521737711867-e3b97375f902', 'photo-1517048676732-d65bc937f952', 'photo-1542744173-8e7e53415bb0', 'photo-1556761175-5973dc0f32e7'],
-    testimonial: { quote: '入社2年目で大型プロジェクトのリーダーに。挑戦できる環境です。', author: '田村 さん', role: 'エンジニア / 入社3年目' },
-    contact: { address: '東京都渋谷区代々木X-X-X', phone: '採用窓口 03-XXXX-XXXX', hours: '応募はWEBエントリーから24時間受付' },
+    testimonial: { quote: '※架空の社員インタビューです。実在の社員ではありません。 ― 入社2年目で大型プロジェクトのリーダーに。挑戦できる環境です。', author: '架空の社員I', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: `採用窓口 ${FAKE_PHONE}`, hours: '※受付情報も架空：応募はWEBエントリーから24時間受付' },
   },
   {
-    slug: 'event', name: 'イベント', domain: 'pulse-fest.jp', brand: 'PULSE FEST',
-    copy: 'その夜、世界が踊り出す。', sub: '7.20 SAT @ 千葉幕張海岸。国内外40アーティスト集結。',
-    cta: 'TICKET', bg: '#0f0533', fg: '#ffffff', accent: '#ff2da0', font: 'display',
+    slug: 'event', name: 'イベント', domain: 'polaris-fest.jp', brand: 'ポラリスフェス',
+    copy: 'その夜、世界が踊り出す。', sub: '※このサイトは仮想イベントのデザイン見本です。実際の開催予定はありません。',
+    cta: 'TICKET（仮）', bg: '#0f0533', fg: '#ffffff', accent: '#ff2da0', font: 'display',
     img: 'photo-1492684223066-81342ee5ff30', navItems: ['LINEUP', 'VENUE', 'TICKET'],
-    about: { label: 'ABOUT', title: 'ひと夏の、特別な記憶を。', body: '海と空、最高の音楽が交差する1日。アジア最大級のミュージックフェスが、今年も開催。' },
-    services: { label: 'STAGES', title: 'ステージ', items: [
-      { title: 'MAIN STAGE', desc: 'ヘッドライナー含む15組', img: 'photo-1493225457124-a3eb161ffa5f' },
-      { title: 'BEACH STAGE', desc: 'チルアウトと夕焼けと', img: 'photo-1506157786151-b8491531f063' },
-      { title: 'FOREST STAGE', desc: '深夜まで踊れる森のステージ', img: 'photo-1429962714451-bb934ecdc4ec' },
+    about: { label: 'ABOUT（仮想）', title: 'ひと夏の、特別な記憶を。', body: '※本イベントは実在しません。デザイン見本として作成された架空の音楽フェスです。― 海と空、最高の音楽が交差する1日。（実際の開催予定はありません）' },
+    services: { label: 'STAGES（架空ステージ）', title: 'ステージ', items: [
+      { title: 'MAIN STAGE（架空）', desc: 'ヘッドライナー含む15組', img: 'photo-1493225457124-a3eb161ffa5f' },
+      { title: 'BEACH STAGE（架空）', desc: 'チルアウトと夕焼けと', img: 'photo-1506157786151-b8491531f063' },
+      { title: 'FOREST STAGE（架空）', desc: '深夜まで踊れる森のステージ', img: 'photo-1429962714451-bb934ecdc4ec' },
     ]},
     gallery: ['photo-1492684223066-81342ee5ff30', 'photo-1493225457124-a3eb161ffa5f', 'photo-1506157786151-b8491531f063', 'photo-1429962714451-bb934ecdc4ec'],
-    testimonial: { quote: '会場の一体感が忘れられない。来年も絶対行きます！', author: '@minorin_85', role: '昨年来場者' },
-    contact: { address: '千葉県千葉市美浜区幕張海岸X-X', phone: 'お問い合わせフォームのみ', hours: '7月20日 12:00〜23:00' },
+    testimonial: { quote: '※架空のレビューです。実在の来場者ではありません。 ― 会場の一体感が忘れられない。来年も絶対行きます！', author: '架空の来場者J', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}千葉県〇〇市〇〇 0-0-0（実在しません）`, phone: 'お問い合わせフォームのみ（架空）', hours: '※開催日も架空：〇月〇日 12:00〜23:00（実際の開催予定はありません）' },
   },
 ]
 
@@ -723,13 +733,19 @@ function DemoSite({ t }: { t: Template }) {
   const overlay = `linear-gradient(135deg, ${t.bg}cc 0%, ${t.bg}33 60%, transparent 100%)`
   return (
     <div style={{ background: t.bg, color: t.fg, fontFamily }}>
-      {/* Polaris demo banner */}
-      <div className="bg-[#1d1d1f] text-white px-4 py-2.5 text-xs flex items-center justify-between gap-3 sticky top-0 z-50">
-        <div className="flex items-center gap-2 min-w-0">
-          <span className="bg-grad-brand text-white px-2 py-0.5 rounded text-[10px] font-bold tracking-wider whitespace-nowrap" style={{ fontFamily: 'Inter, sans-serif' }}>SAMPLE</span>
-          <span className="truncate">これはポラリスクリエイティブの<b>デモサイト</b>です。御社向けにカスタマイズ可能。</span>
+      {/* Polaris demo banner — strong disclaimer */}
+      <div className="bg-[#1d1d1f] text-white sticky top-0 z-50 border-b-2 border-[var(--color-pc-pink)]">
+        <div className="px-4 py-2.5 text-xs flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="bg-grad-brand text-white px-2 py-0.5 rounded text-[10px] font-bold tracking-wider whitespace-nowrap" style={{ fontFamily: 'Inter, sans-serif' }}>SAMPLE</span>
+            <span className="truncate">⚠️ <b>{t.brand}</b> は<b className="text-[var(--color-pc-pink)]">実在しない仮想の{t.slug === 'event' ? 'イベント' : t.slug === 'recruit' || t.slug === 'corp' ? '会社' : '店舗'}</b>です。デザイン見本としてポラリスクリエイティブが作成しました。</span>
+          </div>
+          <a href="#hp" className="bg-white text-[#1d1d1f] px-3 py-1 rounded font-bold whitespace-nowrap hover:bg-grad-brand hover:text-white transition-colors">← 戻る</a>
         </div>
-        <a href="#hp" className="bg-white text-[#1d1d1f] px-3 py-1 rounded font-bold whitespace-nowrap hover:bg-grad-brand hover:text-white transition-colors">← 戻る</a>
+      </div>
+      {/* Disclaimer band #2 */}
+      <div className="bg-[var(--color-pc-pink)] text-white text-center text-[11px] py-1.5 px-3 font-bold">
+        ⚠️ 注意：このページに表示される店舗名・会社名・住所・電話番号・お客様の声などは<u>すべて架空</u>です。実在しません。
       </div>
 
       {/* Demo nav */}
@@ -748,11 +764,21 @@ function DemoSite({ t }: { t: Template }) {
       <header className="relative h-[80vh] min-h-[520px] overflow-hidden">
         <img src={`https://images.unsplash.com/${t.img}?auto=format&fit=crop&w=2400&q=80`} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: overlay }} />
+        {/* Watermark — diagonal */}
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-[5]">
+          <div className="text-white/15 font-black tracking-[0.3em] text-[14vw] -rotate-[20deg] whitespace-nowrap select-none" style={{ fontFamily: 'Inter, sans-serif', textShadow: '0 0 40px rgba(0,0,0,0.4)' }}>
+            SAMPLE / 仮想
+          </div>
+        </div>
+        {/* Corner badge */}
+        <div className="absolute top-4 right-4 z-10 bg-[var(--color-pc-pink)] text-white text-[10px] lg:text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+          ※ これは架空のデザイン見本です
+        </div>
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-[1200px] mx-auto w-full px-5 lg:px-8">
             <div className="max-w-2xl">
               <div className="text-xs lg:text-sm tracking-[0.4em] mb-4 font-bold" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>
-                {t.domain.split('.')[0].toUpperCase()}
+                {t.domain.split('.')[0].toUpperCase()} <span className="opacity-60">/ 仮想ドメイン</span>
               </div>
               <h1 className="text-4xl lg:text-7xl font-bold leading-[1.15] mb-6" style={{ color: t.fg }}>
                 {t.copy}
@@ -761,14 +787,23 @@ function DemoSite({ t }: { t: Template }) {
               <a className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold rounded-full" style={{ background: t.accent, color: t.bg }}>
                 {t.cta} <ArrowRight className="w-4 h-4" />
               </a>
+              <div className="mt-6 inline-block bg-black/40 text-white text-[11px] px-3 py-1.5 rounded backdrop-blur">
+                ⚠️ ※ボタンは動作しません。仮想店舗のデザイン見本です。
+              </div>
             </div>
           </div>
         </div>
       </header>
 
+      {/* Mid-page disclaimer strip */}
+      <div className="bg-[#1d1d1f] text-white text-center text-xs py-3 px-4">
+        <span className="font-bold text-[var(--color-pc-pink)]">【重要】</span> 当ページの「<b>{t.brand}</b>」は実在しない<u>架空の仮想{t.slug === 'event' ? 'イベント' : t.slug === 'recruit' || t.slug === 'corp' ? '会社' : '店舗'}</u>です。実在の人物・店舗・会社・サービスとは一切関係ありません。
+      </div>
+
       {/* About */}
       <section className="py-20 lg:py-28 px-5 lg:px-8">
         <div className="max-w-[900px] mx-auto text-center">
+          <div className="inline-block bg-[var(--color-pc-pink)]/10 border border-[var(--color-pc-pink)]/30 text-[var(--color-pc-pink)] text-[10px] font-bold px-3 py-1 rounded-full mb-4">※ 以下は架空の文章です</div>
           <div className="text-xs tracking-[0.4em] font-bold mb-4" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>{t.about.label}</div>
           <h2 className="text-3xl lg:text-5xl font-bold mb-6">{t.about.title}</h2>
           <div className="w-12 h-[2px] mx-auto mb-8" style={{ background: t.accent }} />
@@ -780,6 +815,7 @@ function DemoSite({ t }: { t: Template }) {
       <section className="py-20 lg:py-28 px-5 lg:px-8" style={{ background: `${t.fg}08` }}>
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-14">
+            <div className="inline-block bg-[var(--color-pc-pink)]/10 border border-[var(--color-pc-pink)]/30 text-[var(--color-pc-pink)] text-[10px] font-bold px-3 py-1 rounded-full mb-4">※ メニュー・価格はすべて架空の表示例です</div>
             <div className="text-xs tracking-[0.4em] font-bold mb-4" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>{t.services.label}</div>
             <h2 className="text-3xl lg:text-5xl font-bold">{t.services.title}</h2>
             <div className="w-12 h-[2px] mx-auto mt-6" style={{ background: t.accent }} />
@@ -809,14 +845,16 @@ function DemoSite({ t }: { t: Template }) {
       <section className="py-20 lg:py-28 px-5 lg:px-8">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12">
+            <div className="inline-block bg-[var(--color-pc-pink)]/10 border border-[var(--color-pc-pink)]/30 text-[var(--color-pc-pink)] text-[10px] font-bold px-3 py-1 rounded-full mb-4">※ 画像はイメージ素材です（架空）</div>
             <div className="text-xs tracking-[0.4em] font-bold mb-4" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>GALLERY</div>
             <h2 className="text-3xl lg:text-4xl font-bold">ギャラリー</h2>
             <div className="w-12 h-[2px] mx-auto mt-6" style={{ background: t.accent }} />
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3">
             {t.gallery.map((g) => (
-              <div key={g} className="aspect-square overflow-hidden">
+              <div key={g} className="relative aspect-square overflow-hidden">
                 <img src={`https://images.unsplash.com/${g}?auto=format&fit=crop&w=600&q=80`} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+                <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">SAMPLE</div>
               </div>
             ))}
           </div>
@@ -826,31 +864,34 @@ function DemoSite({ t }: { t: Template }) {
       {/* Testimonial */}
       <section className="py-20 lg:py-28 px-5 lg:px-8" style={{ background: `${t.fg}08` }}>
         <div className="max-w-[820px] mx-auto text-center">
+          <div className="inline-block bg-[var(--color-pc-pink)]/10 border border-[var(--color-pc-pink)]/30 text-[var(--color-pc-pink)] text-[10px] font-bold px-3 py-1 rounded-full mb-6">⚠️ お客様の声はすべて架空です。実在の人物ではありません。</div>
           <div className="text-5xl lg:text-7xl mb-6" style={{ color: t.accent }}>“</div>
           <p className="text-xl lg:text-3xl font-bold leading-relaxed mb-8">{t.testimonial.quote}</p>
           <div className="text-sm opacity-75">
             <div className="font-bold">{t.testimonial.author}</div>
             <div className="opacity-75">{t.testimonial.role}</div>
           </div>
+          <div className="mt-6 text-[10px] opacity-50">※ このレビューはデザイン見本のため、ポラリスクリエイティブが架空に作成したものです。</div>
         </div>
       </section>
 
       {/* Contact */}
       <section className="py-20 lg:py-28 px-5 lg:px-8">
         <div className="max-w-[820px] mx-auto text-center">
+          <div className="inline-block bg-[var(--color-pc-pink)]/10 border border-[var(--color-pc-pink)]/30 text-[var(--color-pc-pink)] text-[10px] font-bold px-3 py-1 rounded-full mb-4">⚠️ 住所・電話・営業時間はすべて架空です</div>
           <div className="text-xs tracking-[0.4em] font-bold mb-4" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>CONTACT / ACCESS</div>
           <h2 className="text-3xl lg:text-5xl font-bold mb-10">お気軽にどうぞ。</h2>
           <div className="grid sm:grid-cols-3 gap-6 text-left mb-10">
             <div>
-              <div className="text-[10px] tracking-widest font-bold mb-2" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>ADDRESS</div>
+              <div className="text-[10px] tracking-widest font-bold mb-2" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>ADDRESS <span className="text-[var(--color-pc-pink)]">※架空</span></div>
               <div className="text-sm">{t.contact.address}</div>
             </div>
             <div>
-              <div className="text-[10px] tracking-widest font-bold mb-2" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>PHONE</div>
+              <div className="text-[10px] tracking-widest font-bold mb-2" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>PHONE <span className="text-[var(--color-pc-pink)]">※架空</span></div>
               <div className="text-sm">{t.contact.phone}</div>
             </div>
             <div>
-              <div className="text-[10px] tracking-widest font-bold mb-2" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>HOURS</div>
+              <div className="text-[10px] tracking-widest font-bold mb-2" style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>HOURS <span className="text-[var(--color-pc-pink)]">※架空</span></div>
               <div className="text-sm">{t.contact.hours}</div>
             </div>
           </div>
@@ -862,14 +903,38 @@ function DemoSite({ t }: { t: Template }) {
 
       {/* Footer */}
       <footer className="border-t py-10 px-5 lg:px-8 text-center text-sm" style={{ borderColor: `${t.fg}1a` }}>
-        <div className="font-bold mb-2 text-lg">{t.brand}</div>
+        <div className="font-bold mb-2 text-lg">{t.brand} <span className="text-[var(--color-pc-pink)] text-xs font-bold">（架空ブランド）</span></div>
         <div className="opacity-60 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>© {t.brand} — Sample design by Polaris Creative</div>
       </footer>
+
+      {/* Final big disclaimer */}
+      <div className="bg-[#1d1d1f] text-white py-8 px-5 lg:px-8">
+        <div className="max-w-[820px] mx-auto text-center">
+          <div className="inline-block bg-[var(--color-pc-pink)] text-white text-[10px] font-bold px-3 py-1 rounded-full mb-4 tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>IMPORTANT NOTICE / 重要な注意事項</div>
+          <h3 className="text-lg lg:text-xl font-bold mb-3">本ページは架空の仮想{t.slug === 'event' ? 'イベント' : t.slug === 'recruit' || t.slug === 'corp' ? '会社' : '店舗'}デザイン見本です</h3>
+          <p className="text-xs lg:text-sm opacity-80 leading-relaxed mb-2">
+            「<b>{t.brand}</b>」というブランド名・店舗名・会社名は<u>実在しません</u>。
+            掲載されている住所・電話番号・メールアドレス・営業時間・メニュー・価格・お客様の声・社員インタビュー・写真・ロゴ等、
+            すべて<u>架空のデモデータ</u>です。実在する人物・団体・店舗・サービスとは一切関係ありません。
+          </p>
+          <p className="text-xs lg:text-sm opacity-80 leading-relaxed mb-4">
+            このページは、株式会社<b className="text-[var(--color-pc-pink)]">ポラリスクリエイティブ</b>がHP制作のデザインサンプルとして作成したものであり、
+            実際のサービス提供・予約・お問い合わせの受付は行っておりません。
+          </p>
+          <a href="#hp" className="inline-block bg-white text-[#1d1d1f] hover:bg-grad-brand hover:text-white px-5 py-2.5 rounded-full text-xs font-bold transition-colors">← ポラリスクリエイティブのHPに戻る</a>
+        </div>
+      </div>
 
       {/* Floating return CTA */}
       <a href="#hp" className="fixed bottom-5 right-5 z-50 bg-[#1d1d1f] hover:bg-grad-brand text-white px-5 py-3 rounded-full text-xs font-bold shadow-2xl flex items-center gap-2">
         ← ポラリスのHPに戻る
       </a>
+
+      {/* Floating sample badge — bottom-left */}
+      <div className="fixed bottom-5 left-5 z-50 bg-[var(--color-pc-pink)] text-white px-3 py-2 rounded-full text-[10px] font-bold shadow-2xl flex items-center gap-1.5 max-w-[220px]">
+        <span className="bg-white text-[var(--color-pc-pink)] rounded-full w-5 h-5 flex items-center justify-center text-[11px]">!</span>
+        <span>このサイトは架空の仮想{t.slug === 'event' ? 'イベント' : t.slug === 'recruit' || t.slug === 'corp' ? '会社' : '店舗'}です</span>
+      </div>
     </div>
   )
 }
@@ -1400,6 +1465,7 @@ export default function App() {
 
   // Demo route: render full virtual website
   if (demoTemplate) {
+    if (demoTemplate.slug === 'restaurant') return <RestaurantPremiumDemo />
     return <DemoSite t={demoTemplate} />
   }
 
