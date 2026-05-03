@@ -306,12 +306,6 @@ const REASONS = [
   { num: '05', title: '経営者目線で提案', desc: '「作って終わり」ではなく、売上と運用に直結する提案。経営課題を一緒に解きます。' },
 ]
 
-const NEWS_ITEMS = [
-  { date: '2026.05.01', cat: 'NEWS',    title: '株式会社ポラリスクリエイティブ コーポレートサイトをリリース' },
-  { date: '2026.04.15', cat: 'WORKS',   title: '飲食チェーン様 公式HP・採用LP を納品しました' },
-  { date: '2026.04.01', cat: 'TOPICS',  title: 'AI導入コンサルティングサービス 提供開始' },
-]
-
 /* ============================================================
    Logo
    ============================================================ */
@@ -431,7 +425,7 @@ function HeroCarousel() {
                 {slide.desc}
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="#business" className="bg-[var(--color-pc-ink)] hover:bg-black text-white px-7 py-3.5 text-sm font-bold transition-colors flex items-center gap-2 rounded-full">
+                <a href="#services" className="bg-[var(--color-pc-ink)] hover:bg-black text-white px-7 py-3.5 text-sm font-bold transition-colors flex items-center gap-2 rounded-full">
                   事業を見る <ChevronRight className="w-4 h-4" />
                 </a>
                 <a href="#contact" className="bg-[var(--color-pc-pink)] hover:bg-[var(--color-pc-pink-dark)] text-white px-7 py-3.5 text-sm font-bold transition-colors flex items-center gap-2 rounded-full">
@@ -442,10 +436,10 @@ function HeroCarousel() {
           </AnimatePresence>
         </div>
       </div>
-      <button onClick={prev} className="absolute left-3 lg:left-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white border border-[var(--color-pc-line)] flex items-center justify-center shadow" aria-label="前へ">
+      <button type="button" onClick={prev} className="absolute left-3 lg:left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 hover:bg-white border border-[var(--color-pc-line)] flex items-center justify-center shadow cursor-pointer" aria-label="前へ">
         <ChevronLeft className="w-5 h-5" />
       </button>
-      <button onClick={next} className="absolute right-3 lg:right-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white border border-[var(--color-pc-line)] flex items-center justify-center shadow" aria-label="次へ">
+      <button type="button" onClick={next} className="absolute right-3 lg:right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 hover:bg-white border border-[var(--color-pc-line)] flex items-center justify-center shadow cursor-pointer" aria-label="次へ">
         <ChevronRight className="w-5 h-5" />
       </button>
       <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex gap-2 z-10">
@@ -1388,46 +1382,6 @@ function WhyPolaris() {
 }
 
 /* ============================================================
-   News
-   ============================================================ */
-function News() {
-  const cats: Record<string, string> = {
-    NEWS:   'お知らせ',
-    WORKS:  '実績',
-    TOPICS: 'トピック',
-  }
-  return (
-    <section className="py-20 lg:py-28 px-5 lg:px-12 bg-[var(--color-pc-bg)]">
-      <div className="max-w-[1280px] mx-auto">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>INFORMATION</div>
-            <h2 className="text-3xl lg:text-4xl font-black">お知らせ・実績</h2>
-          </div>
-          <a href="#" className="hidden md:inline-flex items-center gap-2 text-sm tracking-widest border-b border-[var(--color-pc-ink)] pb-1 hover:text-[var(--color-pc-pink)] hover:border-[var(--color-pc-pink)] transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
-            VIEW ALL <ArrowUpRight className="w-4 h-4" />
-          </a>
-        </div>
-        <ul className="bg-white">
-          {NEWS_ITEMS.map((n) => (
-            <li key={n.title} className="border-b border-[var(--color-pc-line)] last:border-b-0">
-              <a href="#" className="grid grid-cols-[100px_90px_1fr] lg:grid-cols-[140px_120px_1fr_auto] gap-4 items-center px-5 lg:px-7 py-5 hover:bg-[var(--color-pc-bg)] transition-colors group">
-                <span className="text-xs lg:text-sm text-[var(--color-pc-sub)]" style={{ fontFamily: 'Inter, sans-serif' }}>{n.date}</span>
-                <span className="text-[10px] tracking-widest font-bold border border-[var(--color-pc-ink)] text-[var(--color-pc-ink)] px-2 py-1 text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  {cats[n.cat]}
-                </span>
-                <span className="text-sm lg:text-base font-medium text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors">{n.title}</span>
-                <ChevronRight className="hidden lg:block w-4 h-4 text-[var(--color-pc-sub)]" />
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )
-}
-
-/* ============================================================
    Contact (band + form)
    ============================================================ */
 function ContactBand() {
@@ -1458,41 +1412,92 @@ function ContactBand() {
 
 function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const fd = new FormData(e.currentTarget)
+    const name = String(fd.get('name') || '')
+    const company = String(fd.get('company') || '')
+    const tel = String(fd.get('tel') || '')
+    const email = String(fd.get('email') || '')
+    const subject = String(fd.get('subject') || '')
+    const message = String(fd.get('message') || '')
+
+    const mailSubject = `【お問い合わせ】${subject}`
+    const body =
+      `お名前：${name}\n` +
+      `会社名：${company}\n` +
+      `電話番号：${tel}\n` +
+      `メール：${email}\n` +
+      `ご相談内容：${subject}\n\n` +
+      `―― メッセージ ――\n${message}\n\n` +
+      `※ ${COMPANY.name} お問い合わせフォームより送信`
+
+    const mailto =
+      `mailto:${COMPANY.email}` +
+      `?subject=${encodeURIComponent(mailSubject)}` +
+      `&body=${encodeURIComponent(body)}`
+
+    // Open user's mail client with prefilled message
+    window.location.href = mailto
+    setSubmitted(true)
+  }
+
   return (
     <section id="contact" className="py-24 lg:py-32 px-5 lg:px-12 bg-white">
       <div className="max-w-[900px] mx-auto">
-        <SectionHeading en="CONTACT FORM" jp="お問い合わせ" sub="ご相談・お見積もり・採用・取材依頼など、お気軽にお送りください。担当者より24時間以内にご連絡いたします。" />
+        <SectionHeading en="CONTACT FORM" jp="お問い合わせ" sub="ご相談・お見積もり・採用・取材依頼など、お気軽にお送りください。送信ボタンを押すとメールアプリが起動します。" />
+
+        {/* Direct contact options shown above form */}
+        <div className="grid sm:grid-cols-2 gap-3 mb-10">
+          <a href={`tel:${COMPANY.telSales}`} className="flex items-center justify-between bg-gradient-to-br from-pink-50 to-pink-100 hover:from-pink-100 hover:to-pink-200 border border-pink-200 rounded-xl p-5 transition-colors group">
+            <div>
+              <div className="text-[10px] tracking-[0.3em] text-pink-600 font-bold mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>CALL — 営業直通</div>
+              <div className="text-lg font-bold text-[var(--color-pc-ink)]" style={{ fontFamily: 'Inter, sans-serif' }}>{COMPANY.telSales}</div>
+            </div>
+            <Phone className="w-6 h-6 text-pink-500 group-hover:scale-110 transition-transform" />
+          </a>
+          <a href={`mailto:${COMPANY.email}`} className="flex items-center justify-between bg-gradient-to-br from-cyan-50 to-cyan-100 hover:from-cyan-100 hover:to-cyan-200 border border-cyan-200 rounded-xl p-5 transition-colors group">
+            <div>
+              <div className="text-[10px] tracking-[0.3em] text-cyan-600 font-bold mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>EMAIL — 直接送る</div>
+              <div className="text-sm lg:text-base font-bold text-[var(--color-pc-ink)] truncate">{COMPANY.email}</div>
+            </div>
+            <ArrowUpRight className="w-6 h-6 text-cyan-500 group-hover:scale-110 transition-transform" />
+          </a>
+        </div>
+
         {submitted ? (
-          <div className="bg-[var(--color-pc-bg)] p-12 text-center">
-            <div className="text-3xl font-black mb-3 text-[var(--color-pc-pink)]" style={{ fontFamily: 'Inter, sans-serif' }}>THANK YOU!</div>
-            <div className="text-[var(--color-pc-ink)]">お問い合わせありがとうございます。</div>
-            <div className="text-sm text-[var(--color-pc-sub)] mt-2">担当者より24時間以内にご連絡いたします。</div>
+          <div className="bg-gradient-to-br from-pink-50 to-cyan-50 border border-pink-200 rounded-2xl p-12 text-center">
+            <div className="text-3xl font-black mb-3 text-grad-brand" style={{ fontFamily: 'Inter, sans-serif' }}>THANK YOU!</div>
+            <div className="text-[var(--color-pc-ink)] mb-2">メールアプリを起動しました。</div>
+            <div className="text-sm text-[var(--color-pc-sub)]">起動しない場合は <a href={`mailto:${COMPANY.email}`} className="text-pink-600 underline font-bold">{COMPANY.email}</a> まで直接お送りください。</div>
+            <button onClick={() => setSubmitted(false)} className="mt-6 text-xs tracking-widest border border-[var(--color-pc-line)] text-[var(--color-pc-sub)] px-5 py-2 rounded-full hover:bg-white">フォームに戻る</button>
           </div>
         ) : (
-          <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="grid gap-5">
+          <form onSubmit={handleSubmit} className="grid gap-5">
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs font-bold mb-2 tracking-wider">お名前 <span className="text-[var(--color-pc-pink)]">*</span></label>
-                <input required className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="山田 太郎" />
+                <input required name="name" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="山田 太郎" />
               </div>
               <div>
                 <label className="block text-xs font-bold mb-2 tracking-wider">会社名</label>
-                <input className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="株式会社○○" />
+                <input name="company" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="株式会社○○" />
               </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs font-bold mb-2 tracking-wider">電話番号 <span className="text-[var(--color-pc-pink)]">*</span></label>
-                <input required type="tel" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="090-0000-0000" />
+                <input required type="tel" name="tel" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="090-0000-0000" />
               </div>
               <div>
                 <label className="block text-xs font-bold mb-2 tracking-wider">メール <span className="text-[var(--color-pc-pink)]">*</span></label>
-                <input required type="email" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="example@email.com" />
+                <input required type="email" name="email" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="example@email.com" />
               </div>
             </div>
             <div>
               <label className="block text-xs font-bold mb-2 tracking-wider">ご相談内容</label>
-              <select className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors">
+              <select name="subject" defaultValue="HP制作・運用について" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors">
                 <option>SNS運用について</option>
                 <option>アプリ開発について</option>
                 <option>建設施工について</option>
@@ -1504,11 +1509,14 @@ function ContactForm() {
             </div>
             <div>
               <label className="block text-xs font-bold mb-2 tracking-wider">メッセージ</label>
-              <textarea rows={6} className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors resize-y" placeholder="お気軽にどうぞ。" />
+              <textarea rows={6} name="message" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors resize-y" placeholder="お気軽にどうぞ。" />
             </div>
-            <button type="submit" className="bg-[var(--color-pc-pink)] hover:bg-[var(--color-pc-pink-dark)] text-white py-4 text-sm font-bold tracking-widest rounded-full transition-colors flex items-center justify-center gap-2 mt-4">
-              送信する <ChevronRight className="w-4 h-4" />
+            <button type="submit" className="bg-grad-brand hover:opacity-90 text-white py-4 text-sm font-bold tracking-widest rounded-full transition-opacity flex items-center justify-center gap-2 mt-4">
+              送信する（メールアプリが起動します） <ChevronRight className="w-4 h-4" />
             </button>
+            <div className="text-[11px] text-[var(--color-pc-sub)] text-center -mt-2">
+              ※ 送信ボタンを押すとお使いのメールアプリが起動し、フォーム内容が宛先 <span className="font-bold text-[var(--color-pc-ink)]">{COMPANY.email}</span> に向けて自動入力されます。
+            </div>
           </form>
         )}
       </div>
@@ -1611,21 +1619,33 @@ type Route =
   | { kind: 'demo'; slug: string }
   | { kind: 'service'; slug: string }
 
-function useHashRoute(): Route {
-  const [hash, setHash] = useState(() => window.location.hash)
-  useEffect(() => {
-    const onHash = () => {
-      setHash(window.location.hash)
-      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-    }
-    window.addEventListener('hashchange', onHash)
-    return () => window.removeEventListener('hashchange', onHash)
-  }, [])
+function parseRoute(hash: string): Route {
   const demo = hash.match(/^#\/demo\/([\w-]+)/)
   if (demo) return { kind: 'demo', slug: demo[1] }
   const svc = hash.match(/^#\/service\/([\w-]+)/)
   if (svc) return { kind: 'service', slug: svc[1] }
   return { kind: 'home' }
+}
+
+function useHashRoute(): Route {
+  const [hash, setHash] = useState(() => window.location.hash)
+  useEffect(() => {
+    let prevKind = parseRoute(window.location.hash).kind
+    const onHash = () => {
+      const newHash = window.location.hash
+      const newKind = parseRoute(newHash).kind
+      setHash(newHash)
+      // Only scroll-to-top when the route kind changes (e.g. enter/leave demo/service pages).
+      // For in-page anchors like #contact, let the browser's native scroll-to-anchor work.
+      if (newKind !== prevKind) {
+        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+      }
+      prevKind = newKind
+    }
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+  return parseRoute(hash)
 }
 
 export default function App() {
@@ -1664,7 +1684,6 @@ export default function App() {
       <SectionHP />
       <SectionServicesGrid />
       <WhyPolaris />
-      <News />
       <ContactBand />
       <ContactForm />
       <Footer />
