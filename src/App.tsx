@@ -45,8 +45,11 @@ const COMPANY = {
   corpNumber: '9012401041381',
   zip: '〒183-0035',
   addr: '東京都府中市四谷3丁目30番地の8 – 2F',
-  tel: '03-XXXX-XXXX',
-  email: 'info@polaris-creative.co.jp',
+  tel: '042-365-5532',
+  telSales: '080-4796-3797',
+  email: 'tenchosan346@gmail.com',
+  director: '取締役社長　斉藤 誓良（ちから）',
+  founded: '2024年2月',
 }
 
 const NAV: { label: string; href: string }[] = [
@@ -115,23 +118,24 @@ const HP_TEMPLATES = [
 ]
 
 const HP_OPTIONS = [
-  { name: '追加ページ',                   price: '¥15,000〜 / 1ページ' },
-  { name: 'ロゴ制作',                     price: '¥30,000〜' },
-  { name: '撮影（スチール）',             price: '¥50,000〜 / 半日' },
-  { name: '撮影（動画）',                 price: '¥100,000〜 / 半日' },
-  { name: 'SEO対策（基本セット）',        price: '¥50,000〜' },
-  { name: '多言語対応（1言語追加）',      price: '¥50,000〜' },
-  { name: 'お問い合わせフォーム拡張',     price: '¥30,000〜' },
-  { name: 'ブログ・お知らせCMS導入',      price: '¥50,000〜' },
-  { name: '予約システム連携',             price: '¥80,000〜' },
-  { name: 'EC（Shopify / Stripe）連携',   price: '¥100,000〜' },
+  { name: '追加ページ',                   price: '¥7,500〜 / 1ページ',   market: '相場 ¥15,000' },
+  { name: 'ロゴ制作',                     price: '¥15,000〜',            market: '相場 ¥30,000' },
+  { name: '撮影（スチール）',             price: '¥25,000〜 / 半日',     market: '相場 ¥50,000' },
+  { name: '撮影（動画）',                 price: '¥50,000〜 / 半日',     market: '相場 ¥100,000' },
+  { name: 'SEO対策（基本セット）',        price: '¥25,000〜',            market: '相場 ¥50,000' },
+  { name: '多言語対応（1言語追加）',      price: '¥25,000〜',            market: '相場 ¥50,000' },
+  { name: 'お問い合わせフォーム拡張',     price: '¥15,000〜',            market: '相場 ¥30,000' },
+  { name: 'ブログ・お知らせCMS導入',      price: '¥25,000〜',            market: '相場 ¥50,000' },
+  { name: '予約システム連携',             price: '¥40,000〜',            market: '相場 ¥80,000' },
+  { name: 'EC（Shopify / Stripe）連携',   price: '¥50,000〜',            market: '相場 ¥100,000' },
 ]
 
-const STATS = [
-  { num: '5', unit: '事業', label: 'ワンストップ提供' },
-  { num: '24', unit: 'h', label: '即レス対応' },
-  { num: '100%', unit: '', label: '内製完結' },
-  { num: '∞', unit: '', label: '伸びしろ' },
+const REASONS = [
+  { num: '01', title: '相場の半額',     desc: 'HP制作の追加料金は業界相場のおよそ半額。明朗会計でコストを抑えます。' },
+  { num: '02', title: '完全内製ワンストップ', desc: '企画・撮影・実装・運用まで全て内製。複数業者を挟まないから速い・安い・責任が明確。' },
+  { num: '03', title: '建設×IT のクロス事業', desc: '建設施工とWeb・SNS・AIを横断する稀有な総合企業。業種を超えた提案が可能。' },
+  { num: '04', title: '最短1週間納品',   desc: 'HP制作は最短1週間で公開可能。SNSも即日始動。営業のスピードに追従します。' },
+  { num: '05', title: '経営者目線で提案', desc: '「作って終わり」ではなく、売上と運用に直結する提案。経営課題を一緒に解きます。' },
 ]
 
 const NEWS_ITEMS = [
@@ -145,9 +149,14 @@ const NEWS_ITEMS = [
    ============================================================ */
 const Logo = ({ dark = false }: { dark?: boolean }) => (
   <div className="flex items-center gap-2.5">
-    <svg viewBox="0 0 40 40" className="w-9 h-9">
-      <circle cx="20" cy="20" r="18" fill={dark ? '#1d1d1f' : '#d4001a'} />
-      <path d="M14 28 V13 H22 a4 4 0 0 1 0 8 H14" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 40 40" className="w-10 h-10">
+      <defs>
+        <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#ec4899" />
+          <stop offset="100%" stopColor="#06b6d4" />
+        </linearGradient>
+      </defs>
+      <path d="M20 3 L24.7 14.5 L37 15.5 L27.5 23.6 L30.5 35.5 L20 29 L9.5 35.5 L12.5 23.6 L3 15.5 L15.3 14.5 Z" fill="url(#logoGrad)" />
     </svg>
     <div className={`leading-tight ${dark ? 'text-white' : 'text-[var(--color-pc-ink)]'}`}>
       <div className="text-[15px] font-bold tracking-tight">{COMPANY.name}</div>
@@ -168,16 +177,16 @@ function Header({ onMenu, scrolled }: { onMenu: () => void; scrolled: boolean })
         <a href="#home" className="block"><Logo /></a>
         <nav className="hidden xl:flex items-center gap-7">
           {NAV.map((n) => (
-            <a key={n.href} href={n.href} className="text-[13px] text-[var(--color-pc-ink)] hover:text-[var(--color-pc-red)] transition-colors">
+            <a key={n.href} href={n.href} className="text-[13px] text-[var(--color-pc-ink)] hover:text-[var(--color-pc-pink)] transition-colors">
               {n.label}
             </a>
           ))}
         </nav>
         <div className="hidden lg:flex items-center gap-2">
-          <a href={`tel:${COMPANY.tel}`} className="hidden xl:flex items-center gap-1.5 text-[13px] text-[var(--color-pc-ink)] hover:text-[var(--color-pc-red)]">
+          <a href={`tel:${COMPANY.tel}`} className="hidden xl:flex items-center gap-1.5 text-[13px] text-[var(--color-pc-ink)] hover:text-[var(--color-pc-pink)]">
             <Phone className="w-3.5 h-3.5" /> {COMPANY.tel}
           </a>
-          <a href="#contact" className="bg-[var(--color-pc-red)] hover:bg-[var(--color-pc-red-dark)] text-white px-5 py-2.5 text-[13px] font-bold transition-colors flex items-center gap-1.5 rounded-full">
+          <a href="#contact" className="bg-[var(--color-pc-pink)] hover:bg-[var(--color-pc-pink-dark)] text-white px-5 py-2.5 text-[13px] font-bold transition-colors flex items-center gap-1.5 rounded-full">
             お問い合わせ <ChevronRight className="w-3.5 h-3.5" />
           </a>
         </div>
@@ -204,7 +213,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                 <span>{n.label}</span><ChevronRight className="w-4 h-4 text-[var(--color-pc-sub)]" />
               </a>
             ))}
-            <a href="#contact" onClick={onClose} className="mt-6 bg-[var(--color-pc-red)] text-white text-center py-4 rounded-full font-bold">
+            <a href="#contact" onClick={onClose} className="mt-6 bg-[var(--color-pc-pink)] text-white text-center py-4 rounded-full font-bold">
               お問い合わせ
             </a>
           </nav>
@@ -239,7 +248,7 @@ function HeroCarousel() {
         <div className="max-w-[1400px] mx-auto w-full px-6 lg:px-12">
           <AnimatePresence mode="wait">
             <motion.div key={idx} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.7 }} className="max-w-2xl">
-              <div className="text-[var(--color-pc-red)] text-xs lg:text-sm tracking-[0.4em] mb-5 font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <div className="text-[var(--color-pc-pink)] text-xs lg:text-sm tracking-[0.4em] mb-5 font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
                 {slide.eyebrow}
               </div>
               <h1 className="text-[var(--color-pc-ink)] text-[34px] lg:text-[64px] font-black leading-[1.15] mb-6 whitespace-pre-line">
@@ -252,7 +261,7 @@ function HeroCarousel() {
                 <a href="#business" className="bg-[var(--color-pc-ink)] hover:bg-black text-white px-7 py-3.5 text-sm font-bold transition-colors flex items-center gap-2 rounded-full">
                   事業を見る <ChevronRight className="w-4 h-4" />
                 </a>
-                <a href="#contact" className="bg-[var(--color-pc-red)] hover:bg-[var(--color-pc-red-dark)] text-white px-7 py-3.5 text-sm font-bold transition-colors flex items-center gap-2 rounded-full">
+                <a href="#contact" className="bg-[var(--color-pc-pink)] hover:bg-[var(--color-pc-pink-dark)] text-white px-7 py-3.5 text-sm font-bold transition-colors flex items-center gap-2 rounded-full">
                   お問い合わせ <ArrowUpRight className="w-4 h-4" />
                 </a>
               </div>
@@ -268,7 +277,7 @@ function HeroCarousel() {
       </button>
       <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex gap-2 z-10">
         {HERO_SLIDES.map((_, i) => (
-          <button key={i} onClick={() => setIdx(i)} className={`h-1 transition-all rounded-full ${i === idx ? 'w-10 bg-[var(--color-pc-red)]' : 'w-5 bg-[var(--color-pc-ink)]/30'}`} aria-label={`スライド ${i + 1}`} />
+          <button key={i} onClick={() => setIdx(i)} className={`h-1 transition-all rounded-full ${i === idx ? 'w-10 bg-[var(--color-pc-pink)]' : 'w-5 bg-[var(--color-pc-ink)]/30'}`} aria-label={`スライド ${i + 1}`} />
         ))}
       </div>
     </section>
@@ -286,10 +295,10 @@ function BusinessIcons() {
           {BUSINESSES.map((b) => (
             <li key={b.id}>
               <a href={`#${b.id}`} className="group flex flex-col items-center text-center">
-                <div className="w-14 h-14 lg:w-20 lg:h-20 rounded-full bg-[var(--color-pc-bg)] group-hover:bg-[var(--color-pc-red)] flex items-center justify-center transition-colors mb-2 lg:mb-3">
+                <div className="w-14 h-14 lg:w-20 lg:h-20 rounded-full bg-[var(--color-pc-bg)] group-hover:bg-[var(--color-pc-pink)] flex items-center justify-center transition-colors mb-2 lg:mb-3">
                   <b.icon className="w-6 h-6 lg:w-9 lg:h-9 text-[var(--color-pc-ink)] group-hover:text-white transition-colors" strokeWidth={1.5} />
                 </div>
-                <div className="text-[11px] lg:text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-red)] transition-colors leading-tight">
+                <div className="text-[11px] lg:text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors leading-tight">
                   {b.jp}
                 </div>
                 <div className="text-[9px] lg:text-[10px] tracking-[0.2em] text-[var(--color-pc-sub)] mt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -310,10 +319,10 @@ function BusinessIcons() {
 function SectionHeading({ en, jp, sub }: { en: string; jp: string; sub?: string }) {
   return (
     <div className="mb-12 lg:mb-16">
-      <div className="text-[var(--color-pc-red)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>{en}</div>
+      <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>{en}</div>
       <h2 className="text-3xl lg:text-5xl font-black text-[var(--color-pc-ink)] leading-tight">{jp}</h2>
       {sub && <p className="text-[var(--color-pc-sub)] text-sm lg:text-base mt-4 leading-relaxed max-w-3xl">{sub}</p>}
-      <div className="w-12 h-[3px] bg-[var(--color-pc-red)] mt-6" />
+      <div className="w-12 h-[3px] bg-[var(--color-pc-pink)] mt-6" />
     </div>
   )
 }
@@ -328,7 +337,7 @@ function PriceCard({ unit, price, note, cta = '相談する' }: { unit: string; 
         <span className="text-base text-[var(--color-pc-ink)]">〜</span>
       </div>
       <div className="text-xs text-[var(--color-pc-sub)] mb-6">{note}</div>
-      <a href="#contact" className="block w-full bg-[var(--color-pc-red)] hover:bg-[var(--color-pc-red-dark)] text-white text-center py-3 text-sm font-bold rounded-full transition-colors">
+      <a href="#contact" className="block w-full bg-[var(--color-pc-pink)] hover:bg-[var(--color-pc-pink-dark)] text-white text-center py-3 text-sm font-bold rounded-full transition-colors">
         {cta} →
       </a>
     </div>
@@ -345,8 +354,34 @@ function SectionSNS() {
         <SectionHeading
           en="01 — SNS BUSINESS"
           jp="SNS運用代行"
-          sub="YouTube・TikTok を中心に、企画・撮影・編集・投稿・分析までワンストップ。バズらせて終わりではなく、ファンと売上に変える運用を。"
+          sub="YouTube・TikTok を中心に、企画・撮影・編集・投稿・分析までワンストップ。30社以上の運用実績、自社で総フォロワー200万人を抱える運用ノウハウを、御社の集客に。"
         />
+        <div className="grid grid-cols-3 gap-3 mb-10">
+          <div className="bg-grad-brand text-white p-5 lg:p-7 text-center rounded-lg">
+            <div className="text-[10px] tracking-widest opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>YOUTUBE</div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-3xl lg:text-5xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>150</span>
+              <span className="text-base font-bold">万人</span>
+            </div>
+            <div className="text-[10px] lg:text-xs opacity-90 mt-1">登録者数</div>
+          </div>
+          <div className="bg-grad-brand text-white p-5 lg:p-7 text-center rounded-lg">
+            <div className="text-[10px] tracking-widest opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TIKTOK</div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-3xl lg:text-5xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>36</span>
+              <span className="text-base font-bold">万人</span>
+            </div>
+            <div className="text-[10px] lg:text-xs opacity-90 mt-1">フォロワー</div>
+          </div>
+          <div className="bg-[var(--color-pc-ink)] text-white p-5 lg:p-7 text-center rounded-lg">
+            <div className="text-[10px] tracking-widest text-[var(--color-pc-pink)] mb-2 font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>TOTAL REACH</div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-3xl lg:text-5xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>200</span>
+              <span className="text-base font-bold">万人</span>
+            </div>
+            <div className="text-[10px] lg:text-xs opacity-80 mt-1">総フォロワー</div>
+          </div>
+        </div>
         <div className="grid lg:grid-cols-3 gap-6 mb-10">
           <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">
             <div className="bg-[var(--color-pc-bg)] p-7 rounded-lg">
@@ -355,12 +390,15 @@ function SectionSNS() {
               <div className="text-xs text-[var(--color-pc-sub)] mb-4 tracking-widest" style={{ fontFamily: 'Inter, sans-serif' }}>SUBSCRIBERS / VIEWS</div>
               <ul className="text-sm space-y-2">
                 {['チャンネル設計・初期構築', '台本・構成作成', '撮影・編集（4K対応）', 'サムネイル制作', 'SEO・分析レポート'].map((t) => (
-                  <li key={t} className="flex items-start gap-2"><Check className="w-4 h-4 text-[var(--color-pc-red)] mt-0.5 flex-shrink-0" /><span>{t}</span></li>
+                  <li key={t} className="flex items-start gap-2"><Check className="w-4 h-4 text-[var(--color-pc-pink)] mt-0.5 flex-shrink-0" /><span>{t}</span></li>
                 ))}
               </ul>
               <div className="mt-5 pt-5 border-t border-[var(--color-pc-line)]">
-                <div className="text-xs text-[var(--color-pc-sub)]">登録者数</div>
-                <div className="text-2xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>○○○名</div>
+                <div className="text-xs text-[var(--color-pc-sub)]">自社運用チャンネル登録者</div>
+                <div className="flex items-baseline gap-1">
+                  <div className="text-2xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>1,500,000</div>
+                  <div className="text-sm">名</div>
+                </div>
               </div>
             </div>
             <div className="bg-[var(--color-pc-bg)] p-7 rounded-lg">
@@ -369,16 +407,22 @@ function SectionSNS() {
               <div className="text-xs text-[var(--color-pc-sub)] mb-4 tracking-widest" style={{ fontFamily: 'Inter, sans-serif' }}>FOLLOWERS / REACH</div>
               <ul className="text-sm space-y-2">
                 {['アカウント戦略立案', 'ショート動画企画', '撮影・編集', 'ハッシュタグ・トレンド分析', '投稿スケジュール運用'].map((t) => (
-                  <li key={t} className="flex items-start gap-2"><Check className="w-4 h-4 text-[var(--color-pc-red)] mt-0.5 flex-shrink-0" /><span>{t}</span></li>
+                  <li key={t} className="flex items-start gap-2"><Check className="w-4 h-4 text-[var(--color-pc-pink)] mt-0.5 flex-shrink-0" /><span>{t}</span></li>
                 ))}
               </ul>
               <div className="mt-5 pt-5 border-t border-[var(--color-pc-line)]">
-                <div className="text-xs text-[var(--color-pc-sub)]">フォロワー数</div>
-                <div className="text-2xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>○○○名</div>
+                <div className="text-xs text-[var(--color-pc-sub)]">自社運用アカウントフォロワー</div>
+                <div className="flex items-baseline gap-1">
+                  <div className="text-2xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>360,000</div>
+                  <div className="text-sm">名</div>
+                </div>
               </div>
             </div>
           </div>
-          <PriceCard unit="月額" price="¥100,000" note="プラン・対応範囲は要相談" />
+          <PriceCard unit="月額" price="¥100,000" note="運用代行プラン・撮影回数等は要相談" />
+        </div>
+        <div className="text-center mt-4 text-xs text-[var(--color-pc-sub)]">
+          ※ 数値は自社運用アカウント実績。30社以上のクライアント運用経験あり。
         </div>
       </div>
     </section>
@@ -395,12 +439,12 @@ function SectionApp() {
         <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=2000&q=80" alt="" className="w-full h-full object-cover" />
       </div>
       <div className="relative max-w-[1280px] mx-auto">
-        <div className="text-[var(--color-pc-red)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>02 — APP DEVELOPMENT</div>
+        <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>02 — APP DEVELOPMENT</div>
         <h2 className="text-3xl lg:text-5xl font-black mb-6">アプリ開発事業</h2>
-        <div className="w-12 h-[3px] bg-[var(--color-pc-red)] mb-10" />
+        <div className="w-12 h-[3px] bg-[var(--color-pc-pink)] mb-10" />
         <div className="grid lg:grid-cols-[2fr_1fr] gap-10 items-end">
           <div>
-            <div className="inline-block bg-[var(--color-pc-red)] text-white text-xs tracking-[0.3em] font-bold px-4 py-1.5 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <div className="inline-block bg-[var(--color-pc-pink)] text-white text-xs tracking-[0.3em] font-bold px-4 py-1.5 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
               COMING SOON
             </div>
             <p className="text-white/80 text-base lg:text-lg leading-relaxed max-w-2xl">
@@ -410,7 +454,7 @@ function SectionApp() {
             </p>
           </div>
           <div className="text-right">
-            <a href="#contact" className="inline-flex items-center gap-2 text-sm tracking-widest border-b border-white/40 pb-1 hover:text-[var(--color-pc-red)] hover:border-[var(--color-pc-red)] transition-colors">
+            <a href="#contact" className="inline-flex items-center gap-2 text-sm tracking-widest border-b border-white/40 pb-1 hover:text-[var(--color-pc-pink)] hover:border-[var(--color-pc-pink)] transition-colors">
               先行相談する <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
@@ -435,8 +479,34 @@ function SectionConstruction() {
         <SectionHeading
           en="03 — CONSTRUCTION BUSINESS"
           jp="建設事業"
-          sub="コンクリート切断・穿孔の特殊施工。安全と精度を最優先に、現場のニーズに応えます。"
+          sub="コンクリート切断・穿孔の特殊施工。創業以来 20,000件以上の施工実績。大手公共工事の現場経験で培った精度と安全性で対応します。"
         />
+
+        {/* Construction stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
+          <div className="bg-white p-5 lg:p-6 text-center">
+            <div className="text-[10px] tracking-widest text-[var(--color-pc-pink)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TOTAL WORKS</div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-3xl lg:text-4xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>20,000</span>
+              <span className="text-sm font-bold">件 +</span>
+            </div>
+            <div className="text-[10px] text-[var(--color-pc-sub)] mt-1">累計施工実績</div>
+          </div>
+          <div className="bg-white p-5 lg:p-6 text-center">
+            <div className="text-[10px] tracking-widest text-[var(--color-pc-cyan)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>AREA</div>
+            <div className="text-2xl lg:text-3xl font-black mt-1">首都圏</div>
+            <div className="text-[10px] text-[var(--color-pc-sub)] mt-1">関東圏も出張対応可</div>
+          </div>
+          <div className="bg-white p-5 lg:p-6 text-center col-span-2 lg:col-span-1">
+            <div className="text-[10px] tracking-widest text-[var(--color-pc-pink)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>MAJOR PROJECT</div>
+            <div className="text-sm lg:text-base font-bold leading-tight">大手町駅<br />改修工事</div>
+          </div>
+          <div className="bg-white p-5 lg:p-6 text-center col-span-2 lg:col-span-1">
+            <div className="text-[10px] tracking-widest text-[var(--color-pc-pink)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>MAJOR PROJECT</div>
+            <div className="text-sm lg:text-base font-bold leading-tight">横浜都営住宅<br />改修工事</div>
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-3 gap-5">
           {items.map((it, i) => (
             <div key={it.name} className="bg-white overflow-hidden group">
@@ -444,7 +514,7 @@ function SectionConstruction() {
                 <img src={`https://images.unsplash.com/${it.img}?auto=format&fit=crop&w=800&q=80`} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="p-6">
-                <div className="text-[var(--color-pc-red)] text-xs tracking-widest font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="text-[var(--color-pc-pink)] text-xs tracking-widest font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
                   METHOD 0{i + 1}
                 </div>
                 <div className="text-lg font-bold text-[var(--color-pc-ink)] mb-2 leading-tight">{it.name}</div>
@@ -473,8 +543,35 @@ function SectionHP() {
         <SectionHeading
           en="04 — WEB BUSINESS"
           jp="HP制作・運用"
-          sub="ヒアリングから設計・実装・公開・継続運用まで、ワンストップ内製。営業の現場で戦えるHPを、明朗会計でお届けします。"
+          sub="ヒアリングから設計・実装・公開・継続運用まで、ワンストップ内製。50社以上の制作実績、最短1週間納品。営業の現場で戦えるHPを、明朗会計でお届けします。"
         />
+
+        {/* HP stats */}
+        <div className="grid grid-cols-3 gap-3 mb-12">
+          <div className="bg-[var(--color-pc-bg)] p-5 lg:p-6 text-center">
+            <div className="text-[10px] tracking-widest text-[var(--color-pc-pink)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>PRODUCTION</div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-3xl lg:text-4xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>50</span>
+              <span className="text-sm font-bold">社 +</span>
+            </div>
+            <div className="text-[10px] text-[var(--color-pc-sub)] mt-1">制作実績</div>
+          </div>
+          <div className="bg-[var(--color-pc-bg)] p-5 lg:p-6 text-center">
+            <div className="text-[10px] tracking-widest text-[var(--color-pc-cyan)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>FASTEST</div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-3xl lg:text-4xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>1</span>
+              <span className="text-sm font-bold">週間〜</span>
+            </div>
+            <div className="text-[10px] text-[var(--color-pc-sub)] mt-1">最短納品</div>
+          </div>
+          <div className="bg-[var(--color-pc-bg)] p-5 lg:p-6 text-center">
+            <div className="text-[10px] tracking-widest text-[var(--color-pc-pink)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>HALF PRICE</div>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-3xl lg:text-4xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>1/2</span>
+            </div>
+            <div className="text-[10px] text-[var(--color-pc-sub)] mt-1">業界相場の半額</div>
+          </div>
+        </div>
 
         {/* Price cards */}
         <div className="grid md:grid-cols-2 gap-6 mb-20">
@@ -486,17 +583,17 @@ function SectionHP() {
               <span className="text-base">〜</span>
             </div>
             <div className="text-xs text-[var(--color-pc-sub)] mb-6">5ページ + 基本フォーム + 公開対応込み</div>
-            <a href="#contact" className="block w-full bg-[var(--color-pc-red)] hover:bg-[var(--color-pc-red-dark)] text-white text-center py-3 text-sm font-bold rounded-full transition-colors">無料お見積もり →</a>
+            <a href="#contact" className="block w-full bg-[var(--color-pc-pink)] hover:bg-[var(--color-pc-pink-dark)] text-white text-center py-3 text-sm font-bold rounded-full transition-colors">無料お見積もり →</a>
           </div>
           <div className="bg-[var(--color-pc-ink)] text-white p-7 lg:p-9">
-            <div className="text-xs tracking-[0.3em] text-[var(--color-pc-red)] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>HP MAINTENANCE</div>
+            <div className="text-xs tracking-[0.3em] text-[var(--color-pc-pink)] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>HP MAINTENANCE</div>
             <div className="text-sm text-white/70 mb-1">HP継続管理（月額）</div>
             <div className="flex items-baseline gap-1 mb-2">
               <span className="text-5xl lg:text-6xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>¥30,000</span>
               <span className="text-base">〜 / 月</span>
             </div>
             <div className="text-xs text-white/70 mb-6">更新代行・サーバー監視・セキュリティ対応・分析レポート</div>
-            <a href="#contact" className="block w-full bg-white hover:bg-[var(--color-pc-red)] hover:text-white text-[var(--color-pc-ink)] text-center py-3 text-sm font-bold rounded-full transition-colors">運用について相談 →</a>
+            <a href="#contact" className="block w-full bg-white hover:bg-[var(--color-pc-pink)] hover:text-white text-[var(--color-pc-ink)] text-center py-3 text-sm font-bold rounded-full transition-colors">運用について相談 →</a>
           </div>
         </div>
 
@@ -504,7 +601,7 @@ function SectionHP() {
         <div className="mb-20">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <div className="text-[var(--color-pc-red)] text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATES</div>
+              <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATES</div>
               <h3 className="text-2xl lg:text-3xl font-black">10業種のテンプレート</h3>
             </div>
             <div className="text-sm text-[var(--color-pc-sub)] hidden md:block">ベースから選んで、御社用にカスタマイズ。</div>
@@ -516,7 +613,7 @@ function SectionHP() {
                   <img src={`https://images.unsplash.com/${t.img}?auto=format&fit=crop&w=600&q=80`} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="text-[10px] tracking-widest text-[var(--color-pc-sub)]" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATE {String(i + 1).padStart(2, '0')}</div>
-                <div className="text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-red)] transition-colors">{t.name}</div>
+                <div className="text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors">{t.name}</div>
               </a>
             ))}
           </div>
@@ -525,19 +622,20 @@ function SectionHP() {
         {/* Options */}
         <div>
           <div className="mb-8">
-            <div className="text-[var(--color-pc-red)] text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>ADD-ON</div>
+            <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>ADD-ON</div>
             <h3 className="text-2xl lg:text-3xl font-black">追加オプション料金</h3>
           </div>
           <div className="border-t border-[var(--color-pc-line)]">
             {HP_OPTIONS.map((o) => (
-              <div key={o.name} className="flex items-center justify-between border-b border-[var(--color-pc-line)] py-4">
+              <div key={o.name} className="grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_auto] gap-4 items-center border-b border-[var(--color-pc-line)] py-4">
                 <div className="text-sm lg:text-base">{o.name}</div>
-                <div className="text-sm lg:text-base font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>{o.price}</div>
+                <div className="hidden lg:block text-xs text-[var(--color-pc-sub)] line-through" style={{ fontFamily: 'Inter, sans-serif' }}>{o.market}</div>
+                <div className="text-sm lg:text-base font-bold text-[var(--color-pc-pink)]" style={{ fontFamily: 'Inter, sans-serif' }}>{o.price}</div>
               </div>
             ))}
           </div>
           <div className="text-xs text-[var(--color-pc-sub)] mt-4">
-            ※ 上記は目安です。要件に応じてお見積もりいたします。
+            ※ 業界相場のおよそ <span className="text-[var(--color-pc-pink)] font-bold">半額</span> で提供しています。要件に応じて個別お見積もりいたします。
           </div>
         </div>
       </div>
@@ -567,12 +665,12 @@ function SectionAI() {
         />
         <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8">
           <div className="bg-white p-8 lg:p-10">
-            <div className="text-[var(--color-pc-red)] text-xs tracking-[0.4em] font-bold mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>SCOPE OF SUPPORT</div>
+            <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>SCOPE OF SUPPORT</div>
             <h3 className="text-xl lg:text-2xl font-bold mb-6">提供内容（一例）</h3>
             <ul className="grid sm:grid-cols-2 gap-3">
               {items.map((t) => (
                 <li key={t} className="flex items-start gap-2.5 text-sm">
-                  <Check className="w-4 h-4 text-[var(--color-pc-red)] mt-0.5 flex-shrink-0" /><span>{t}</span>
+                  <Check className="w-4 h-4 text-[var(--color-pc-pink)] mt-0.5 flex-shrink-0" /><span>{t}</span>
                 </li>
               ))}
             </ul>
@@ -592,22 +690,20 @@ function WhyPolaris() {
     <section className="py-20 lg:py-28 px-5 lg:px-12 bg-white">
       <div className="max-w-[1280px] mx-auto">
         <div className="text-center mb-14">
-          <div className="text-[var(--color-pc-red)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>WHY POLARIS</div>
+          <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>WHY POLARIS</div>
           <h2 className="text-3xl lg:text-4xl font-black">なぜ、ポラリスが選ばれるのか</h2>
-          <div className="w-12 h-[3px] bg-[var(--color-pc-red)] mx-auto mt-5" />
+          <div className="w-12 h-[3px] bg-grad-brand mx-auto mt-5" />
           <p className="text-[var(--color-pc-sub)] text-sm lg:text-base mt-6 max-w-2xl mx-auto">
             Web × SNS × AI × 建設をワンストップで内製対応。<br />
-            複数業者を間に挟まないから、速い・安い・責任が明確。
+            複数業者を間に挟まないから、速い・安い・責任が明確です。
           </p>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {STATS.map((s) => (
-            <div key={s.label} className="bg-[var(--color-pc-bg)] p-7 text-center">
-              <div className="flex items-baseline justify-center gap-1">
-                <span className="text-5xl lg:text-6xl font-black text-[var(--color-pc-ink)]" style={{ fontFamily: 'Inter, sans-serif' }}>{s.num}</span>
-                <span className="text-base text-[var(--color-pc-sub)]">{s.unit}</span>
-              </div>
-              <div className="text-xs lg:text-sm tracking-widest text-[var(--color-pc-sub)] mt-2">{s.label}</div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {REASONS.map((r) => (
+            <div key={r.num} className="bg-[var(--color-pc-bg)] p-7 lg:p-8 hover:shadow-lg transition-shadow group">
+              <div className="text-grad-brand text-3xl lg:text-4xl font-black mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>{r.num}</div>
+              <div className="text-lg lg:text-xl font-bold mb-3 group-hover:text-[var(--color-pc-pink)] transition-colors">{r.title}</div>
+              <div className="text-sm text-[var(--color-pc-sub)] leading-relaxed">{r.desc}</div>
             </div>
           ))}
         </div>
@@ -630,10 +726,10 @@ function News() {
       <div className="max-w-[1280px] mx-auto">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <div className="text-[var(--color-pc-red)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>INFORMATION</div>
+            <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>INFORMATION</div>
             <h2 className="text-3xl lg:text-4xl font-black">お知らせ・実績</h2>
           </div>
-          <a href="#" className="hidden md:inline-flex items-center gap-2 text-sm tracking-widest border-b border-[var(--color-pc-ink)] pb-1 hover:text-[var(--color-pc-red)] hover:border-[var(--color-pc-red)] transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <a href="#" className="hidden md:inline-flex items-center gap-2 text-sm tracking-widest border-b border-[var(--color-pc-ink)] pb-1 hover:text-[var(--color-pc-pink)] hover:border-[var(--color-pc-pink)] transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
             VIEW ALL <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
@@ -645,7 +741,7 @@ function News() {
                 <span className="text-[10px] tracking-widest font-bold border border-[var(--color-pc-ink)] text-[var(--color-pc-ink)] px-2 py-1 text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
                   {cats[n.cat]}
                 </span>
-                <span className="text-sm lg:text-base font-medium text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-red)] transition-colors">{n.title}</span>
+                <span className="text-sm lg:text-base font-medium text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors">{n.title}</span>
                 <ChevronRight className="hidden lg:block w-4 h-4 text-[var(--color-pc-sub)]" />
               </a>
             </li>
@@ -664,16 +760,19 @@ function ContactBand() {
     <section className="py-16 lg:py-20 px-5 lg:px-12 bg-[var(--color-pc-ink)] text-white">
       <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
         <div>
-          <div className="text-[var(--color-pc-red)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>CONTACT US</div>
+          <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>CONTACT US</div>
           <h2 className="text-3xl lg:text-5xl font-black leading-tight">
             まずは、お気軽に<br />ご相談ください。
           </h2>
         </div>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <a href={`tel:${COMPANY.tel}`} className="bg-white text-[var(--color-pc-ink)] hover:bg-[var(--color-pc-red)] hover:text-white px-7 py-4 text-base font-bold flex items-center gap-2 rounded-full transition-colors">
-            <Phone className="w-4 h-4" />{COMPANY.tel}
+        <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
+          <a href={`tel:${COMPANY.tel}`} className="bg-white text-[var(--color-pc-ink)] hover:bg-[var(--color-pc-pink)] hover:text-white px-6 py-4 text-sm lg:text-base font-bold flex items-center gap-2 rounded-full transition-colors">
+            <Phone className="w-4 h-4" />代表 {COMPANY.tel}
           </a>
-          <a href="#contact" className="bg-[var(--color-pc-red)] hover:bg-[var(--color-pc-red-dark)] text-white px-7 py-4 text-base font-bold flex items-center gap-2 rounded-full transition-colors">
+          <a href={`tel:${COMPANY.telSales}`} className="bg-white text-[var(--color-pc-ink)] hover:bg-[var(--color-pc-cyan)] hover:text-white px-6 py-4 text-sm lg:text-base font-bold flex items-center gap-2 rounded-full transition-colors">
+            <Phone className="w-4 h-4" />営業 {COMPANY.telSales}
+          </a>
+          <a href="#contact" className="bg-grad-brand hover:opacity-90 text-white px-7 py-4 text-sm lg:text-base font-bold flex items-center gap-2 rounded-full transition-opacity">
             お問い合わせフォーム <ArrowRight className="w-4 h-4" />
           </a>
         </div>
@@ -690,7 +789,7 @@ function ContactForm() {
         <SectionHeading en="CONTACT FORM" jp="お問い合わせ" sub="ご相談・お見積もり・採用・取材依頼など、お気軽にお送りください。担当者より24時間以内にご連絡いたします。" />
         {submitted ? (
           <div className="bg-[var(--color-pc-bg)] p-12 text-center">
-            <div className="text-3xl font-black mb-3 text-[var(--color-pc-red)]" style={{ fontFamily: 'Inter, sans-serif' }}>THANK YOU!</div>
+            <div className="text-3xl font-black mb-3 text-[var(--color-pc-pink)]" style={{ fontFamily: 'Inter, sans-serif' }}>THANK YOU!</div>
             <div className="text-[var(--color-pc-ink)]">お問い合わせありがとうございます。</div>
             <div className="text-sm text-[var(--color-pc-sub)] mt-2">担当者より24時間以内にご連絡いたします。</div>
           </div>
@@ -698,27 +797,27 @@ function ContactForm() {
           <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="grid gap-5">
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold mb-2 tracking-wider">お名前 <span className="text-[var(--color-pc-red)]">*</span></label>
-                <input required className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-red)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="山田 太郎" />
+                <label className="block text-xs font-bold mb-2 tracking-wider">お名前 <span className="text-[var(--color-pc-pink)]">*</span></label>
+                <input required className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="山田 太郎" />
               </div>
               <div>
                 <label className="block text-xs font-bold mb-2 tracking-wider">会社名</label>
-                <input className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-red)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="株式会社○○" />
+                <input className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="株式会社○○" />
               </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold mb-2 tracking-wider">電話番号 <span className="text-[var(--color-pc-red)]">*</span></label>
-                <input required type="tel" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-red)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="090-0000-0000" />
+                <label className="block text-xs font-bold mb-2 tracking-wider">電話番号 <span className="text-[var(--color-pc-pink)]">*</span></label>
+                <input required type="tel" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="090-0000-0000" />
               </div>
               <div>
-                <label className="block text-xs font-bold mb-2 tracking-wider">メール <span className="text-[var(--color-pc-red)]">*</span></label>
-                <input required type="email" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-red)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="example@email.com" />
+                <label className="block text-xs font-bold mb-2 tracking-wider">メール <span className="text-[var(--color-pc-pink)]">*</span></label>
+                <input required type="email" className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors" placeholder="example@email.com" />
               </div>
             </div>
             <div>
               <label className="block text-xs font-bold mb-2 tracking-wider">ご相談内容</label>
-              <select className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-red)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors">
+              <select className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors">
                 <option>SNS運用について</option>
                 <option>アプリ開発について</option>
                 <option>建設施工について</option>
@@ -730,9 +829,9 @@ function ContactForm() {
             </div>
             <div>
               <label className="block text-xs font-bold mb-2 tracking-wider">メッセージ</label>
-              <textarea rows={6} className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-red)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors resize-y" placeholder="お気軽にどうぞ。" />
+              <textarea rows={6} className="w-full bg-[var(--color-pc-bg)] border border-transparent focus:border-[var(--color-pc-pink)] focus:bg-white px-4 py-3 text-sm focus:outline-none transition-colors resize-y" placeholder="お気軽にどうぞ。" />
             </div>
-            <button type="submit" className="bg-[var(--color-pc-red)] hover:bg-[var(--color-pc-red-dark)] text-white py-4 text-sm font-bold tracking-widest rounded-full transition-colors flex items-center justify-center gap-2 mt-4">
+            <button type="submit" className="bg-[var(--color-pc-pink)] hover:bg-[var(--color-pc-pink-dark)] text-white py-4 text-sm font-bold tracking-widest rounded-full transition-colors flex items-center justify-center gap-2 mt-4">
               送信する <ChevronRight className="w-4 h-4" />
             </button>
           </form>
@@ -783,9 +882,12 @@ function Footer() {
             <table className="mt-6 text-xs lg:text-sm text-[var(--color-pc-ink)]">
               <tbody>
                 <tr><th className="text-left text-[var(--color-pc-sub)] font-medium align-top pr-4 pb-2 whitespace-nowrap">商号</th><td className="pb-2">{COMPANY.name}</td></tr>
+                <tr><th className="text-left text-[var(--color-pc-sub)] font-medium align-top pr-4 pb-2 whitespace-nowrap">代表者</th><td className="pb-2">{COMPANY.director}</td></tr>
+                <tr><th className="text-left text-[var(--color-pc-sub)] font-medium align-top pr-4 pb-2 whitespace-nowrap">設立</th><td className="pb-2" style={{ fontFamily: 'Inter, sans-serif' }}>{COMPANY.founded}</td></tr>
                 <tr><th className="text-left text-[var(--color-pc-sub)] font-medium align-top pr-4 pb-2 whitespace-nowrap">法人番号</th><td className="pb-2" style={{ fontFamily: 'Inter, sans-serif' }}>{COMPANY.corpNumber}</td></tr>
                 <tr><th className="text-left text-[var(--color-pc-sub)] font-medium align-top pr-4 pb-2 whitespace-nowrap">所在地</th><td className="pb-2">{COMPANY.zip}<br />{COMPANY.addr}</td></tr>
-                <tr><th className="text-left text-[var(--color-pc-sub)] font-medium align-top pr-4 pb-2 whitespace-nowrap">連絡先</th><td className="pb-2">Tel：{COMPANY.tel}<br />Mail：{COMPANY.email}</td></tr>
+                <tr><th className="text-left text-[var(--color-pc-sub)] font-medium align-top pr-4 pb-2 whitespace-nowrap">電話</th><td className="pb-2" style={{ fontFamily: 'Inter, sans-serif' }}>{COMPANY.tel}<br />営業：{COMPANY.telSales}</td></tr>
+                <tr><th className="text-left text-[var(--color-pc-sub)] font-medium align-top pr-4 pb-2 whitespace-nowrap">メール</th><td className="pb-2" style={{ fontFamily: 'Inter, sans-serif' }}>{COMPANY.email}</td></tr>
               </tbody>
             </table>
             <div className="flex gap-2 mt-5">
@@ -796,7 +898,7 @@ function Footer() {
                 { Icon: IconX,         label: 'X' },
                 { Icon: IconLine,      label: 'LINE' },
               ].map(({ Icon, label }) => (
-                <a key={label} href="#" aria-label={label} className="w-9 h-9 rounded-full border border-[var(--color-pc-line)] hover:bg-[var(--color-pc-red)] hover:border-[var(--color-pc-red)] hover:text-white text-[var(--color-pc-ink)] flex items-center justify-center transition-colors">
+                <a key={label} href="#" aria-label={label} className="w-9 h-9 rounded-full border border-[var(--color-pc-line)] hover:bg-[var(--color-pc-pink)] hover:border-[var(--color-pc-pink)] hover:text-white text-[var(--color-pc-ink)] flex items-center justify-center transition-colors">
                   <Icon className="w-4 h-4" />
                 </a>
               ))}
@@ -808,7 +910,7 @@ function Footer() {
                 <div className="text-xs tracking-[0.3em] text-[var(--color-pc-sub)] font-bold mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>{c.title.toUpperCase()}</div>
                 <ul className="space-y-2.5 text-sm">
                   {c.links.map((l) => (
-                    <li key={l.label}><a href={l.href} className="text-[var(--color-pc-ink)] hover:text-[var(--color-pc-red)] transition-colors">{l.label}</a></li>
+                    <li key={l.label}><a href={l.href} className="text-[var(--color-pc-ink)] hover:text-[var(--color-pc-pink)] transition-colors">{l.label}</a></li>
                   ))}
                 </ul>
               </div>
