@@ -3,6 +3,12 @@ import RestaurantPremiumDemo from './templates/RestaurantPremiumDemo'
 import SalonPremiumDemo from './templates/SalonPremiumDemo'
 import ClinicPremiumDemo from './templates/ClinicPremiumDemo'
 import BuilderPremiumDemo from './templates/BuilderPremiumDemo'
+import LawPremiumDemo from './templates/LawPremiumDemo'
+import SchoolPremiumDemo from './templates/SchoolPremiumDemo'
+import ShopPremiumDemo from './templates/ShopPremiumDemo'
+import CorpPremiumDemo from './templates/CorpPremiumDemo'
+import RecruitPremiumDemo from './templates/RecruitPremiumDemo'
+import EventPremiumDemo from './templates/EventPremiumDemo'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   Menu, X, ChevronRight, ChevronLeft, ArrowUpRight, Phone, MapPin,
@@ -1670,6 +1676,12 @@ export default function App() {
       if (t.slug === 'salon')      return <SalonPremiumDemo />
       if (t.slug === 'clinic')     return <ClinicPremiumDemo />
       if (t.slug === 'workshop')   return <BuilderPremiumDemo />
+      if (t.slug === 'law')        return <LawPremiumDemo />
+      if (t.slug === 'school')     return <SchoolPremiumDemo />
+      if (t.slug === 'ec')         return <ShopPremiumDemo />
+      if (t.slug === 'corp')       return <CorpPremiumDemo />
+      if (t.slug === 'recruit')    return <RecruitPremiumDemo />
+      if (t.slug === 'event')      return <EventPremiumDemo />
       return <DemoSite t={t} />
     }
   }
