@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import RestaurantPremiumDemo from './templates/RestaurantPremiumDemo'
+import SalonPremiumDemo from './templates/SalonPremiumDemo'
+import ClinicPremiumDemo from './templates/ClinicPremiumDemo'
+import BuilderPremiumDemo from './templates/BuilderPremiumDemo'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   Menu, X, ChevronRight, ChevronLeft, ArrowUpRight, Phone, MapPin,
@@ -1664,6 +1667,9 @@ export default function App() {
     const t = HP_TEMPLATES.find((x) => x.slug === route.slug)
     if (t) {
       if (t.slug === 'restaurant') return <RestaurantPremiumDemo />
+      if (t.slug === 'salon')      return <SalonPremiumDemo />
+      if (t.slug === 'clinic')     return <ClinicPremiumDemo />
+      if (t.slug === 'workshop')   return <BuilderPremiumDemo />
       return <DemoSite t={t} />
     }
   }
