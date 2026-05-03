@@ -3,7 +3,7 @@ import RestaurantPremiumDemo from './templates/RestaurantPremiumDemo'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   Menu, X, ChevronRight, ChevronLeft, ArrowUpRight, Phone, MapPin,
-  Megaphone, Smartphone, Hammer, Globe, Cpu, Check, ArrowRight,
+  Check, ArrowRight,
 } from 'lucide-react'
 
 /* ============================================================
@@ -55,13 +55,11 @@ const COMPANY = {
 
 const NAV: { label: string; href: string }[] = [
   { label: 'ホーム', href: '#home' },
-  { label: '事業内容', href: '#business' },
-  { label: 'SNS', href: '#sns' },
-  { label: 'アプリ', href: '#app' },
-  { label: '建設', href: '#construction' },
+  { label: '会社概要', href: '#about' },
+  { label: '代表', href: '#representative' },
   { label: 'HP制作', href: '#hp' },
-  { label: 'AI導入', href: '#ai' },
-  { label: '会社案内', href: '#company' },
+  { label: '事業紹介', href: '#services' },
+  { label: 'お問い合わせ', href: '#contact' },
 ]
 
 const HERO_SLIDES = [
@@ -95,14 +93,6 @@ const HERO_SLIDES = [
     title: 'AIを、業務の中心に。',
     desc: '導入から運用定着まで、現場目線で伴走するコンサル。',
   },
-]
-
-const BUSINESSES = [
-  { id: 'sns',           icon: Megaphone,  jp: 'SNS事業',         en: 'SNS', desc: 'YouTube・TikTok 運用代行' },
-  { id: 'app',           icon: Smartphone, jp: 'アプリ開発',       en: 'APP', desc: '事業企画から実装まで（準備中）' },
-  { id: 'construction',  icon: Hammer,     jp: '建設事業',         en: 'CONSTRUCTION', desc: '特殊施工・コアボーリング' },
-  { id: 'hp',            icon: Globe,      jp: 'HP制作',           en: 'WEB', desc: '制作・運用・テンプレート' },
-  { id: 'ai',            icon: Cpu,        jp: 'AI導入コンサル',   en: 'AI', desc: '業務自動化・チャットボット' },
 ]
 
 type DemoSection = { title: string; desc: string; img: string; price?: string }
@@ -468,53 +458,15 @@ function HeroCarousel() {
 }
 
 /* ============================================================
-   5 Business Icons (SoftBank-style row)
-   ============================================================ */
-function BusinessIcons() {
-  // Shorter labels for mobile to avoid wrapping
-  const shortJp: Record<string, string> = {
-    sns: 'SNS',
-    app: 'アプリ',
-    construction: '建設',
-    hp: 'HP制作',
-    ai: 'AIコンサル',
-  }
-  return (
-    <section id="business" className="bg-white border-b border-[var(--color-pc-line)]">
-      <div className="max-w-[1400px] mx-auto px-5 lg:px-12 py-10">
-        <ul className="grid grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
-          {BUSINESSES.map((b) => (
-            <li key={b.id}>
-              <a href={`#${b.id}`} className="group flex flex-col items-center text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full bg-[var(--color-pc-bg)] group-hover:bg-grad-brand flex items-center justify-center transition-colors mb-2 lg:mb-3">
-                  <b.icon className="w-5 h-5 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[var(--color-pc-ink)] group-hover:text-white transition-colors" strokeWidth={1.5} />
-                </div>
-                <div className="text-[10px] sm:text-xs lg:text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors leading-tight whitespace-nowrap">
-                  <span className="lg:hidden">{shortJp[b.id]}</span>
-                  <span className="hidden lg:inline">{b.jp}</span>
-                </div>
-                <div className="text-[8px] sm:text-[9px] lg:text-[10px] tracking-[0.2em] text-[var(--color-pc-sub)] mt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  {b.en}
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )
-}
-
-/* ============================================================
    Common: SectionHeading
    ============================================================ */
 function SectionHeading({ en, jp, sub }: { en: string; jp: string; sub?: string }) {
   return (
     <div className="mb-12 lg:mb-16">
-      <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>{en}</div>
+      <div className="text-grad-brand text-xs tracking-[0.4em] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>{en}</div>
       <h2 className="text-3xl lg:text-5xl font-black text-[var(--color-pc-ink)] leading-tight">{jp}</h2>
       {sub && <p className="text-[var(--color-pc-sub)] text-sm lg:text-base mt-4 leading-relaxed max-w-3xl">{sub}</p>}
-      <div className="w-12 h-[3px] bg-[var(--color-pc-pink)] mt-6" />
+      <div className="w-16 h-[3px] bg-grad-brand mt-6 rounded-full" />
     </div>
   )
 }
@@ -1061,62 +1013,73 @@ function TemplatesGrid() {
    ============================================================ */
 function SectionHP() {
   return (
-    <section id="hp" className="py-24 lg:py-32 px-5 lg:px-12 bg-white">
+    <section id="hp" className="relative py-24 lg:py-32 px-5 lg:px-12 overflow-hidden">
+      {/* Pink/cyan ambient background */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-pink-50/40 to-cyan-50/40" />
+      <div className="absolute top-1/4 -left-40 w-96 h-96 rounded-full bg-pink-300 opacity-15 blur-3xl -z-10" />
+      <div className="absolute bottom-1/4 -right-40 w-96 h-96 rounded-full bg-cyan-300 opacity-15 blur-3xl -z-10" />
+
       <div className="max-w-[1280px] mx-auto">
         <SectionHeading
-          en="04 — WEB BUSINESS"
+          en="WEB BUSINESS"
           jp="HP制作・運用"
           sub="ヒアリングから設計・実装・公開・継続運用まで、ワンストップ内製。50社以上の制作実績、最短1週間納品。営業の現場で戦えるHPを、明朗会計でお届けします。"
         />
 
-        {/* HP stats */}
-        <div className="grid grid-cols-3 gap-3 mb-12">
-          <div className="bg-[var(--color-pc-bg)] p-5 lg:p-6 text-center">
-            <div className="text-[10px] tracking-widest text-[var(--color-pc-pink)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>PRODUCTION</div>
+        {/* HP stats — pink / cyan / gradient */}
+        <div className="grid grid-cols-3 gap-3 mb-14">
+          <div className="bg-gradient-to-br from-pink-500 to-pink-400 text-white p-5 lg:p-7 text-center rounded-xl shadow-lg shadow-pink-200/50">
+            <div className="text-[10px] tracking-widest opacity-90 font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>PRODUCTION</div>
             <div className="flex items-baseline justify-center gap-1">
-              <span className="text-3xl lg:text-4xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>50</span>
+              <span className="text-3xl lg:text-5xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>50</span>
               <span className="text-sm font-bold">社 +</span>
             </div>
-            <div className="text-[10px] text-[var(--color-pc-sub)] mt-1">制作実績</div>
+            <div className="text-[10px] opacity-90 mt-1">制作実績</div>
           </div>
-          <div className="bg-[var(--color-pc-bg)] p-5 lg:p-6 text-center">
-            <div className="text-[10px] tracking-widest text-[var(--color-pc-cyan)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>FASTEST</div>
+          <div className="bg-gradient-to-br from-cyan-500 to-cyan-400 text-white p-5 lg:p-7 text-center rounded-xl shadow-lg shadow-cyan-200/50">
+            <div className="text-[10px] tracking-widest opacity-90 font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>FASTEST</div>
             <div className="flex items-baseline justify-center gap-1">
-              <span className="text-3xl lg:text-4xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>1</span>
+              <span className="text-3xl lg:text-5xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>1</span>
               <span className="text-sm font-bold">週間〜</span>
             </div>
-            <div className="text-[10px] text-[var(--color-pc-sub)] mt-1">最短納品</div>
+            <div className="text-[10px] opacity-90 mt-1">最短納品</div>
           </div>
-          <div className="bg-[var(--color-pc-bg)] p-5 lg:p-6 text-center">
-            <div className="text-[10px] tracking-widest text-[var(--color-pc-pink)] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>HALF PRICE</div>
+          <div className="bg-grad-brand text-white p-5 lg:p-7 text-center rounded-xl shadow-lg shadow-pink-200/50">
+            <div className="text-[10px] tracking-widest opacity-90 font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>HALF PRICE</div>
             <div className="flex items-baseline justify-center gap-1">
-              <span className="text-3xl lg:text-4xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>1/2</span>
+              <span className="text-3xl lg:text-5xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>1/2</span>
             </div>
-            <div className="text-[10px] text-[var(--color-pc-sub)] mt-1">業界相場の半額</div>
+            <div className="text-[10px] opacity-90 mt-1">業界相場の半額</div>
           </div>
         </div>
 
-        {/* Price cards */}
+        {/* Price cards — pink + cyan */}
         <div className="grid md:grid-cols-2 gap-6 mb-20">
-          <div className="bg-white border-2 border-[var(--color-pc-ink)] p-7 lg:p-9">
-            <div className="text-xs tracking-[0.3em] text-[var(--color-pc-sub)] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>HP CREATION</div>
-            <div className="text-sm text-[var(--color-pc-sub)] mb-1">HP制作（基本パッケージ）</div>
-            <div className="flex items-baseline gap-1 mb-2">
-              <span className="text-5xl lg:text-6xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>¥150,000</span>
-              <span className="text-base">〜</span>
+          <div className="bg-white border-2 border-pink-400 p-7 lg:p-9 rounded-2xl shadow-xl shadow-pink-100/50 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-pink-100 rounded-full -translate-y-12 translate-x-12 opacity-50" />
+            <div className="relative">
+              <div className="text-xs tracking-[0.3em] text-pink-600 font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>HP CREATION</div>
+              <div className="text-sm text-[var(--color-pc-sub)] mb-1">HP制作（基本パッケージ）</div>
+              <div className="flex items-baseline gap-1 mb-2">
+                <span className="text-5xl lg:text-6xl font-black text-pink-600" style={{ fontFamily: 'Inter, sans-serif' }}>¥150,000</span>
+                <span className="text-base">〜</span>
+              </div>
+              <div className="text-xs text-[var(--color-pc-sub)] mb-6">5ページ + 基本フォーム + 公開対応込み</div>
+              <a href="#contact" className="block w-full bg-grad-brand hover:opacity-90 text-white text-center py-3 text-sm font-bold rounded-full transition-opacity">無料お見積もり →</a>
             </div>
-            <div className="text-xs text-[var(--color-pc-sub)] mb-6">5ページ + 基本フォーム + 公開対応込み</div>
-            <a href="#contact" className="block w-full bg-[var(--color-pc-pink)] hover:bg-[var(--color-pc-pink-dark)] text-white text-center py-3 text-sm font-bold rounded-full transition-colors">無料お見積もり →</a>
           </div>
-          <div className="bg-[var(--color-pc-ink)] text-white p-7 lg:p-9">
-            <div className="text-xs tracking-[0.3em] text-[var(--color-pc-pink)] font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>HP MAINTENANCE</div>
-            <div className="text-sm text-white/70 mb-1">HP継続管理（月額）</div>
-            <div className="flex items-baseline gap-1 mb-2">
-              <span className="text-5xl lg:text-6xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>¥30,000</span>
-              <span className="text-base">〜 / 月</span>
+          <div className="bg-white border-2 border-cyan-400 p-7 lg:p-9 rounded-2xl shadow-xl shadow-cyan-100/50 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-100 rounded-full -translate-y-12 translate-x-12 opacity-50" />
+            <div className="relative">
+              <div className="text-xs tracking-[0.3em] text-cyan-600 font-bold mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>HP MAINTENANCE</div>
+              <div className="text-sm text-[var(--color-pc-sub)] mb-1">HP継続管理（月額）</div>
+              <div className="flex items-baseline gap-1 mb-2">
+                <span className="text-5xl lg:text-6xl font-black text-cyan-600" style={{ fontFamily: 'Inter, sans-serif' }}>¥30,000</span>
+                <span className="text-base">〜 / 月</span>
+              </div>
+              <div className="text-xs text-[var(--color-pc-sub)] mb-6">更新代行・サーバー監視・セキュリティ対応・分析レポート</div>
+              <a href="#contact" className="block w-full bg-cyan-500 hover:bg-cyan-600 text-white text-center py-3 text-sm font-bold rounded-full transition-colors">運用について相談 →</a>
             </div>
-            <div className="text-xs text-white/70 mb-6">更新代行・サーバー監視・セキュリティ対応・分析レポート</div>
-            <a href="#contact" className="block w-full bg-white hover:bg-[var(--color-pc-pink)] hover:text-white text-[var(--color-pc-ink)] text-center py-3 text-sm font-bold rounded-full transition-colors">運用について相談 →</a>
           </div>
         </div>
 
@@ -1124,22 +1087,25 @@ function SectionHP() {
         <TemplatesGrid />
 
         {/* Options */}
-        <div>
-          <div className="mb-8">
-            <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>ADD-ON</div>
-            <h3 className="text-2xl lg:text-3xl font-black">追加オプション料金</h3>
+        <div className="bg-white rounded-2xl border border-pink-100 p-6 lg:p-8 shadow-lg shadow-pink-100/30">
+          <div className="mb-8 flex items-end justify-between flex-wrap gap-3">
+            <div>
+              <div className="text-pink-600 text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>ADD-ON</div>
+              <h3 className="text-2xl lg:text-3xl font-black">追加オプション料金</h3>
+            </div>
+            <div className="bg-grad-brand text-white text-xs font-bold px-4 py-1.5 rounded-full" style={{ fontFamily: 'Inter, sans-serif' }}>業界相場の HALF</div>
           </div>
-          <div className="border-t border-[var(--color-pc-line)]">
+          <div className="border-t-2 border-pink-100">
             {HP_OPTIONS.map((o) => (
-              <div key={o.name} className="grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_auto] gap-4 items-center border-b border-[var(--color-pc-line)] py-4">
+              <div key={o.name} className="grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_auto] gap-4 items-center border-b border-pink-100 py-4">
                 <div className="text-sm lg:text-base">{o.name}</div>
                 <div className="hidden lg:block text-xs text-[var(--color-pc-sub)] line-through" style={{ fontFamily: 'Inter, sans-serif' }}>{o.market}</div>
-                <div className="text-sm lg:text-base font-bold text-[var(--color-pc-pink)]" style={{ fontFamily: 'Inter, sans-serif' }}>{o.price}</div>
+                <div className="text-sm lg:text-base font-bold text-grad-brand" style={{ fontFamily: 'Inter, sans-serif' }}>{o.price}</div>
               </div>
             ))}
           </div>
           <div className="text-xs text-[var(--color-pc-sub)] mt-4">
-            ※ 業界相場のおよそ <span className="text-[var(--color-pc-pink)] font-bold">半額</span> で提供しています。要件に応じて個別お見積もりいたします。
+            ※ 業界相場のおよそ <span className="text-pink-600 font-bold">半額</span> で提供しています。要件に応じて個別お見積もりいたします。
           </div>
         </div>
       </div>
@@ -1183,6 +1149,211 @@ function SectionAI() {
         </div>
       </div>
     </section>
+  )
+}
+
+/* ============================================================
+   会社概要 (About)
+   ============================================================ */
+function SectionAbout() {
+  const rows: [string, string][] = [
+    ['商号', COMPANY.name],
+    ['代表者', COMPANY.director],
+    ['設立', COMPANY.founded],
+    ['法人番号', COMPANY.corpNumber],
+    ['所在地', `${COMPANY.zip} ${COMPANY.addr}`],
+    ['電話', `${COMPANY.tel}（代表）/ ${COMPANY.telSales}（営業）`],
+    ['メール', COMPANY.email],
+    ['事業内容', 'SNS運用 / アプリ開発 / 建設施工 / HP制作・運用 / AI導入コンサルティング'],
+  ]
+  return (
+    <section id="about" className="relative py-24 lg:py-32 px-5 lg:px-12 overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-pink-50 via-white to-cyan-50" />
+      <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-grad-brand opacity-10 blur-3xl -z-10" />
+      <div className="max-w-[1100px] mx-auto">
+        <SectionHeading
+          en="ABOUT US"
+          jp="会社概要"
+          sub="ポラリスクリエイティブは、SNS運用・アプリ開発・建設施工・HP制作・AI導入コンサルをワンストップで提供する総合企業です。Web × SNS × AI × 建設 を横断する稀有なクロス事業体として、お客様の事業成長を全方位から支援します。"
+        />
+        <div className="bg-white border border-pink-100 shadow-xl shadow-pink-100/40 rounded-2xl overflow-hidden">
+          <table className="w-full text-sm lg:text-base">
+            <tbody>
+              {rows.map(([k, v], i) => (
+                <tr key={k} className={i !== rows.length - 1 ? 'border-b border-pink-100' : ''}>
+                  <th className="text-left bg-gradient-to-r from-pink-50 to-cyan-50 text-[var(--color-pc-ink)] font-bold py-4 lg:py-5 px-5 lg:px-7 align-top w-[28%] lg:w-[22%]">{k}</th>
+                  <td className="py-4 lg:py-5 px-5 lg:px-7 text-[var(--color-pc-ink)]">{v}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================
+   代表 (Representative) — シンプル、メッセージなし
+   ============================================================ */
+function SectionRepresentative() {
+  return (
+    <section id="representative" className="relative py-24 lg:py-32 px-5 lg:px-12 bg-grad-brand text-white overflow-hidden">
+      <div className="absolute inset-0 -z-0 opacity-10 mix-blend-overlay">
+        <svg viewBox="0 0 200 200" className="w-full h-full"><defs><pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#fff" /></pattern></defs><rect width="200" height="200" fill="url(#dots)" /></svg>
+      </div>
+      <div className="relative max-w-[900px] mx-auto text-center">
+        <div className="text-xs tracking-[0.5em] font-bold mb-5 opacity-90" style={{ fontFamily: 'Inter, sans-serif' }}>REPRESENTATIVE</div>
+        <h2 className="text-3xl lg:text-5xl font-black mb-12">代表紹介</h2>
+        <div className="inline-flex flex-col items-center">
+          <div className="w-40 h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden ring-4 ring-white/40 mb-6 bg-white/10 flex items-center justify-center">
+            <svg viewBox="0 0 200 200" className="w-full h-full">
+              <defs>
+                <linearGradient id="repGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#fff" stopOpacity="0.95" />
+                  <stop offset="100%" stopColor="#fff" stopOpacity="0.6" />
+                </linearGradient>
+              </defs>
+              <rect width="200" height="200" fill="url(#repGrad)" />
+              <text x="100" y="125" textAnchor="middle" fontSize="80" fontWeight="900" fill="#ec4899" fontFamily="Inter, sans-serif">S</text>
+            </svg>
+          </div>
+          <div className="text-xs tracking-[0.4em] opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>CEO / FOUNDER</div>
+          <div className="text-sm tracking-widest mb-1 opacity-95">取締役社長</div>
+          <div className="text-2xl lg:text-3xl font-bold tracking-wider">斉藤 誓良</div>
+          <div className="text-xs tracking-[0.3em] opacity-80 mt-2" style={{ fontFamily: 'Inter, sans-serif' }}>SAITO CHIKARA</div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================
+   事業紹介 4-card grid (ServicesGrid)
+   ============================================================ */
+type SvcCard = {
+  slug: string
+  jp: string
+  en: string
+  sub: string
+  img: string
+  bg: string
+}
+
+const SVC_CARDS: SvcCard[] = [
+  { slug: 'sns',          jp: 'SNS事業',        en: 'SNS Marketing',    sub: 'YouTube・TikTok 運用代行',          img: 'photo-1611605698335-8b1569810432', bg: 'from-pink-500 to-pink-400' },
+  { slug: 'app',          jp: 'アプリ開発',     en: 'App Development',  sub: 'iOS / Android / Web（準備中）',     img: 'photo-1551650975-87deedd944c3',  bg: 'from-cyan-500 to-cyan-400' },
+  { slug: 'construction', jp: '建設事業',       en: 'Construction',     sub: 'コアボーリング・特殊施工',          img: 'photo-1503387762-592deb58ef4e',  bg: 'from-slate-700 to-slate-500' },
+  { slug: 'ai',           jp: 'AI導入コンサル', en: 'AI Consulting',    sub: '業務自動化・AI活用支援',            img: 'photo-1677442136019-21780ecad995', bg: 'from-pink-500 via-fuchsia-500 to-cyan-500' },
+]
+
+function SectionServicesGrid() {
+  return (
+    <section id="services" className="py-24 lg:py-32 px-5 lg:px-12 bg-white">
+      <div className="max-w-[1280px] mx-auto">
+        <SectionHeading
+          en="SERVICE"
+          jp="事業紹介"
+          sub="HP制作の他にも、SNS運用・アプリ開発・建設施工・AI導入コンサルなど、4事業をワンストップで提供。各事業が連携することで、業界を横断した提案が可能です。"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 mb-10">
+          {SVC_CARDS.map((c) => (
+            <a key={c.slug} href={`#/service/${c.slug}`} className="group relative aspect-[16/9] overflow-hidden rounded-xl block">
+              <img
+                src={`https://images.unsplash.com/${c.img}?auto=format&fit=crop&w=1400&q=80`}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              {/* Overlay color tint */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${c.bg} mix-blend-multiply opacity-70 group-hover:opacity-60 transition-opacity`} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              {/* Corner ribbon */}
+              <div className="absolute top-0 left-0 w-0 h-0 border-t-[60px] border-r-[60px] border-t-white border-r-transparent" />
+              {/* Content */}
+              <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-6">
+                <div className="text-xs lg:text-sm tracking-[0.4em] font-bold mb-3 opacity-90" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  {c.en}
+                </div>
+                <div className="text-2xl lg:text-4xl font-black tracking-wider mb-2 drop-shadow-lg">
+                  {c.jp}
+                </div>
+                <div className="text-xs lg:text-sm opacity-90 tracking-wider">{c.sub}</div>
+                <div className="mt-5 inline-flex items-center gap-1 text-[11px] tracking-widest opacity-0 group-hover:opacity-100 transition-opacity bg-white text-[var(--color-pc-ink)] px-4 py-2 rounded-full font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  詳しく見る <ArrowRight className="w-3 h-3" />
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div className="text-center">
+          <a href="#contact" className="inline-flex items-center gap-2 bg-grad-brand hover:opacity-90 text-white px-8 py-3.5 text-sm font-bold rounded-full transition-opacity">
+            事業についてのご相談はこちら <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================
+   Service Detail Page (#/service/{slug})
+   ============================================================ */
+function ServiceDetailPage({ slug }: { slug: string }) {
+  const card = SVC_CARDS.find((c) => c.slug === slug)
+  const detailMap: Record<string, () => React.ReactElement> = {
+    sns: SectionSNS,
+    app: SectionApp,
+    construction: SectionConstruction,
+    ai: SectionAI,
+  }
+  const Detail = detailMap[slug]
+  if (!card || !Detail) return null
+  return (
+    <div className="bg-white text-[var(--color-pc-ink)]">
+      {/* Top return bar */}
+      <div className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[var(--color-pc-line)]">
+        <div className="max-w-[1280px] mx-auto flex items-center justify-between px-5 lg:px-8 h-14">
+          <a href="#home" className="text-sm font-bold text-[var(--color-pc-ink)] hover:text-[var(--color-pc-pink)] flex items-center gap-2">
+            ← <span>ポラリスクリエイティブ HP に戻る</span>
+          </a>
+          <div className="text-[10px] tracking-[0.3em] text-[var(--color-pc-pink)] font-bold hidden sm:block" style={{ fontFamily: 'Inter, sans-serif' }}>
+            SERVICE / {card.en.toUpperCase()}
+          </div>
+        </div>
+      </div>
+
+      {/* Page hero */}
+      <header className="relative h-[40vh] min-h-[320px] overflow-hidden">
+        <img src={`https://images.unsplash.com/${card.img}?auto=format&fit=crop&w=2400&q=85`} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className={`absolute inset-0 bg-gradient-to-br ${card.bg} mix-blend-multiply opacity-70`} />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="relative h-full flex items-end">
+          <div className="max-w-[1280px] mx-auto w-full px-5 lg:px-12 pb-10 lg:pb-14 text-white">
+            <div className="text-xs lg:text-sm tracking-[0.5em] font-bold mb-3 opacity-90" style={{ fontFamily: 'Inter, sans-serif' }}>
+              {card.en.toUpperCase()}
+            </div>
+            <h1 className="text-3xl lg:text-6xl font-black tracking-wider drop-shadow-lg">{card.jp}</h1>
+          </div>
+        </div>
+      </header>
+
+      <Detail />
+
+      {/* Bottom return CTA */}
+      <div className="py-14 px-5 text-center bg-gradient-to-br from-pink-50 to-cyan-50">
+        <div className="text-sm text-[var(--color-pc-sub)] mb-4">他の事業もご覧ください</div>
+        <div className="flex flex-wrap justify-center gap-3">
+          {SVC_CARDS.filter((c) => c.slug !== slug).map((c) => (
+            <a key={c.slug} href={`#/service/${c.slug}`} className="bg-white border border-pink-200 hover:border-pink-500 hover:bg-pink-50 text-[var(--color-pc-ink)] px-5 py-2.5 text-sm font-bold rounded-full transition-colors">
+              {c.jp} →
+            </a>
+          ))}
+          <a href="#home" className="bg-grad-brand hover:opacity-90 text-white px-5 py-2.5 text-sm font-bold rounded-full transition-opacity">
+            ← ポラリスHPに戻る
+          </a>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -1435,27 +1606,32 @@ function Footer() {
 /* ============================================================
    App
    ============================================================ */
-function useHashRoute() {
+type Route =
+  | { kind: 'home' }
+  | { kind: 'demo'; slug: string }
+  | { kind: 'service'; slug: string }
+
+function useHashRoute(): Route {
   const [hash, setHash] = useState(() => window.location.hash)
   useEffect(() => {
     const onHash = () => {
       setHash(window.location.hash)
-      // scroll to top when route changes (demo enter/exit)
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
     }
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
-  // demo slug if hash is #/demo/<slug>
-  const m = hash.match(/^#\/demo\/([\w-]+)/)
-  return m ? m[1] : null
+  const demo = hash.match(/^#\/demo\/([\w-]+)/)
+  if (demo) return { kind: 'demo', slug: demo[1] }
+  const svc = hash.match(/^#\/service\/([\w-]+)/)
+  if (svc) return { kind: 'service', slug: svc[1] }
+  return { kind: 'home' }
 }
 
 export default function App() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const demoSlug = useHashRoute()
-  const demoTemplate = demoSlug ? HP_TEMPLATES.find((t) => t.slug === demoSlug) : null
+  const route = useHashRoute()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
@@ -1464,22 +1640,29 @@ export default function App() {
   }, [])
 
   // Demo route: render full virtual website
-  if (demoTemplate) {
-    if (demoTemplate.slug === 'restaurant') return <RestaurantPremiumDemo />
-    return <DemoSite t={demoTemplate} />
+  if (route.kind === 'demo') {
+    const t = HP_TEMPLATES.find((x) => x.slug === route.slug)
+    if (t) {
+      if (t.slug === 'restaurant') return <RestaurantPremiumDemo />
+      return <DemoSite t={t} />
+    }
   }
 
+  // Service detail route
+  if (route.kind === 'service') {
+    return <ServiceDetailPage slug={route.slug} />
+  }
+
+  // Home (top page)
   return (
     <div className="bg-white text-[var(--color-pc-ink)]">
       <Header onMenu={() => setOpen(true)} scrolled={scrolled} />
       <MobileMenu open={open} onClose={() => setOpen(false)} />
       <HeroCarousel />
-      <BusinessIcons />
-      <SectionSNS />
-      <SectionApp />
-      <SectionConstruction />
+      <SectionAbout />
+      <SectionRepresentative />
       <SectionHP />
-      <SectionAI />
+      <SectionServicesGrid />
       <WhyPolaris />
       <News />
       <ContactBand />
