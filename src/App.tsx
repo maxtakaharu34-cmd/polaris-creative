@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
-  Menu, X, ChevronRight, ChevronLeft, ArrowUpRight, Phone, Mail, MapPin,
+  Menu, X, ChevronRight, ChevronLeft, ArrowUpRight, Phone, MapPin,
   Megaphone, Smartphone, Hammer, Globe, Cpu, Check, ArrowRight,
 } from 'lucide-react'
 
