@@ -45,12 +45,31 @@ export default function BuilderPremiumDemo() {
     return () => io.disconnect()
   }, [])
 
-  /* 横スクロール pinning */
+  /* 横スクロール pinning — dynamic height to avoid dead space */
   useEffect(() => {
     const sec = horizontalRef.current
     const track = trackRef.current
     if (!sec || !track) return
+
+    // Skip pin scroll on small screens (mobile uses native horizontal overflow)
+    const isMobile = () => window.matchMedia('(max-width: 900px)').matches
+
+    const recalc = () => {
+      if (isMobile()) {
+        sec.style.height = ''
+        track.style.transform = ''
+        return
+      }
+      const trackW = track.scrollWidth
+      const visW = sec.offsetWidth
+      const horizDistance = Math.max(0, trackW - visW)
+      // Section height = exactly 1 viewport (the pin) + horizontal travel distance
+      sec.style.height = `${window.innerHeight + horizDistance}px`
+      onScroll()
+    }
+
     const onScroll = () => {
+      if (isMobile()) return
       const r = sec.getBoundingClientRect()
       const max = sec.offsetHeight - window.innerHeight
       if (max <= 0) return
@@ -60,12 +79,16 @@ export default function BuilderPremiumDemo() {
       const moveX = (trackW - visW) * p
       track.style.transform = `translateX(${-moveX}px)`
     }
-    onScroll()
+
+    recalc()
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    window.addEventListener('resize', recalc)
+    // Recalc once images finish loading (in case track width changes)
+    const t = setTimeout(recalc, 600)
     return () => {
+      clearTimeout(t)
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('resize', recalc)
     }
   }, [])
 
@@ -549,7 +572,7 @@ const cssText = `
 }
 .bd-story-img-2 {
   grid-column: 2; grid-row: 2; aspect-ratio: 5/4; overflow: hidden;
-  position: relative; margin-left: -120px; margin-top: -80px; z-index: 2;
+  position: relative; margin-top: -40px; z-index: 2;
 }
 .bd-story-img-1 img, .bd-story-img-2 img {
   width: 100%; height: 100%; object-fit: cover;
@@ -557,10 +580,11 @@ const cssText = `
 }
 .bd-story-img-1:hover img, .bd-story-img-2:hover img { transform: scale(1.04); }
 
-/* Horizontal section */
+/* Horizontal section — height set dynamically via JS to match track width */
 .bd-h-section {
-  position: relative; height: 380vh;
+  position: relative;
   background: var(--bd-bg-dark); color: #fff;
+  min-height: 100vh;
 }
 .bd-h-pin {
   position: sticky; top: 0; height: 100vh; overflow: hidden;
