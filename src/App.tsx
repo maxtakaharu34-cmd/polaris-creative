@@ -104,18 +104,38 @@ const BUSINESSES = [
   { id: 'ai',            icon: Cpu,        jp: 'AI導入コンサル',   en: 'AI', desc: '業務自動化・チャットボット' },
 ]
 
-const HP_TEMPLATES = [
-  { name: '飲食店向け',     img: 'photo-1414235077428-338989a2e8c0' },
-  { name: '美容院・サロン', img: 'photo-1560066984-138dadb4c035' },
-  { name: 'クリニック',     img: 'photo-1576091160550-2173dba999ef' },
-  { name: '工務店・建築',   img: 'photo-1503387762-592deb58ef4e' },
-  { name: '士業',           img: 'photo-1450101499163-c8848c66ca85' },
-  { name: '教室・スクール', img: 'photo-1523240795612-9a054b0db644' },
-  { name: 'EC・ショップ',   img: 'photo-1556742049-0cfed4f6a45d' },
-  { name: 'コーポレート',   img: 'photo-1497366216548-37526070297c' },
-  { name: '採用LP',         img: 'photo-1521737711867-e3b97375f902' },
-  { name: 'イベント',       img: 'photo-1492684223066-81342ee5ff30' },
+type Template = {
+  name: string
+  domain: string
+  brand: string
+  copy: string
+  cta: string
+  bg: string         // hex
+  fg: string         // hex
+  accent: string    // hex
+  font: 'serif' | 'sans' | 'display'
+  img: string
+  navItems: string[]
+}
+
+const HP_TEMPLATES: Template[] = [
+  { name: '飲食店向け',     domain: 'tabezen.jp',          brand: '食禅',           copy: '一皿で、季節を語る。',          cta: 'ご予約',     bg: '#1a1410', fg: '#f5e6c8', accent: '#c9a063', font: 'serif',   img: 'photo-1414235077428-338989a2e8c0', navItems: ['お品書き','店舗','ご予約'] },
+  { name: '美容院・サロン', domain: 'lumini-hair.jp',      brand: 'LUMINI',         copy: '今日の気分で、まとう髪を。',  cta: '空き状況',   bg: '#fdf4f0', fg: '#3a2820', accent: '#d4a373', font: 'sans',    img: 'photo-1560066984-138dadb4c035', navItems: ['STYLE','MENU','BOOK'] },
+  { name: 'クリニック',     domain: 'aoi-clinic.jp',       brand: 'AOI Clinic',     copy: '心と身体に、寄り添う医療を。',cta: 'WEB予約',    bg: '#ffffff', fg: '#1f3a5f', accent: '#06b6d4', font: 'sans',    img: 'photo-1576091160550-2173dba999ef', navItems: ['診療科目','医師紹介','アクセス'] },
+  { name: '工務店・建築',   domain: 'kominka-koumuten.jp', brand: '相生工務店',      copy: 'ふるさとを、住み継ぐ家へ。',  cta: '施工事例',   bg: '#f3f1ec', fg: '#2e3a2c', accent: '#7a8c5e', font: 'serif',   img: 'photo-1503387762-592deb58ef4e', navItems: ['施工実績','工法','資料請求'] },
+  { name: '士業',           domain: 'iida-law.jp',         brand: '飯田法律事務所',  copy: '法を、あなたの味方に。',      cta: '無料相談',   bg: '#0f1a2e', fg: '#f5f5f7', accent: '#c9a754', font: 'serif',   img: 'photo-1450101499163-c8848c66ca85', navItems: ['取扱業務','弁護士紹介','料金'] },
+  { name: '教室・スクール', domain: 'asobiba-kids.jp',     brand: 'あそびば',        copy: '学ぶって、たのしい！',        cta: '体験申込',   bg: '#fff8e1', fg: '#3d2c1f', accent: '#ff7a3d', font: 'display', img: 'photo-1523240795612-9a054b0db644', navItems: ['コース','講師','体験'] },
+  { name: 'EC・ショップ',   domain: 'minimal-store.jp',    brand: 'MINIMAL',        copy: '長く、好きでいられる服。',    cta: 'SHOP NOW',   bg: '#ffffff', fg: '#1d1d1f', accent: '#1d1d1f', font: 'sans',    img: 'photo-1556742049-0cfed4f6a45d', navItems: ['SHOP','LOOKBOOK','ABOUT'] },
+  { name: 'コーポレート',   domain: 'tsubomi-corp.jp',     brand: 'TSUBOMI Inc.',   copy: '世界の課題に、技術で挑む。',  cta: 'CONTACT',    bg: '#ffffff', fg: '#0a2540', accent: '#1d4ed8', font: 'sans',    img: 'photo-1497366216548-37526070297c', navItems: ['BUSINESS','COMPANY','IR'] },
+  { name: '採用LP',         domain: 'recruit.terra.jp',    brand: 'TERRA RECRUIT',  copy: '同じ、未来をつくる仲間へ。',  cta: 'ENTRY',      bg: '#0d0d0d', fg: '#ffffff', accent: '#e60039', font: 'display', img: 'photo-1521737711867-e3b97375f902', navItems: ['MESSAGE','CULTURE','PEOPLE'] },
+  { name: 'イベント',       domain: 'pulse-fest.jp',       brand: 'PULSE FEST',     copy: 'その夜、世界が踊り出す。',    cta: 'TICKET',     bg: '#0f0533', fg: '#ffffff', accent: '#ff2da0', font: 'display', img: 'photo-1492684223066-81342ee5ff30', navItems: ['LINEUP','VENUE','TICKET'] },
 ]
+
+const TPL_FONT: Record<Template['font'], string> = {
+  serif:   '"Noto Serif JP", serif',
+  sans:    '"Noto Sans JP", sans-serif',
+  display: '"Inter", "Noto Sans JP", sans-serif',
+}
 
 const HP_OPTIONS = [
   { name: '追加ページ',                   price: '¥7,500〜 / 1ページ',   market: '相場 ¥15,000' },
@@ -534,6 +554,170 @@ function SectionConstruction() {
 }
 
 /* ============================================================
+   Template Mockup (browser-chrome window preview)
+   ============================================================ */
+function MockupBrowser({ t, large = false }: { t: Template; large?: boolean }) {
+  const titleSize = large ? 'text-3xl lg:text-5xl' : 'text-[10px] lg:text-sm'
+  const subSize = large ? 'text-sm lg:text-base' : 'text-[6px] lg:text-[8px]'
+  const padding = large ? 'p-6 lg:p-10' : 'p-2 lg:p-3'
+  const heroH = large ? 'h-72 lg:h-96' : 'h-16 lg:h-20'
+  return (
+    <div className="w-full h-full bg-[#e8e8ea] flex flex-col" style={{ fontFamily: TPL_FONT[t.font] }}>
+      {/* Browser chrome */}
+      <div className="flex items-center gap-1.5 px-2 lg:px-3 py-1.5 bg-[#dcdce0] border-b border-[#c2c2c8]">
+        <div className="flex gap-1">
+          <span className="w-2 h-2 rounded-full bg-[#fc615d]" />
+          <span className="w-2 h-2 rounded-full bg-[#fdbc40]" />
+          <span className="w-2 h-2 rounded-full bg-[#34c749]" />
+        </div>
+        <div className="flex-1 mx-2 bg-white rounded px-2 py-0.5 text-[8px] lg:text-[10px] text-neutral-600 truncate" style={{ fontFamily: 'Inter, sans-serif' }}>
+          🔒 {t.domain}
+        </div>
+      </div>
+
+      {/* Page content */}
+      <div className="flex-1 relative overflow-hidden" style={{ background: t.bg, color: t.fg }}>
+        {/* Nav strip */}
+        <div className="flex items-center justify-between px-2 lg:px-4 py-1.5 lg:py-2.5 border-b" style={{ borderColor: `${t.fg}22` }}>
+          <div className={`font-bold tracking-wide ${large ? 'text-base lg:text-lg' : 'text-[7px] lg:text-[9px]'}`}>
+            {t.brand}
+          </div>
+          <div className={`hidden sm:flex items-center gap-2 lg:gap-4 ${large ? 'text-xs lg:text-sm' : 'text-[5px] lg:text-[7px]'}`} style={{ color: `${t.fg}99` }}>
+            {t.navItems.map((n) => <span key={n}>{n}</span>)}
+            <span className="px-2 py-0.5 rounded-full font-bold" style={{ background: t.accent, color: t.bg }}>{t.cta}</span>
+          </div>
+        </div>
+
+        {/* Hero */}
+        <div className={`relative ${heroH} overflow-hidden`}>
+          <img
+            src={`https://images.unsplash.com/${t.img}?auto=format&fit=crop&w=${large ? 1400 : 600}&q=80`}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${t.bg}cc 0%, ${t.bg}33 60%, transparent 100%)` }} />
+          <div className={`relative h-full flex items-center ${padding}`}>
+            <div>
+              <div className={`${subSize} mb-1 lg:mb-2 tracking-widest opacity-80`} style={{ color: t.accent, fontFamily: 'Inter, sans-serif' }}>
+                {t.domain.split('.')[0].toUpperCase()}
+              </div>
+              <div className={`${titleSize} font-bold leading-tight`} style={{ color: t.fg }}>
+                {t.copy}
+              </div>
+              {large && (
+                <div className="mt-6">
+                  <span className="inline-block px-6 py-3 rounded-full font-bold text-sm" style={{ background: t.accent, color: t.bg }}>
+                    {t.cta} →
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Sample sections */}
+        <div className={`grid grid-cols-3 gap-1 lg:gap-2 ${padding}`}>
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="aspect-[4/3] rounded" style={{ background: `${t.fg}12`, border: `1px solid ${t.fg}1a` }}>
+              {large && (
+                <div className="p-3 lg:p-4">
+                  <div className="h-1 w-1/2 rounded-full mb-2" style={{ background: t.accent }} />
+                  <div className="h-1 w-full rounded-full mb-1" style={{ background: `${t.fg}33` }} />
+                  <div className="h-1 w-4/5 rounded-full" style={{ background: `${t.fg}33` }} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function TemplatesGrid() {
+  const [active, setActive] = useState<Template | null>(null)
+  return (
+    <div className="mb-20">
+      <div className="flex items-end justify-between mb-8">
+        <div>
+          <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATES</div>
+          <h3 className="text-2xl lg:text-3xl font-black">10業種のHPテンプレート</h3>
+          <div className="text-sm text-[var(--color-pc-sub)] mt-2">クリックで拡大プレビュー。御社用にカスタマイズして納品します。</div>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        {HP_TEMPLATES.map((t, i) => (
+          <button
+            key={t.name}
+            type="button"
+            onClick={() => setActive(t)}
+            className="group block text-left bg-[var(--color-pc-bg)] hover:shadow-xl transition-shadow p-2 rounded-lg"
+          >
+            <div className="aspect-[4/3] overflow-hidden rounded shadow-md ring-1 ring-black/5 group-hover:scale-[1.02] transition-transform">
+              <MockupBrowser t={t} />
+            </div>
+            <div className="px-1 pt-2.5 pb-1">
+              <div className="text-[10px] tracking-widest text-[var(--color-pc-sub)]" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATE {String(i + 1).padStart(2, '0')}</div>
+              <div className="text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors">{t.name}</div>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* Modal preview */}
+      <AnimatePresence>
+        {active && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActive(null)}
+            className="fixed inset-0 z-[80] bg-black/80 backdrop-blur-sm p-3 lg:p-8 flex items-center justify-center overflow-auto"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[92vh] overflow-hidden flex flex-col"
+            >
+              <div className="flex items-center justify-between px-5 lg:px-7 py-4 border-b border-[var(--color-pc-line)]">
+                <div>
+                  <div className="text-[10px] tracking-[0.3em] text-[var(--color-pc-pink)] font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    TEMPLATE PREVIEW
+                  </div>
+                  <div className="text-base lg:text-lg font-bold">{active.name}</div>
+                </div>
+                <button onClick={() => setActive(null)} className="p-2 hover:bg-[var(--color-pc-bg)] rounded-full" aria-label="閉じる">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="flex-1 overflow-auto p-3 lg:p-6 bg-[var(--color-pc-bg)]">
+                <div className="aspect-[16/10] rounded-lg overflow-hidden shadow-2xl ring-1 ring-black/10">
+                  <MockupBrowser t={active} large />
+                </div>
+              </div>
+              <div className="border-t border-[var(--color-pc-line)] p-4 lg:p-5 flex flex-col sm:flex-row items-center justify-between gap-3 bg-white">
+                <div className="text-sm text-[var(--color-pc-sub)]">
+                  このデザインをベースに御社用にカスタマイズ。<span className="font-bold text-[var(--color-pc-ink)]">¥150,000〜 / 最短1週間</span>
+                </div>
+                <a
+                  href="#contact"
+                  onClick={() => setActive(null)}
+                  className="bg-grad-brand hover:opacity-90 text-white px-6 py-3 text-sm font-bold rounded-full inline-flex items-center gap-2 transition-opacity"
+                >
+                  このテンプレートで相談する <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+/* ============================================================
    ④ HP Business (biggest)
    ============================================================ */
 function SectionHP() {
@@ -598,26 +782,7 @@ function SectionHP() {
         </div>
 
         {/* Templates */}
-        <div className="mb-20">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATES</div>
-              <h3 className="text-2xl lg:text-3xl font-black">10業種のテンプレート</h3>
-            </div>
-            <div className="text-sm text-[var(--color-pc-sub)] hidden md:block">ベースから選んで、御社用にカスタマイズ。</div>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-            {HP_TEMPLATES.map((t, i) => (
-              <a key={t.name} href="#contact" className="group block">
-                <div className="aspect-[4/3] overflow-hidden bg-[var(--color-pc-bg)] mb-2.5">
-                  <img src={`https://images.unsplash.com/${t.img}?auto=format&fit=crop&w=600&q=80`} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <div className="text-[10px] tracking-widest text-[var(--color-pc-sub)]" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATE {String(i + 1).padStart(2, '0')}</div>
-                <div className="text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors">{t.name}</div>
-              </a>
-            ))}
-          </div>
-        </div>
+        <TemplatesGrid />
 
         {/* Options */}
         <div>
