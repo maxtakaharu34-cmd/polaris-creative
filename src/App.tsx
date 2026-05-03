@@ -210,9 +210,14 @@ function Header({ onMenu, scrolled }: { onMenu: () => void; scrolled: boolean })
             お問い合わせ <ChevronRight className="w-3.5 h-3.5" />
           </a>
         </div>
-        <button onClick={onMenu} className="xl:hidden p-2" aria-label="メニュー">
-          <Menu className="w-6 h-6" />
-        </button>
+        <div className="flex items-center gap-1 xl:hidden">
+          <a href={`tel:${COMPANY.telSales}`} className="w-10 h-10 rounded-full bg-grad-brand text-white flex items-center justify-center" aria-label="電話">
+            <Phone className="w-4 h-4" />
+          </a>
+          <button onClick={onMenu} className="p-2" aria-label="メニュー">
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
       </div>
     </header>
   )
@@ -308,20 +313,29 @@ function HeroCarousel() {
    5 Business Icons (SoftBank-style row)
    ============================================================ */
 function BusinessIcons() {
+  // Shorter labels for mobile to avoid wrapping
+  const shortJp: Record<string, string> = {
+    sns: 'SNS',
+    app: 'アプリ',
+    construction: '建設',
+    hp: 'HP制作',
+    ai: 'AIコンサル',
+  }
   return (
     <section id="business" className="bg-white border-b border-[var(--color-pc-line)]">
       <div className="max-w-[1400px] mx-auto px-5 lg:px-12 py-10">
-        <ul className="grid grid-cols-5 gap-3 lg:gap-6">
+        <ul className="grid grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
           {BUSINESSES.map((b) => (
             <li key={b.id}>
               <a href={`#${b.id}`} className="group flex flex-col items-center text-center">
-                <div className="w-14 h-14 lg:w-20 lg:h-20 rounded-full bg-[var(--color-pc-bg)] group-hover:bg-[var(--color-pc-pink)] flex items-center justify-center transition-colors mb-2 lg:mb-3">
-                  <b.icon className="w-6 h-6 lg:w-9 lg:h-9 text-[var(--color-pc-ink)] group-hover:text-white transition-colors" strokeWidth={1.5} />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full bg-[var(--color-pc-bg)] group-hover:bg-grad-brand flex items-center justify-center transition-colors mb-2 lg:mb-3">
+                  <b.icon className="w-5 h-5 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[var(--color-pc-ink)] group-hover:text-white transition-colors" strokeWidth={1.5} />
                 </div>
-                <div className="text-[11px] lg:text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors leading-tight">
-                  {b.jp}
+                <div className="text-[10px] sm:text-xs lg:text-sm font-bold text-[var(--color-pc-ink)] group-hover:text-[var(--color-pc-pink)] transition-colors leading-tight whitespace-nowrap">
+                  <span className="lg:hidden">{shortJp[b.id]}</span>
+                  <span className="hidden lg:inline">{b.jp}</span>
                 </div>
-                <div className="text-[9px] lg:text-[10px] tracking-[0.2em] text-[var(--color-pc-sub)] mt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="text-[8px] sm:text-[9px] lg:text-[10px] tracking-[0.2em] text-[var(--color-pc-sub)] mt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>
                   {b.en}
                 </div>
               </a>
@@ -376,30 +390,30 @@ function SectionSNS() {
           jp="SNS運用代行"
           sub="YouTube・TikTok を中心に、企画・撮影・編集・投稿・分析までワンストップ。30社以上の運用実績、自社で総フォロワー200万人を抱える運用ノウハウを、御社の集客に。"
         />
-        <div className="grid grid-cols-3 gap-3 mb-10">
-          <div className="bg-grad-brand text-white p-5 lg:p-7 text-center rounded-lg">
-            <div className="text-[10px] tracking-widest opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>YOUTUBE</div>
-            <div className="flex items-baseline justify-center gap-1">
-              <span className="text-3xl lg:text-5xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>150</span>
-              <span className="text-base font-bold">万人</span>
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-10">
+          <div className="bg-grad-brand text-white p-3 sm:p-5 lg:p-7 text-center rounded-lg">
+            <div className="text-[9px] sm:text-[10px] tracking-widest opacity-90 mb-1 sm:mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>YOUTUBE</div>
+            <div className="flex flex-col sm:flex-row items-center sm:items-baseline justify-center sm:gap-1 whitespace-nowrap">
+              <span className="text-3xl sm:text-4xl lg:text-5xl font-black leading-none" style={{ fontFamily: 'Inter, sans-serif' }}>150</span>
+              <span className="text-xs sm:text-base font-bold mt-0.5 sm:mt-0">万人</span>
             </div>
-            <div className="text-[10px] lg:text-xs opacity-90 mt-1">登録者数</div>
+            <div className="text-[9px] sm:text-[10px] lg:text-xs opacity-90 mt-1">登録者数</div>
           </div>
-          <div className="bg-grad-brand text-white p-5 lg:p-7 text-center rounded-lg">
-            <div className="text-[10px] tracking-widest opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TIKTOK</div>
-            <div className="flex items-baseline justify-center gap-1">
-              <span className="text-3xl lg:text-5xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>36</span>
-              <span className="text-base font-bold">万人</span>
+          <div className="bg-grad-brand text-white p-3 sm:p-5 lg:p-7 text-center rounded-lg">
+            <div className="text-[9px] sm:text-[10px] tracking-widest opacity-90 mb-1 sm:mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TIKTOK</div>
+            <div className="flex flex-col sm:flex-row items-center sm:items-baseline justify-center sm:gap-1 whitespace-nowrap">
+              <span className="text-3xl sm:text-4xl lg:text-5xl font-black leading-none" style={{ fontFamily: 'Inter, sans-serif' }}>36</span>
+              <span className="text-xs sm:text-base font-bold mt-0.5 sm:mt-0">万人</span>
             </div>
-            <div className="text-[10px] lg:text-xs opacity-90 mt-1">フォロワー</div>
+            <div className="text-[9px] sm:text-[10px] lg:text-xs opacity-90 mt-1">フォロワー</div>
           </div>
-          <div className="bg-[var(--color-pc-ink)] text-white p-5 lg:p-7 text-center rounded-lg">
-            <div className="text-[10px] tracking-widest text-[var(--color-pc-pink)] mb-2 font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>TOTAL REACH</div>
-            <div className="flex items-baseline justify-center gap-1">
-              <span className="text-3xl lg:text-5xl font-black" style={{ fontFamily: 'Inter, sans-serif' }}>200</span>
-              <span className="text-base font-bold">万人</span>
+          <div className="bg-[var(--color-pc-ink)] text-white p-3 sm:p-5 lg:p-7 text-center rounded-lg">
+            <div className="text-[9px] sm:text-[10px] tracking-widest text-[var(--color-pc-pink)] mb-1 sm:mb-2 font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>TOTAL</div>
+            <div className="flex flex-col sm:flex-row items-center sm:items-baseline justify-center sm:gap-1 whitespace-nowrap">
+              <span className="text-3xl sm:text-4xl lg:text-5xl font-black leading-none" style={{ fontFamily: 'Inter, sans-serif' }}>200</span>
+              <span className="text-xs sm:text-base font-bold mt-0.5 sm:mt-0">万人</span>
             </div>
-            <div className="text-[10px] lg:text-xs opacity-80 mt-1">総フォロワー</div>
+            <div className="text-[9px] sm:text-[10px] lg:text-xs opacity-80 mt-1">総フォロワー</div>
           </div>
         </div>
         <div className="grid lg:grid-cols-3 gap-6 mb-10">
