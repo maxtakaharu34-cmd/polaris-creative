@@ -9,6 +9,13 @@ import BuilderIndustrialDemo from './templates/BuilderIndustrialDemo'
 import BuilderHitechDemo from './templates/BuilderHitechDemo'
 import BuilderReformDemo from './templates/BuilderReformDemo'
 import BuilderHeritageDemo from './templates/BuilderHeritageDemo'
+import BuilderWoodDemo from './templates/BuilderWoodDemo'
+import BuilderDesignerDemo from './templates/BuilderDesignerDemo'
+import BuilderEmergencyDemo from './templates/BuilderEmergencyDemo'
+import BuilderRealestateDemo from './templates/BuilderRealestateDemo'
+import BuilderPrefabDemo from './templates/BuilderPrefabDemo'
+import BuilderGlassDemo from './templates/BuilderGlassDemo'
+import BuilderInfraDemo from './templates/BuilderInfraDemo'
 import LawPremiumDemo from './templates/LawPremiumDemo'
 import SchoolPremiumDemo from './templates/SchoolPremiumDemo'
 import ShopPremiumDemo from './templates/ShopPremiumDemo'
@@ -286,6 +293,111 @@ const HP_TEMPLATES: Template[] = [
     gallery: ['photo-1486325212027-8081e485255e', 'photo-1487958449943-2429e8be8625', 'photo-1448630360428-65456885c650', 'photo-1565008447742-97f6f38c985c'],
     testimonial: { quote: '※架空のレビュー。― 百年の歴史に裏打ちされた確かな技術と誠実さに感謝しています。', author: '架空の発注機関N', role: '※架空 / デザイン見本用' },
     contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0 ポラリスビル（実在しません）`, phone: FAKE_PHONE, hours: '※受付時間も架空：平日 9:00-17:30' },
+  },
+  {
+    slug: 'workshop-wood', name: '木造・SDGs', domain: 'polaris-wood.jp', brand: 'POLARIS WOOD WORKS',
+    copy: '木と、地球と、暮らす。', sub: '※このサイトは仮想木造建設会社のデザイン見本です。国産材・CO₂固定・長期優良住宅。',
+    cta: '資料請求（仮）', bg: '#f8f3e7', fg: '#3a2e1c', accent: '#3f5a2c', font: 'serif',
+    img: 'photo-1416879595882-3373a0480b5b', navItems: ['なぜ木造', '環境への約束', '家づくり'],
+    about: { label: 'ABOUT（仮想）', title: '地球の "貯金箱"。', body: '※本会社は実在しません。SVGメーターで環境指標を表現した架空の木造SDGs会社デザイン見本です。' },
+    services: { label: 'WHY（架空）', title: 'こだわり', items: [
+      { title: '国産材100%（架空）', desc: '岡山・長野の森からFSC認証材', img: 'photo-1416879595882-3373a0480b5b' },
+      { title: 'CO₂固定（架空）', desc: '1邸あたり約 12t-CO₂を50年蓄える', img: 'photo-1493809842364-78817add7ffb' },
+      { title: '高気密高断熱（架空）', desc: 'UA値 0.40 / 年間光熱費60%削減', img: 'photo-1564540583246-934409427776' },
+    ]},
+    gallery: ['photo-1416879595882-3373a0480b5b', 'photo-1600585154340-be6161a56a0c', 'photo-1493809842364-78817add7ffb', 'photo-1564540583246-934409427776'],
+    testimonial: { quote: '※架空のレビュー。― 木の香りと温もり、光熱費の安さに驚いています。', author: '架空のお客様O様', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}岡阳県郡上市〇〇 0-0-0（実在しません）`, phone: '0575-00-0000（※架空）', hours: '※受付時間も架空：10:00-18:00 水曜休' },
+  },
+  {
+    slug: 'workshop-designer', name: 'デザイナーズ住宅', domain: 'polaris-atelier.jp', brand: 'POLARIS ATELIER',
+    copy: 'The Art of Living Beautifully.', sub: '※このサイトは仮想デザイナーズ住宅会社のデザイン見本です。雑誌風マサンリー・カスタムカーソル。',
+    cta: '設計相談（仮）', bg: '#fafaf7', fg: '#1a1a1a', accent: '#c2a47e', font: 'serif',
+    img: 'photo-1600585154340-be6161a56a0c', navItems: ['ARCHIVE', 'ABOUT', 'JOURNAL'],
+    about: { label: 'ABOUT（仮想）', title: '「暮らしの編集」。', body: '※本会社は実在しません。CSS columnsマサンリーとカスタムカーソルを使った架空デザイナーズ住宅会社のデザイン見本です。' },
+    services: { label: 'ARCHIVE（架空）', title: 'Selected Works', items: [
+      { title: 'House in Karuizawa（架空）', desc: 'Designed by A. Tanaka / 2024', img: 'photo-1600585154340-be6161a56a0c' },
+      { title: 'Concrete Court（架空）', desc: 'Designed by A. Tanaka / 2023', img: 'photo-1600566753190-17f0baa2a6c3' },
+      { title: 'Lakeside Villa（架空）', desc: 'Designed by C. Suzuki / 2023', img: 'photo-1564540583246-934409427776' },
+    ]},
+    gallery: ['photo-1600585154340-be6161a56a0c', 'photo-1600566753190-17f0baa2a6c3', 'photo-1564540583246-934409427776', 'photo-1505691938895-1758d7feb511'],
+    testimonial: { quote: '※架空のレビュー。― 雑誌に出てくるような美しさと、住んで雑誌のように仕上がった生活。', author: '架空のお客様P様', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※受付時間も架空：水〜日 11:00-19:00 完全予約制' },
+  },
+  {
+    slug: 'workshop-emergency', name: '災害復旧・24h', domain: 'polaris-emergency.jp', brand: 'POLARIS EMERGENCY',
+    copy: 'そのとき、真っ先に。', sub: '※このサイトは仮想の災害復旧会社のデザイン見本です。24時間365日 緊急出動体制。',
+    cta: '24h 緊急受付（仮）', bg: '#0a0a0a', fg: '#e8e8e8', accent: '#e63946', font: 'display',
+    img: 'photo-1547149540-89dc66c34c34', navItems: ['対応業務', '出動実績', '出動の流れ'],
+    about: { label: 'ABOUT（仮想）', title: '24時間365日。', body: '※本会社は実在しません。conic-gradientとパルスリングを使った架空の災害復旧会社デザイン見本です。' },
+    services: { label: 'SERVICES（架空）', title: '対応業務', items: [
+      { title: '地震被害復旧（架空）', desc: '応急危険度判定・瓦礫撤去・応急仮設', img: 'photo-1547149540-89dc66c34c34' },
+      { title: '水害・浸水（架空）', desc: '排水ポンプ・土嚢・汚泥撤去', img: 'photo-1547149540-89dc66c34c34' },
+      { title: '火災後復旧（架空）', desc: '焼損部材撤去・煏煙消臭・構造再建', img: 'photo-1547149540-89dc66c34c34' },
+    ]},
+    gallery: ['photo-1547149540-89dc66c34c34', 'photo-1503387762-592deb58ef4e', 'photo-1541888946425-d81bb19240f5', 'photo-1486325212027-8081e485255e'],
+    testimonial: { quote: '※架空のレビュー。― 台風被害で連絡したこ1時間で現地に到着してくれました。', author: '架空の受難者Q様', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}全国47都道府県 / 8拠点（架空）`, phone: '0120-000-000（※架空）', hours: '※受付時間も架空：24時間365日対応' },
+  },
+  {
+    slug: 'workshop-realestate', name: '不動産×建設', domain: 'polaris-estate.jp', brand: 'POLARIS ESTATE',
+    copy: 'Premier Real Estate Investment.', sub: '※このサイトは仮想不動産会社のデザイン見本です。黒×金・富裕層向け。',
+    cta: 'PRIVATE TOUR（仮）', bg: '#0c0c0c', fg: '#e8e3d8', accent: '#c9a45c', font: 'serif',
+    img: 'photo-1545324418-cc1a3fa10c00', navItems: ['PROPERTIES', 'NUMBERS', 'SERVICE'],
+    about: { label: 'ABOUT（仮想）', title: '非公開、厳選物件。', body: '※本会社は実在しません。黒×金・フィルター付き物件グリッドを使った架空の不動産×建設会社のデザイン見本です。投資勧誘ではありません。' },
+    services: { label: 'PROPERTIES（架空）', title: 'EXCLUSIVE', items: [
+      { title: '六本木スカイレジデンス（架空）', desc: '4LDK / 145㎡ / 1.45億円〜', img: 'photo-1545324418-cc1a3fa10c00' },
+      { title: 'ポラリスタワー丸の内（架空）', desc: 'A級オフィス / 坪8.5万円', img: 'photo-1486325212027-8081e485255e' },
+      { title: '軽井沢リゾートホテル（架空）', desc: '48室 / 利回り7% / 12.8億円', img: 'photo-1564540583246-934409427776' },
+    ]},
+    gallery: ['photo-1545324418-cc1a3fa10c00', 'photo-1486325212027-8081e485255e', 'photo-1564540583246-934409427776', 'photo-1600585154340-be6161a56a0c'],
+    testimonial: { quote: '※架空のレビュー。― 極上の物件と、丁寧なサポートに感謝しています。', author: '架空の会員R様', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都港区六本木 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※受付時間も架空：平日 10:00〜19:00 / 完全予約制' },
+  },
+  {
+    slug: 'workshop-prefab', name: 'プレハブ・規格住宅', domain: 'polaris-block.jp', brand: 'POLARIS BLOCK HOUSE',
+    copy: '家を、ブロックを組むように。', sub: '※このサイトは仮想プレハブ住宅会社のデザイン見本です。カラフル・価格固定。',
+    cta: 'カタログ請求（仮）', bg: '#fffceb', fg: '#1a1a2e', accent: '#ff6b6b', font: 'display',
+    img: 'photo-1600585154340-be6161a56a0c', navItems: ['ブロック', '建つまで', '価格'],
+    about: { label: 'ABOUT（仮想）', title: '規格化された高品質。', body: '※本会社は実在しません。4種類のサイズとカラフルカード・3Dティルトを使った架空プレハブ住宅会社のデザイン見本です。' },
+    services: { label: 'BLOCKS（架空）', title: '4つの規格', items: [
+      { title: 'BLOCK A（架空）', desc: '1LDK / 28㎡ / ¥498万円〜', img: 'photo-1600585154340-be6161a56a0c' },
+      { title: 'BLOCK B（架空）', desc: '2LDK / 56㎡ / ¥798万円〜', img: 'photo-1493809842364-78817add7ffb' },
+      { title: 'BLOCK C（架空）', desc: '3LDK / 78㎡ / ¥1,098万円〜', img: 'photo-1600566753190-17f0baa2a6c3' },
+    ]},
+    gallery: ['photo-1600585154340-be6161a56a0c', 'photo-1493809842364-78817add7ffb', 'photo-1600566753190-17f0baa2a6c3', 'photo-1564540583246-934409427776'],
+    testimonial: { quote: '※架空のレビュー。― シンプルで選べるのと工期が本当に短くてお驚き。', author: '架空のお客様S様', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都〇〇区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※受付時間も架空：10:00-18:00 / 火曜休' },
+  },
+  {
+    slug: 'workshop-glass', name: '超高層・ガラス建築', domain: 'polaris-glass.jp', brand: 'POLARIS GLASS',
+    copy: 'SKYLINE redefined.', sub: '※仮想の超高層ガラス建築会社デザイン見本。ガラスファサード・視差スクロール。',
+    cta: 'INQUIRY（仮）', bg: '#060d1c', fg: '#e8eef7', accent: '#7dd3fc', font: 'display',
+    img: 'photo-1486325212027-8081e485255e', navItems: ['VISION', 'TOWERS', 'TECHNOLOGY'],
+    about: { label: 'VISION（仮想）', title: 'Light, Glass, City.', body: '※本会社は実在しません。glassmorphismとauroraグラデーションを使った仮想の超高層建築会社デザイン見本。' },
+    services: { label: 'TOWERS（架空）', title: 'Built to the Sky', items: [
+      { title: 'AURORA TOWER（架空）', desc: '東京・丸の内 / 320m / 2024', img: 'photo-1486325212027-8081e485255e' },
+      { title: 'CRYSTAL ONE（架空）', desc: '大阪・梅田 / 285m / 2023', img: 'photo-1487958449943-2429e8be8625' },
+      { title: 'PRISM TWIN（架空）', desc: '横浜・MM21 / 240m / 2023', img: 'photo-1448630360428-65456885c650' },
+    ]},
+    gallery: ['photo-1486325212027-8081e485255e', 'photo-1487958449943-2429e8be8625', 'photo-1448630360428-65456885c650', 'photo-1486406146926-c627a92ad1ab'],
+    testimonial: { quote: '※架空のレビュー。― 都心の記憶に残る設計の手腕に驚きました。', author: '架空の発注主T社', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都中央区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※受付時間も架空：MON-FRI 9:00-18:00' },
+  },
+  {
+    slug: 'workshop-infra', name: '土木・公共インフラ', domain: 'polaris-infra.jp', brand: 'POLARIS INFRA',
+    copy: '道を、橋を、水を、未来へ。', sub: '※仮想の土木・インフラ会社デザイン見本。SVG日本地図・重厚タイポ。',
+    cta: '公共入札問合せ（仮）', bg: '#f5f2ec', fg: '#1c1814', accent: '#ff8a3d', font: 'sans',
+    img: 'photo-1517031350709-19e7df358b75', navItems: ['事業領域', '拠点', '実績'],
+    about: { label: 'ABOUT（仮想）', title: '社会基盤の、あらゆる現場へ。', body: '※本会社は実在しません。SVGドットマップと重厚タイポを使った仮想の土木会社デザイン見本。' },
+    services: { label: 'SCOPE（架空）', title: '事業領域', items: [
+      { title: '橋梁（架空）', desc: '長大橋・高架橋・歩道橋の新設・補修', img: 'photo-1517031350709-19e7df358b75' },
+      { title: 'トンネル（架空）', desc: 'NATM工法・シールド工法・矩形掘削', img: 'photo-1503387762-592deb58ef4e' },
+      { title: '道路（架空）', desc: '高速道路・国道・市町村道の舗装・拡幅', img: 'photo-1581094288338-2314dddb7ece' },
+    ]},
+    gallery: ['photo-1517031350709-19e7df358b75', 'photo-1503387762-592deb58ef4e', 'photo-1581094288338-2314dddb7ece', 'photo-1565008447742-97f6f38c985c'],
+    testimonial: { quote: '※架空のレビュー。― 難工事にも丁寧に対応していただきました。', author: '架空の発注者U機関', role: '※架空 / デザイン見本用' },
+    contact: { address: `${FAKE_ADDR_PREFIX}東京都中央区〇〇 0-0-0（実在しません）`, phone: FAKE_PHONE, hours: '※受付時間も架空：平日 9:00-17:30' },
   },
   {
     slug: 'law', name: '士業', domain: 'polaris-law.jp', brand: 'ポラリス法律事務所',
@@ -1564,6 +1676,13 @@ export default function App() {
     if (demoTemplate.slug === 'workshop-hitech') return <BuilderHitechDemo />
     if (demoTemplate.slug === 'workshop-reform') return <BuilderReformDemo />
     if (demoTemplate.slug === 'workshop-heritage') return <BuilderHeritageDemo />
+    if (demoTemplate.slug === 'workshop-wood') return <BuilderWoodDemo />
+    if (demoTemplate.slug === 'workshop-designer') return <BuilderDesignerDemo />
+    if (demoTemplate.slug === 'workshop-emergency') return <BuilderEmergencyDemo />
+    if (demoTemplate.slug === 'workshop-realestate') return <BuilderRealestateDemo />
+    if (demoTemplate.slug === 'workshop-prefab') return <BuilderPrefabDemo />
+    if (demoTemplate.slug === 'workshop-glass') return <BuilderGlassDemo />
+    if (demoTemplate.slug === 'workshop-infra') return <BuilderInfraDemo />
     if (demoTemplate.slug === 'law') return <LawPremiumDemo />
     if (demoTemplate.slug === 'school') return <SchoolPremiumDemo />
     if (demoTemplate.slug === 'ec') return <ShopPremiumDemo />
