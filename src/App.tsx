@@ -1173,8 +1173,8 @@ function TemplatesGrid() {
       <div className="flex items-end justify-between mb-8">
         <div>
           <div className="text-[var(--color-pc-pink)] text-xs tracking-[0.4em] font-bold mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>TEMPLATES</div>
-          <h3 className="text-2xl lg:text-3xl font-black">10業種のHPテンプレート</h3>
-          <div className="text-sm text-[var(--color-pc-sub)] mt-2">クリックで実際のサイト見本（フル版）が開きます。御社用にカスタマイズして納品します。</div>
+          <h3 className="text-2xl lg:text-3xl font-black">10業種・全{HP_TEMPLATES.length}パターンのHPテンプレート</h3>
+          <div className="text-sm text-[var(--color-pc-sub)] mt-2">クリックで実際のサイト見本（フル版）が開きます。御社用にカスタマイズして納品します。建設業は12種類の専門デザインからお選びいただけます。</div>
         </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
